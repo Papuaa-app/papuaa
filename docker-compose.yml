@@ -1,0 +1,31 @@
+version: '3.5'
+services:
+  papuaa-db:
+    platform: linux/x86_64 # Comment that line if processor it's not Apple's Silicon
+    image: mysql:8.0.22
+    container_name: papuaa-db
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${HOME}/docker-volumes/papuaa-db/data:/var/lib/mysql
+    #      - ./data/db:/docker-entrypoint-initdb.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=toor
+      - MYSQL_DATABASE=beon
+    networks:
+      - papuaa-network
+  papuaa-cache:
+    image: bitnami/redis:6.2.1
+    container_name: papuaa-cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${HOME}/docker-volumes/papuaa-cache/data:/bitnami/redis/data
+    environment:
+      - REDIS_PASSWORD=redis
+    networks:
+      - papuaa-network
+networks:
+  papuaa-network:
+    external: false
+    name: papuaa-network
