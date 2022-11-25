@@ -4,13 +4,13 @@
   "description": "coded with <3 by dbalboa",
   "main": "index.js",
   "scripts": {
-    "build:dev": "vite build --config client/build/envs/development.js",
-    "build:prod": "vite build --config client/build/envs/production.js",
+    "build:dev": "cross-env NODE_ENV=development vite build --config client/build/envs/development.js",
+    "build:prod": "cross-env NODE_ENV=production vite build --config client/build/envs/production.js",
     "start:client:local": "cross-env NODE_ENV=local vite --config client/build/envs/local.js",
     "start:server:local": "cross-env NODE_ENV=local node server/core",
     "start:server:dev": "cross-env NODE_ENV=development node server/core",
     "start:server:prod": "cross-env NODE_ENV=production node server/core",
-    "preview-prod:client:local": "vite preview",
+    "preview-prod:client:local": "cross-env NODE_ENV=production vite preview",
     "lint": "eslint --ext=.js,.vue client/src",
     "lint:fix": "eslint --ext=.js,.vue client/src --fix"
   },
