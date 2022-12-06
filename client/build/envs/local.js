@@ -1,9 +1,11 @@
 import { defineConfig } from 'vite';
-import config from '@/build/vite.config';
+const config = require('@/build/vite.config');
 
-export default defineConfig(({ command, mode }) => {
-  if (command === 'serve') {
-
+export default defineConfig({
+  ...config,
+  mode: 'development',
+  logLevel: 'info',
+  server: {
+    hmr: true,
   }
-  return config;
 });

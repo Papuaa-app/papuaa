@@ -15,15 +15,15 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 const HttpStatusCodes = require('http-status-codes');
-// const Redis = require('ioredis');
-// const redisClient = new Redis(({
-//   host: config.redis.host,
-//   port: config.redis.port,
-//   password: config.redis.pass,
-//   db: config.redis.db,
-// }));
-// const RedisJson = require('redis-json');
-// const cache = new RedisJson(redisClient);
+const Redis = require('ioredis');
+const redisClient = new Redis(({
+  host: config.redis.host,
+  port: config.redis.port,
+  password: config.redis.pass,
+  db: config.redis.db,
+}));
+const RedisJson = require('redis-json');
+const cache = new RedisJson(redisClient);
 const moment = require('moment');
 const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
@@ -51,8 +51,8 @@ container.register({
   path: asValue(path),
   nodemailer: asValue(nodemailer),
   moment: asValue(moment),
-  // redisClient: asValue(redisClient),
-  // cache: asValue(cache),
+  redisClient: asValue(redisClient),
+  cache: asValue(cache),
   // s3: asValue(S3),
   logger: asValue(logger),
   crypto: asValue(crypto),

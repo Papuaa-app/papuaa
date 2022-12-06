@@ -1,3 +1,2 @@
-web: npm run my-custom-start
-develop: npm run build:dev
+develop: npm run build:dev start:server:dev
 prod: npm run build:prod

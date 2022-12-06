@@ -1,4 +1,5 @@
 import vue from '@vitejs/plugin-vue';
+import htmlTemplate from 'vite-plugin-html-template';
 import helpers from 'helpers';
 import config from '@/config';
 
@@ -7,7 +8,6 @@ const isProduction = config.environment === 'production';
 module.exports = {
   root: helpers.root('client', 'src'),
   base: '/',
-  mode: config.environment,
   resolve: {
     extensions: [ '.js', '.vue' ],
     alias: {
@@ -17,5 +17,6 @@ module.exports = {
   },
   plugins: [
     vue(),
+    htmlTemplate(),
   ],
 };

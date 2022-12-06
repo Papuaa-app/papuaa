@@ -15,7 +15,7 @@ module.exports = {
     salt: process.env.SALT,
     expirationTime: parseInt(process.env.EXPIRATION_TIME),
     algorithm: 'RS512',
-    cookieSessionSecure: JSON.parse(process.env.COOKIE_SESSION_SECURE),
+    cookieSessionSecure: process.env.COOKIE_SESSION_SECURE && JSON.parse(process.env.COOKIE_SESSION_SECURE),
     otpMinutesExpiration: parseInt(process.env.OTP_MINUTES_EXPIRATION),
     minutesUntilMaxRequestsAreRefreshed: parseInt(process.env.MINUTES_UNTIL_MAX_REQUESTS_ARE_REFRESHED),
     maxRequestsAllowed: parseInt(process.env.MAX_REQUESTS_ALLOWED),
@@ -37,12 +37,12 @@ module.exports = {
   },
   db: {
     host: process.env.DB_HOST,
-    names: JSON.parse(process.env.DB_NAMES),
+    names: process.env.DB_NAMES && JSON.parse(process.env.DB_NAMES),
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
     pass: process.env.DB_PASS,
     dialect: 'mysql',
-    slaves: JSON.parse(process.env.DB_SLAVES),
+    slaves: process.env.DB_SLAVES && JSON.parse(process.env.DB_SLAVES),
     define: {
       defaultScope: {
         attributes: {
@@ -74,9 +74,9 @@ module.exports = {
   logs: {
     level: process.env.LOG_LEVEL,
     logPath: process.env.LOG_PATH,
-    graylogEnabled: JSON.parse(process.env.GRAYLOG_ENABLED),
+    graylogEnabled: process.env.GRAYLOG_ENABLED && JSON.parse(process.env.GRAYLOG_ENABLED),
     graylog: {
-      enabled: JSON.parse(process.env.GRAYLOG_ENABLED),
+      enabled: process.env.GRAYLOG_ENABLED && JSON.parse(process.env.GRAYLOG_ENABLED),
       host: process.env.GRAYLOG_HOST,
       port: process.env.GRAYLOG_PORT,
       facility: process.env.GRAYLOG_FACILITY,

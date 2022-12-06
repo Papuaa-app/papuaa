@@ -56,39 +56,41 @@ module.exports = {
     };
   },
   isAuthenticated: async (req, res, next) => {
-    const { employeeService, trackingService, cache, httpContext } = req.container.cradle;
-    try {
-      if (!endpointExistsByRequest(config.publicEndpoints, req)) {
-        const { authorization } = req.cookies;
-        const {
-          employee,
-          thirdParty
-        } = jwt.verify(authorization && authorization.replace('Bearer ', ''), config.security.publicKey, { algorithms: [ 'RS512' ] });
-        if (thirdParty) {
-          throw new Error(`This token only can be used by third parties for ${employee.email}`);
-        }
-        const googleTokens = await cache.get(`${employee.email}-google-tokens`);
-        if (employee.email.includes(config.googleAuth.domain) && !googleTokens) {
-          throw new Error(`Google token doesn\'t exists for ${employee.email}. Please login again!`);
-        }
-        const employeeDB = await employeeService.getEmployeeByFiltersForSession({ email: employee.email });
-        req.container.register({ employee: asValue(employeeDB) });
-        httpContext.set('employee', employeeDB);
-      }
-      next();
-    } catch (err) {
-      logger.error(err);
-      const { responses } = require('./../boot').cradle;
-      res.status(httpStatusCodes.UNAUTHORIZED).json(responses());
-      req.path.includes('/api/') && trackingService.track({
-        employee: null,
-        req,
-        trackingInfo: {
-          kpiId: 51003,
-          description: err.message,
-        }
-      });
-    }
+    // const { employeeService, trackingService, cache, httpContext } = req.container.cradle;
+    // try {
+    //   if (!endpointExistsByRequest(config.publicEndpoints, req)) {
+    //     const { authorization } = req.cookies;
+    //     const {
+    //       employee,
+    //       thirdParty
+    //     } = jwt.verify(authorization && authorization.replace('Bearer ', ''), config.security.publicKey, { algorithms: [ 'RS512' ] });
+    //     if (thirdParty) {
+    //       throw new Error(`This token only can be used by third parties for ${employee.email}`);
+    //     }
+    //     const googleTokens = await cache.get(`${employee.email}-google-tokens`);
+    //     if (employee.email.includes(config.googleAuth.domain) && !googleTokens) {
+    //       throw new Error(`Google token doesn\'t exists for ${employee.email}. Please login again!`);
+    //     }
+    //     const employeeDB = await employeeService.getEmployeeByFiltersForSession({ email: employee.email });
+    //     req.container.register({ employee: asValue(employeeDB) });
+    //     httpContext.set('employee', employeeDB);
+    //   }
+    //   next();
+    // } catch (err) {
+    //   logger.error(err);
+    //   const { responses } = require('./../boot').cradle;
+    //   res.status(httpStatusCodes.UNAUTHORIZED).json(responses());
+    //   req.path.includes('/api/') && trackingService.track({
+    //     employee: null,
+    //     req,
+    //     trackingInfo: {
+    //       kpiId: 51003,
+    //       description: err.message,
+    //     }
+    //   });
+    // }
+    const { responses } = require('./../boot').cradle;
+    res.status(httpStatusCodes.UNAUTHORIZED).json(responses());
   },
   isGranted: async (req, res, next) => {
     const { endpointRepository, trackingService, httpContext } = req.container.cradle;

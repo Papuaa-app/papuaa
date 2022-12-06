@@ -1,5 +1,6 @@
 'use strict';
 
+require('dotenv').config();
 const config = require('./config');
 const container = require('./boot');
 const logger = require('./logger');
@@ -21,42 +22,66 @@ const rateLimit = require('express-rate-limit');
 const fileUpload = require('express-fileupload');
 const { scopePerRequest, loadControllers } = require('awilix-express');
 const bodyParser = require('body-parser');
+const { createServer: createViteServer } = require('vite');
 
-function initFrontEnd (app) {
-  if (config.env !== 'local') {
-    app.use(express.static(path.join(__dirname, '../../dist/')));
+async function initFrontEnd (app) {
+  try {
+    if (config.env === 'local') {
+      const vite = await createViteServer({
+        server: { middlewareMode: true },
+        appType: 'custom'
+      });
+      app.use(vite.middlewares);
+    } else {
+      app.use(express.static(path.join(__dirname, '../../dist/')));
+    }
+  } catch (err) {
+    logger.error(`FRONT-END LOAD ERROR: ${err}`);
   }
 }
 
 function initHelmetHeaders (app) {
-  app.use(helmet());
-  app.use(helmetCrossDomain());
+  try {
+    app.use(helmet());
+    app.use(helmetCrossDomain());
+  } catch (err) {
+    logger.error(`HELMETS LOAD ERROR: ${err}`);
+  }
 }
 
 function loadAPI (app) {
-  app.use(scopePerRequest(container));
-  app.use(loggerMiddleware.init);
-  app.use(isAuthenticated);
-  app.use(isGranted);
-  app.use(loadControllers('./../api/controllers/**/*.js', { cwd: __dirname }));
-  app.use(loggerMiddleware.end);
+  try {
+    app.use(scopePerRequest(container));
+    app.use(loggerMiddleware.init);
+    app.use(isAuthenticated);
+    app.use(isGranted);
+    app.use(loadControllers('./../api/controllers/**/*.js', { cwd: __dirname }));
+    app.use(loggerMiddleware.end);
+  } catch (err) {
+    logger.error(`API LOAD ERROR: ${err}`);
+  }
 }
 
 function initMiddleware (app) {
-  app.set('trust proxy', config.env === 'local' ? false : 1);
-  app.use(rateLimit({
-    windowMs: config.security.minutesUntilMaxRequestsAreRefreshed * 60 * 1000,
-    max: config.security.maxRequestsAllowed
-  }));
-  app.use(bodyParser.urlencoded({ extended: true }));
-  app.use(bodyParser.json({ limit: '1000kb' }));
-  app.set('json replacer', (k, v) => (v === null ? undefined : v));
-  app.use(fileUpload({ limits: { fileSize: 5e6 } }));
-  app.use(cookieParser());
-  app.use(userAgent.express());
-  app.use(httpContext.middleware);
-  loadAPI(app);
-  app.use(tracking);
+  try {
+    app.set('trust proxy', config.env === 'local' ? false : 1);
+    app.use(rateLimit({
+      windowMs: config.security.minutesUntilMaxRequestsAreRefreshed * 60 * 1000,
+      max: config.security.maxRequestsAllowed
+    }));
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json({ limit: '1000kb' }));
+    app.set('json replacer', (k, v) => (v === null ? undefined : v));
+    app.use(fileUpload({ limits: { fileSize: 5e6 } }));
+    app.use(cookieParser());
+    app.use(userAgent.express());
+    app.use(httpContext.middleware);
+    loadAPI(app);
+    app.use(tracking);
+    app.use(compression());
+  } catch (err) {
+    logger.error(`MIDDLEWARES LOAD ERROR: ${err}`);
+  }
 }
 
 async function startApp (app) {
@@ -65,10 +90,9 @@ async function startApp (app) {
     redisClient.on('error', (err) => logger.error('Redis error', err));
     await redisClient.auth(config.redis.pass);
     await dbConnector.connect();
-    app.use(compression());
     return app.listen(config.port, () => Promise.resolve());
   } catch (err) {
-    logger.error(err);
+    logger.error(`STARTING APP ERROR: ${err}`);
     await startApp(app);
   }
 }
@@ -76,7 +100,7 @@ async function startApp (app) {
 (async () => {
   try {
     const app = express();
-    initFrontEnd(app);
+    await initFrontEnd(app);
     initHelmetHeaders(app);
     initMiddleware(app);
     await startApp(app);
