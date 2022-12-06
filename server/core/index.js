@@ -70,7 +70,7 @@ async function startApp (app) {
   try {
     const { dbConnector, redisClient } = container.cradle;
     redisClient.on('error', (err) => logger.error('Redis error', err));
-    await redisClient.auth(config.redis.pass);
+    // await redisClient.auth(config.redis.pass);
     await dbConnector.connect();
     return app.listen(config.port, () => Promise.resolve());
   } catch (err) {

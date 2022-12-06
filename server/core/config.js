@@ -35,6 +35,7 @@ module.exports = {
     user: process.env.REDIS_USER || undefined,
     pass: process.env.REDIS_PASSWORD || undefined,
     db: (process.env.REDIS_DB && parseInt(process.env.REDIS_DB)) || undefined,
+    url: process.env.REDIS_URL || undefined
   },
   db: {
     host: process.env.DB_HOST,

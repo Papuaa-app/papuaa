@@ -16,13 +16,14 @@ const nodemailer = require('nodemailer');
 const smtpTransport = require('nodemailer-smtp-transport');
 const HttpStatusCodes = require('http-status-codes');
 const Redis = require('ioredis');
-const redisClient = new Redis(({
+const redisConfig = config.redis.url || ({
   host: config.redis.host,
   port: config.redis.port,
   username: config.redis.user,
   password: config.redis.pass,
   db: config.redis.db,
-}));
+});
+const redisClient = new Redis(redisConfig);
 const RedisJson = require('redis-json');
 const cache = new RedisJson(redisClient);
 const moment = require('moment');
