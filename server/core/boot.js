@@ -19,6 +19,7 @@ const Redis = require('ioredis');
 const redisClient = new Redis(({
   host: config.redis.host,
   port: config.redis.port,
+  username: config.redis.user,
   password: config.redis.pass,
   db: config.redis.db,
 }));

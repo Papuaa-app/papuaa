@@ -22,23 +22,6 @@ const rateLimit = require('express-rate-limit');
 const fileUpload = require('express-fileupload');
 const { scopePerRequest, loadControllers } = require('awilix-express');
 const bodyParser = require('body-parser');
-const { createServer: createViteServer } = require('vite');
-
-async function initFrontEnd (app) {
-  try {
-    if (config.env === 'local') {
-      const vite = await createViteServer({
-        server: { middlewareMode: true },
-        appType: 'custom'
-      });
-      app.use(vite.middlewares);
-    } else {
-      app.use(express.static(path.join(__dirname, '../../dist/')));
-    }
-  } catch (err) {
-    logger.error(`FRONT-END LOAD ERROR: ${err}`);
-  }
-}
 
 function initHelmetHeaders (app) {
   try {
@@ -78,7 +61,6 @@ function initMiddleware (app) {
     app.use(httpContext.middleware);
     loadAPI(app);
     app.use(tracking);
-    app.use(compression());
   } catch (err) {
     logger.error(`MIDDLEWARES LOAD ERROR: ${err}`);
   }
@@ -100,7 +82,6 @@ async function startApp (app) {
 (async () => {
   try {
     const app = express();
-    await initFrontEnd(app);
     initHelmetHeaders(app);
     initMiddleware(app);
     await startApp(app);

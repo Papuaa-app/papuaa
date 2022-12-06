@@ -6316,3 +6316,198 @@
 {"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T14:42:20.536Z","traceId":"c86aedda-0494-46c1-9730-aaee3842e0ae","url":"/favicon.ico"}
 {"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T14:42:26.962Z","traceId":"80462861-c32e-4a08-996b-ab3ec48f8ec1","url":"/"}
 {"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T14:42:27.132Z","traceId":"18f5526c-2e47-433b-acf3-761ce23c1490","url":"/favicon.ico"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T14:46:59.388Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T14:46:59.389Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T14:46:59.389Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T14:46:59.390Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T14:46:59.390Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T14:46:59.390Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T14:46:59.390Z","timestamp":"2022-12-06T14:46:59.390Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T14:47:45.442Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T14:47:45.443Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T14:47:45.444Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T14:47:45.444Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T14:47:45.444Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T14:47:45.445Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T14:47:45.445Z","timestamp":"2022-12-06T14:47:45.445Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T14:48:40.638Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T14:48:40.639Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T14:48:40.640Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T14:48:40.640Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T14:48:40.640Z"}
+{"env":"local","level":"info","message":"Port: 5173","timestamp":"2022-12-06T14:48:40.641Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T14:48:40.641Z","timestamp":"2022-12-06T14:48:40.641Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T14:48:50.045Z","traceId":"7742b833-c2cb-4ab6-941f-64c8f7fcca4b","url":"/"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T14:48:50.243Z","traceId":"18c6ca6c-7a07-4b53-84bd-a0323937f269","url":"/favicon.ico"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T14:49:59.557Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T14:49:59.558Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T14:49:59.559Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T14:49:59.559Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T14:49:59.559Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T14:49:59.559Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T14:49:59.559Z","timestamp":"2022-12-06T14:49:59.559Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T20:31:57.658Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T20:31:57.659Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T20:31:57.659Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T20:31:57.659Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T20:31:57.660Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T20:31:57.660Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T20:31:57.660Z","timestamp":"2022-12-06T20:31:57.660Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T20:33:51.037Z","traceId":"6edb54f8-143b-4725-b37a-42e3a53fe79d","url":"/"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T20:33:51.233Z","traceId":"68e8baa8-3ce3-419f-aa77-ef94e638ad58","url":"/favicon.ico"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T20:37:48.757Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T20:37:48.758Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T20:37:48.759Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T20:37:48.759Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T20:37:48.759Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T20:37:48.759Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T20:37:48.759Z","timestamp":"2022-12-06T20:37:48.759Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T20:37:59.987Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T20:37:59.987Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T20:37:59.988Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T20:37:59.988Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T20:37:59.988Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T20:37:59.988Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T20:37:59.989Z","timestamp":"2022-12-06T20:37:59.989Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T20:53:06.806Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T20:53:06.806Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T20:53:06.807Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T20:53:06.807Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T20:53:06.807Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T20:53:06.807Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T20:53:06.807Z","timestamp":"2022-12-06T20:53:06.807Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T20:53:10.872Z","traceId":"a088c363-2341-4bad-9796-a8f48a7a1bea","url":"/src/main.js"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:06:08.612Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:06:08.613Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:06:08.614Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:06:08.614Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:06:08.614Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:06:08.614Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:06:08.615Z","timestamp":"2022-12-06T21:06:08.615Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:06:40.108Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:06:40.109Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:06:40.109Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:06:40.109Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:06:40.110Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:06:40.110Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:06:40.110Z","timestamp":"2022-12-06T21:06:40.110Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:06:40.299Z","traceId":"bc503729-18fd-4695-b36d-883a60624233","url":"/"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:06:40.488Z","traceId":"29e63c7a-36cc-4b6e-b347-30b7e54d15d0","url":"/favicon.ico"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:12:47.316Z","traceId":"3c85952f-8233-4994-9521-016e1eea81ab","url":"/"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:12:47.485Z","traceId":"a4a5016a-1a39-4e1b-ae21-27d93d57a944","url":"/favicon.ico"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:12:51.236Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:12:51.237Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:12:51.237Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:12:51.238Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:12:51.238Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:12:51.238Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:12:51.238Z","timestamp":"2022-12-06T21:12:51.238Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:12:51.938Z","traceId":"f8e64268-5514-40f4-84eb-d80a1e28d68d","url":"/"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:12:52.150Z","traceId":"012e8fbb-0afb-42b5-9da7-0332481394fd","url":"/favicon.ico"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:14:27.129Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:14:27.129Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:14:27.130Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:14:27.130Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:14:27.130Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:14:27.131Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:14:27.131Z","timestamp":"2022-12-06T21:14:27.131Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:14:41.383Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:14:41.387Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:14:41.388Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:14:41.388Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:14:41.389Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:14:41.389Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:14:41.389Z","timestamp":"2022-12-06T21:14:41.389Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:15:25.649Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:15:25.650Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:15:25.650Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:15:25.651Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:15:25.651Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:15:25.651Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:15:25.651Z","timestamp":"2022-12-06T21:15:25.651Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:15:38.022Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:15:38.023Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:15:38.023Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:15:38.023Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:15:38.023Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:15:38.024Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:15:38.024Z","timestamp":"2022-12-06T21:15:38.024Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:15:56.420Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:15:56.421Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:15:56.422Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:15:56.422Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:15:56.422Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:15:56.422Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:15:56.422Z","timestamp":"2022-12-06T21:15:56.422Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:16:06.096Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:16:06.097Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:16:06.098Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:16:06.098Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:16:06.098Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:16:06.098Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:16:06.098Z","timestamp":"2022-12-06T21:16:06.098Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:16:42.267Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:16:42.268Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:16:42.269Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:16:42.269Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:16:42.269Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:16:42.269Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:16:42.269Z","timestamp":"2022-12-06T21:16:42.269Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:23:49.508Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:23:49.509Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:23:49.510Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:23:49.510Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:23:49.510Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:23:49.510Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:23:49.511Z","timestamp":"2022-12-06T21:23:49.511Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:24:00.813Z","traceId":"52d6b88b-9f56-48c5-9d3b-d22f26c16f77","url":"/"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:24:16.658Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:24:16.659Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:24:16.660Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:24:16.660Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:24:16.660Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:24:16.660Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:24:16.660Z","timestamp":"2022-12-06T21:24:16.660Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:24:20.763Z","traceId":"e39dd5f2-1ec1-4cde-90c3-fc50251c43c4","url":"/"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:24:35.500Z","traceId":"22fd2f80-3ec2-4495-bf73-1d189130bf11","url":"/"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:24:46.437Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:24:46.438Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:24:46.438Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:24:46.439Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:24:46.439Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:24:46.439Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:24:46.439Z","timestamp":"2022-12-06T21:24:46.439Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:24:46.592Z","traceId":"de7b0da1-b37f-452e-baf3-ea662538419f","url":"/"}
+{"env":"local","level":"info","message":"end","method":"GET","timestamp":"2022-12-06T21:24:46.592Z","traceId":"de7b0da1-b37f-452e-baf3-ea662538419f","url":"/"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:25:31.993Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:25:31.994Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:25:31.994Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:25:31.994Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:25:31.995Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:25:31.995Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:25:31.995Z","timestamp":"2022-12-06T21:25:31.995Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:25:47.825Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:25:47.826Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:25:47.827Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:25:47.827Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:25:47.827Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:25:47.827Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:25:47.827Z","timestamp":"2022-12-06T21:25:47.827Z"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:26:32.800Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:26:32.801Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:26:32.801Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:26:32.801Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:26:32.801Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:26:32.802Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:26:32.802Z","timestamp":"2022-12-06T21:26:32.802Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:26:33.087Z","traceId":"fc31312b-2467-4204-8e08-423ead0208f6","url":"/"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:26:33.270Z","traceId":"7c2c3cd9-6636-418b-ba9b-eef72ce185b9","url":"/favicon.ico"}
+{"env":"local","level":"info","message":"Arch: arm64","timestamp":"2022-12-06T21:26:53.802Z"}
+{"env":"local","level":"info","message":"Cores: 10","timestamp":"2022-12-06T21:26:53.803Z"}
+{"env":"local","level":"info","message":"Memory: [\u001b[31m|||||||||||||||||||\u001b[39m] \u001b[90m free\u001b[39m","timestamp":"2022-12-06T21:26:53.803Z"}
+{"env":"local","level":"info","message":"OS: darwin Darwin","timestamp":"2022-12-06T21:26:53.803Z"}
+{"env":"local","level":"info","message":"Environment: local","timestamp":"2022-12-06T21:26:53.804Z"}
+{"env":"local","level":"info","message":"Port: 8080","timestamp":"2022-12-06T21:26:53.804Z"}
+{"env":"local","level":"info","message":"Server started at 2022-12-06T21:26:53.804Z","timestamp":"2022-12-06T21:26:53.804Z"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:26:55.569Z","traceId":"a84a03e1-cd69-4c9f-b4fc-8fa17fd2c2ee","url":"/"}
+{"body":{},"env":"local","ip":"::1","level":"info","message":"accessing","method":"GET","timestamp":"2022-12-06T21:26:55.725Z","traceId":"100103e7-d396-40ba-9452-fbb67e96b054","url":"/favicon.ico"}

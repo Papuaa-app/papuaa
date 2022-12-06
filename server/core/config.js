@@ -32,8 +32,9 @@ module.exports = {
   redis: {
     host: process.env.REDIS_HOST,
     port: parseInt(process.env.REDIS_PORT),
-    pass: process.env.REDIS_PASSWORD,
-    db: parseInt(process.env.REDIS_DB),
+    user: process.env.REDIS_USER || undefined,
+    pass: process.env.REDIS_PASSWORD || undefined,
+    db: (process.env.REDIS_DB && parseInt(process.env.REDIS_DB)) || undefined,
   },
   db: {
     host: process.env.DB_HOST,
