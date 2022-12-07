@@ -69,7 +69,6 @@ container.register({
 });
 
 container.loadModules([
-  './../api/tools/**/*.js',
   './../api/controllers/**/*.js',
   './../api/services/**/*.js',
   './../api/repositories/**/*.js',

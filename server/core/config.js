@@ -3,6 +3,13 @@
 module.exports = {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
+  api: {
+    prefix: '/api/v1',
+    version: '1.0.0',
+    history: [
+      { version: '1.0.0' },
+    ],
+  },
   googleAuth: {
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,

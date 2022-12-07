@@ -32,6 +32,7 @@ function DBConnector (deps) {
       new Sequelize({
         port: config.db.port,
         database: dbName.name,
+        schema: dbName.schema,
         databaseKey: dbName.key,
         dialect: config.db.dialect,
         logging: msg => logger.debug(msg),
@@ -53,6 +54,7 @@ function DBConnector (deps) {
         host: config.db.host,
         port: config.db.port,
         database: dbName.name,
+        schema: dbName.schema,
         databaseKey: dbName.key,
         username: config.db.user,
         password: config.db.pass,

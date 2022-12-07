@@ -1,0 +1,22 @@
+'use strict';
+
+const { body } = require('express-validator');
+const { coreValidator } = require('./CoreValidator');
+
+module.exports = {
+  loginValidator: [
+    body('email').notEmpty().isEmail(),
+    body('password').notEmpty().isString(),
+    coreValidator,
+  ],
+  forgotPasswordValidator: [
+    body('email').notEmpty().isEmail(),
+    coreValidator,
+  ],
+  forgotPasswordAcceptValidator: [
+    body('email').notEmpty().isEmail(),
+    body('password').notEmpty().isString(),
+    body('otp').notEmpty().isInt().toInt(),
+    coreValidator,
+  ],
+};

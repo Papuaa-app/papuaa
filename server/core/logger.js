@@ -48,7 +48,7 @@ module.exports = new createLogger({
     printf((info) => {
       info.method = httpContext.get('method');
       info.url = httpContext.get('url');
-      info.employee = httpContext.get('employee') && httpContext.get('employee').email;
+      info.user = httpContext.get('user')?.email;
       info.traceId = httpContext.get('traceId');
       return info;
     })

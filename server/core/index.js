@@ -5,10 +5,9 @@ const config = require('./config');
 const container = require('./boot');
 const logger = require('./logger');
 const loggerMiddleware = require('./middlewares/logger');
-const tracking = require('./middlewares/tracking');
+// const tracking = require('./middlewares/tracking');
 const { isAuthenticated, isGranted } = require('./middlewares/auth');
 const systemInfo = require('./utils/sysinfo');
-
 const fs = require('fs');
 const path = require('path');
 const userAgent = require('express-useragent');
@@ -16,12 +15,13 @@ const cookieParser = require('cookie-parser');
 const httpContext = require('express-http-context');
 const helmet = require('helmet');
 const helmetCrossDomain = require('helmet-crossdomain');
-const compression = require('compression');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const fileUpload = require('express-fileupload');
-const { scopePerRequest, loadControllers } = require('awilix-express');
+const { scopePerRequest, loadControllers, controller } = require('awilix-express');
 const bodyParser = require('body-parser');
+
+let app;
 
 function initHelmetHeaders (app) {
   try {
@@ -36,9 +36,9 @@ function loadAPI (app) {
   try {
     app.use(scopePerRequest(container));
     app.use(loggerMiddleware.init);
-    app.use(isAuthenticated);
-    app.use(isGranted);
-    app.use(loadControllers('./../api/controllers/**/*.js', { cwd: __dirname }));
+    // app.use(isAuthenticated);
+    // app.use(isGranted);
+    app.use('/api/v1', loadControllers('./../api/controllers/**/*.js', { cwd: __dirname }));
     app.use(loggerMiddleware.end);
   } catch (err) {
     logger.error(`API LOAD ERROR: ${err}`);
@@ -60,7 +60,7 @@ function initMiddleware (app) {
     app.use(userAgent.express());
     app.use(httpContext.middleware);
     loadAPI(app);
-    app.use(tracking);
+    // app.use(tracking);
   } catch (err) {
     logger.error(`MIDDLEWARES LOAD ERROR: ${err}`);
   }
@@ -80,7 +80,7 @@ async function startApp (app) {
 
 (async () => {
   try {
-    const app = express();
+    app = express();
     initHelmetHeaders(app);
     initMiddleware(app);
     await startApp(app);
@@ -88,7 +88,10 @@ async function startApp (app) {
     logger.info(`Environment: ${config.env}`);
     logger.info(`Port: ${config.port}`);
     logger.info(`Server started at ${new Date().toISOString()}`);
+    return app;
   } catch (err) {
     logger.error(err);
   }
 })();
+
+module.exports = app;
