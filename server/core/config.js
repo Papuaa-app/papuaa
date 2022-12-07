@@ -43,7 +43,7 @@ module.exports = {
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
     pass: process.env.DB_PASS,
-    dialect: 'mysql',
+    dialect: 'postgres',
     slaves: process.env.DB_SLAVES && JSON.parse(process.env.DB_SLAVES),
     define: {
       defaultScope: {

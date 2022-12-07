@@ -2,23 +2,23 @@ version: '3.5'
 services:
   papuaa-db:
     platform: linux/x86_64 # Comment that line if processor it's not Apple's Silicon
-    image: mysql:8.0.22
+    image: postgres:15
     container_name: papuaa-db
     ports:
-      - "3306:3306"
+      - '5432:5432'
     volumes:
-      - ${HOME}/docker-volumes/papuaa-db/data:/var/lib/mysql
+      - ${HOME}/docker-volumes/papuaa-db/data:/var/lib/postgresql
     #      - ./data/db:/docker-entrypoint-initdb.d
     environment:
-      - MYSQL_ROOT_PASSWORD=toor
-      - MYSQL_DATABASE=beon
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
     networks:
       - papuaa-network
   papuaa-cache:
     image: bitnami/redis:6.2.1
     container_name: papuaa-cache
     ports:
-      - "6379:6379"
+      - '6379:6379'
     volumes:
       - ${HOME}/docker-volumes/papuaa-cache/data:/bitnami/redis/data
     environment:
