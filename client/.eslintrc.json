@@ -3,11 +3,14 @@
     "browser": true,
     "commonjs": true,
     "es6": true,
-    "node": true,
-    "jest/globals": true
+    "node": true
   },
   "extends": [
-    "eslint:recommended"
+    "eslint:recommended",
+    "plugin:vue/base",
+    "plugin:vue/vue3-essential",
+    "plugin:vue/vue3-strongly-recommended",
+    "plugin:vue/vue3-recommended"
   ],
   "rules": {
     "array-bracket-spacing": [ "error", "always" ],
@@ -35,9 +38,18 @@
     "sort-imports": ["error", { "ignoreDeclarationSort": true }],
     "space-before-function-paren": "error",
     "template-curly-spacing": [ "off" ],
-    "valid-typeof": "error"
+    "valid-typeof": "error",
+    "vue/component-name-in-template-casing": ["error", "PascalCase",
+      {
+        "ignores": [
+          "router-link",
+          "router-view",
+          "transition"
+        ]
+      }
+    ]
   },
   "plugins": [
-    "jest"
+    "vue"
   ]
 }
