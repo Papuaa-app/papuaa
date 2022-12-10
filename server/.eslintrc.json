@@ -9,6 +9,9 @@
   "extends": [
     "eslint:recommended"
   ],
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
   "rules": {
     "array-bracket-spacing": [ "error", "always" ],
     "arrow-spacing": "error",
