@@ -25,6 +25,19 @@ services:
       - REDIS_PASSWORD=redis
     networks:
       - papuaa-network
+  surrealdb:
+    image: surrealdb/surrealdb:latest
+    container_name: surrealdb
+    ports:
+      - "8000:8000"
+    command:
+      - start
+      - --user=root
+      - --pass=root
+    restart: always
+    networks:
+      - papuaa-network
+
 networks:
   papuaa-network:
     external: false
