@@ -1,36 +1,27 @@
 'use strict';
 
+require('dotenv').config();
 const config = require('./config');
 const handlebars = require('./utils/handlebars');
 const responses = require('./responses');
-const logger = require('./logger');
-const DBConnector = require('./dbConnector');
+import logger from './logger.js';
+import DBConnector from './connectors/dbConnector/index.js';
+import { PostgresDbConnector } from './connectors/dbConnector/postgresDbConnector';
 
-const awilix = require('awilix');
-const httpContext = require('express-http-context');
-const fs = require('fs');
-const ipLocation = require('geoip-lite');
-const path = require('path');
-const crypto = require('crypto');
-const nodemailer = require('nodemailer');
-const smtpTransport = require('nodemailer-smtp-transport');
-const HttpStatusCodes = require('http-status-codes');
-const Redis = require('ioredis');
-const redisConfig = config.redis.url || ({
-  host: config.redis.host,
-  port: config.redis.port,
-  username: config.redis.user,
-  password: config.redis.pass,
-  db: config.redis.db,
-});
-const redisClient = new Redis(redisConfig);
-const RedisJson = require('redis-json');
-const cache = new RedisJson(redisClient);
-const moment = require('moment');
-const { google } = require('googleapis');
-const jwt = require('jsonwebtoken');
-const RSA = require('node-rsa');
-const axios = require('axios');
+import { Lifetime, asClass, asFunction, asValue, createContainer } from 'awilix';
+import httpContext from 'express-http-context';
+import fs from 'fs';
+import ipLocation from 'geoip-lite';
+import path from 'path';
+import crypto from 'crypto';
+import nodemailer from 'nodemailer';
+import smtpTransport from 'nodemailer-smtp-transport';
+import HttpStatusCodes from 'http-status-codes';
+import moment from 'moment';
+import { google } from 'googleapis';
+import jwt from 'jsonwebtoken';
+import RSA from 'node-rsa';
+import axios from 'axios';
 // const AWS = require('aws-sdk');
 // const spacesEndpoint = new AWS.Endpoint(`${config.spacesConfig.region}.${config.spacesConfig.endpoint}`);
 // const S3 = new AWS.S3({
@@ -39,11 +30,12 @@ const axios = require('axios');
 //   secretAccessKey: config.spacesConfig.secretAccessKey,
 // });
 
-const { createContainer, asValue, asFunction, Lifetime } = awilix;
 const container = createContainer();
 
 container.register({
 
+  dbConnector: asClass(DBConnector).singleton(),
+  mainDbConnector: asClass(PostgresDbConnector).singleton(),
   httpStatusCodes: asValue(HttpStatusCodes),
   httpContext: asValue(httpContext),
   fs: asValue(fs),
@@ -53,8 +45,6 @@ container.register({
   path: asValue(path),
   nodemailer: asValue(nodemailer),
   moment: asValue(moment),
-  redisClient: asValue(redisClient),
-  cache: asValue(cache),
   // s3: asValue(S3),
   logger: asValue(logger),
   crypto: asValue(crypto),
@@ -64,12 +54,10 @@ container.register({
   config: asValue(config),
   responses: asValue(responses),
   google: asValue(google),
-  dbConnector: asFunction(DBConnector).singleton(),
 
 });
 
 container.loadModules([
-  './../api/controllers/**/*.js',
   './../api/services/**/*.js',
   './../api/repositories/**/*.js',
   './../api/dao/**/*.js',
@@ -78,8 +66,8 @@ container.loadModules([
   cwd: __dirname,
   resolverOptions: {
     lifetime: Lifetime.SINGLETON,
-    register: asFunction
+    register: asClass
   }
 });
 
-module.exports = container;
+export default container;

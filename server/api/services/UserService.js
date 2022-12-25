@@ -1,20 +1,14 @@
 'use strict';
 
-function UserService (deps) {
+export default class UserService {
 
-  const {
-    userRepository,
-  } = deps;
+  constructor (deps) {
+    this.userRepository = deps.userRepository;
+  }
 
-  return {
-
-    async getUser (filters) {
-      const user = await userRepository.findUser(filters);
-      return user;
-    },
-
-  };
+  async getUser (filters) {
+    const user = await this.userRepository.findUser(filters);
+    return user;
+  }
 
 }
-
-module.exports = UserService;

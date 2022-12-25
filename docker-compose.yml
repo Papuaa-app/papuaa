@@ -7,11 +7,12 @@ services:
     ports:
       - '5432:5432'
     volumes:
-      - ${HOME}/docker-volumes/papuaa-db/data:/var/lib/postgresql
+      - ${HOME}/docker-volumes/papuaa-db/data:/var/lib/postgresql/data
     #      - ./data/db:/docker-entrypoint-initdb.d
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/db-files/
     networks:
       - papuaa-network
   papuaa-cache:

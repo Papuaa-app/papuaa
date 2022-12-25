@@ -1,8 +1,8 @@
 'use strict';
 
-const app = require('../core/index');
-const request = require('supertest');
-const { api } = require('../core/config');
+import app from '../core/index';
+import request from 'supertest';
+import { api } from '../core/config';
 
 describe('/session/login', () => {
 

@@ -2,9 +2,9 @@
 
 const os = require('os');
 const clui = require('clui');
-const logger = require('./../logger');
+import logger from './../logger.js';
 
-module.exports = function () {
+export default function () {
   const Gauge = clui.Gauge;
   const total = os.totalmem();
   const free = os.freemem();
@@ -14,4 +14,4 @@ module.exports = function () {
   logger.info(`Cores: ${os.cpus().length}`);
   logger.info(`Memory: ${Gauge(used, total, 20, total * 0.8, ' free')}`);
   logger.info(`OS: ${os.platform()} ${os.type()}`);
-};
+}

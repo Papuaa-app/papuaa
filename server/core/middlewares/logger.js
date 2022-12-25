@@ -1,9 +1,9 @@
 'use strict';
 
-const logger = require('./../logger');
-const httpContext = require('express-http-context');
+import logger from './../logger.js';
+import httpContext from 'express-http-context';
 
-module.exports = {
+export default {
   init: (req, res, next) => {
     httpContext.set('method', req.method);
     httpContext.set('url', req.url);

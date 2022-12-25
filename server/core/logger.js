@@ -1,9 +1,11 @@
 'use strict';
 
+require('dotenv').config();
 const config = require('./config');
-const httpContext = require('express-http-context');
-const winston = require('winston');
-require('winston-daily-rotate-file');
+import httpContext from 'express-http-context';
+import winston from 'winston';
+import 'winston-daily-rotate-file';
+
 const { createLogger, format, transports } = winston;
 const { combine, timestamp, simple, colorize, printf } = format;
 const path = require('path');
@@ -41,14 +43,14 @@ const logTransports = [
   }),
 ];
 
-module.exports = new createLogger({
+export default new createLogger({
   transports: logTransports,
   format: combine(
     timestamp(),
     printf((info) => {
       info.method = httpContext.get('method');
       info.url = httpContext.get('url');
-      info.user = httpContext.get('user')?.email;
+      // info.user = httpContext.get('user')?.email;
       info.traceId = httpContext.get('traceId');
       return info;
     })

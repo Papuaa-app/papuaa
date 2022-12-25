@@ -1,26 +1,20 @@
 'use strict';
 
-function UserRepository (deps) {
+export default class UserRepository {
 
-  const {
-    userDao,
-    dbConnector,
-  } = deps;
+  constructor (deps) {
+    this.userDao = deps.userDao;
+    this.mainDbConnector = deps.mainDbConnector;
+  }
 
-  return {
-
-    async findUser (filters, scopeStatus = 'allStatus') {
-      filters = [ ...filters ];
-      const result = await userDao.getDAO().scope(scopeStatus).findOne({
-        where: {
-          [dbConnector.getOp().or]: filters,
-        }
-      });
-      return result;
-    }
-
-  };
+  async findUser (filters, scopeStatus = 'allStatus') {
+    filters = [ ...filters ];
+    const result = await this.userDao.getDAO().scope(scopeStatus).findOne({
+      where: {
+        [this.mainDbConnector.getOp().or]: filters,
+      }
+    });
+    return result;
+  }
 
 }
-
-module.exports = UserRepository;

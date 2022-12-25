@@ -2,24 +2,29 @@
 
 require('dotenv').config();
 const config = require('./config');
-const container = require('./boot');
-const logger = require('./logger');
-const loggerMiddleware = require('./middlewares/logger');
-// const tracking = require('./middlewares/tracking');
-const { isAuthenticated, isGranted } = require('./middlewares/auth');
-const systemInfo = require('./utils/sysinfo');
-const fs = require('fs');
-const path = require('path');
-const userAgent = require('express-useragent');
-const cookieParser = require('cookie-parser');
-const httpContext = require('express-http-context');
-const helmet = require('helmet');
-const helmetCrossDomain = require('helmet-crossdomain');
-const express = require('express');
-const rateLimit = require('express-rate-limit');
-const fileUpload = require('express-fileupload');
-const { scopePerRequest, loadControllers, controller } = require('awilix-express');
-const bodyParser = require('body-parser');
+import container from './boot.js';
+
+import { isAuthenticated, isGranted } from './middlewares/auth.js';
+import loggerMiddleware from './middlewares/logger.js';
+// import tracking from './middlewares/tracking.js';
+import systemInfo from './utils/sysinfo.js';
+import logger from './logger.js';
+
+import { controller, loadControllers, scopePerRequest } from 'awilix-express';
+import helmetCrossDomain from 'helmet-crossdomain';
+import httpContext from 'express-http-context';
+import fileUpload from 'express-fileupload';
+import rateLimit from 'express-rate-limit';
+import userAgent from 'express-useragent';
+import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
+import express from 'express';
+import winston from 'winston';
+import helmet from 'helmet';
+// import path from 'path';
+import fs from 'fs';
+
+const { error } = winston;
 
 let app;
 
@@ -66,15 +71,22 @@ function initMiddleware (app) {
   }
 }
 
+async function connectToDb () {
+  try {
+    const { dbConnector } = container.cradle;
+    await dbConnector.connect();
+  } catch (err) {
+    throw new Error(`ERROR CONNECTING TO DB: ${err}`);
+  }
+}
+
 async function startApp (app) {
   try {
-    const { dbConnector, redisClient } = container.cradle;
-    redisClient.on('error', (err) => logger.error('Redis error', err));
-    await dbConnector.connect();
+    await connectToDb();
     return app.listen(config.port, () => Promise.resolve());
   } catch (err) {
     logger.error(`STARTING APP ERROR: ${err}`);
-    await startApp(app);
+    // await startApp(app);
   }
 }
 
@@ -94,4 +106,4 @@ async function startApp (app) {
   }
 })();
 
-module.exports = app;
+export default app;
