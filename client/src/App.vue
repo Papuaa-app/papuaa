@@ -1,15 +1,11 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue';
-</script>
-
 <template>
-  <img
-    alt="Vue logo"
-    src="./assets/logo.png"
-  >
-  <HelloWorld msg="Hello Papuers!" />
+  <router-view />
 </template>
 
-<style>
+<script>
+import { defineComponent } from 'vue'
 
-</style>
+export default defineComponent({
+  name: 'App'
+})
+</script>
