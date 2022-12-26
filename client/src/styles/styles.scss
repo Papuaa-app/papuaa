@@ -1,0 +1,10 @@
+// https://next.vuetifyjs.com/features/sass-variables/`
+// @use 'vuetify' with (
+//   $color-pack: false
+// );
+
+$admin-bg-color: #FAFAFA;
+
+.admin-bg-color {
+  background-color: $admin-bg-color;
+}

@@ -41,10 +41,10 @@ class SessionController {
       //   trackingInfo: [
       //     {
       //       kpiId: 50002,
-      //       description: `Error de local login al usuario ${req.body.email}`,
+      //       description: `Error de local register al usuario ${req.body.email}`,
       //     }, {
       //       kpiId: 51002,
-      //       description: `Error de local login al usuario ${req.body.email}`,
+      //       description: `Error de local register al usuario ${req.body.email}`,
       //     }
       //   ]
       // });
