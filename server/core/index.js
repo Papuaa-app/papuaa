@@ -21,8 +21,6 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import winston from 'winston';
 import helmet from 'helmet';
-// import path from 'path';
-import fs from 'fs';
 
 const { error } = winston;
 
@@ -41,8 +39,8 @@ function loadAPI (app) {
   try {
     app.use(scopePerRequest(container));
     app.use(loggerMiddleware.init);
-    // app.use(isAuthenticated);
-    // app.use(isGranted);
+    app.use(isAuthenticated);
+    app.use(isGranted);
     app.use('/api/v1', loadControllers('./../api/controllers/**/*.js', { cwd: __dirname }));
     app.use(loggerMiddleware.end);
   } catch (err) {
@@ -65,6 +63,7 @@ function initMiddleware (app) {
     app.use(userAgent.express());
     app.use(httpContext.middleware);
     loadAPI(app);
+    // TODO
     // app.use(tracking);
   } catch (err) {
     logger.error(`MIDDLEWARES LOAD ERROR: ${err}`);

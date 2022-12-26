@@ -49,7 +49,6 @@ export class PostgresDbConnector {
         return db;
       });
   }
-  
 
   _loadDAOs (makeAssociations = false) {
     Object.keys(this.deps).map(dep => {
@@ -71,8 +70,7 @@ export class PostgresDbConnector {
     return this.dbs.find(db => db.options.databaseKey === key);
   }
 
-  
-  getConnector (key = 'core') {
+  getSchema (key = 'core') {
     return this._getDbByKey(key);
   }
 

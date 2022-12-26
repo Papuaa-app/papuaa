@@ -1,10 +1,11 @@
 'use strict';
 
-const jwt = require('jsonwebtoken');
-const httpStatusCodes = require('http-status-codes');
-const { asValue } = require('awilix');
-const config = require('./../config');
-const logger = require('./../logger');
+import jwt from 'jsonwebtoken';
+import httpStatusCodes from 'http-status-codes';
+import { asValue } from 'awilix';
+import config from './../config.js';
+import logger from './../logger.js';
+import container from './../boot.js';
 
 function _areUrlsEquals (urlDB, urlController) {
   const urlDBWithoutParams = urlDB.split('?')[0];
@@ -34,14 +35,14 @@ function _endpointExistsByRequest (endpointList, req) {
         _areUrlsEquals(url, req.url));
 }
 
-export function checkRoles (roles) {
+function checkRoles (roles) {
   return (req, res, next) => {
     const { trackingService, httpContext } = req.container.cradle;
     const user = httpContext.get('user');
     if (user.profile.roles.find(role => roles.includes(role.name))) {
       next();
     } else {
-      const { responses } = import('./../boot').cradle;
+      const { responses } = container.cradle;
       res.status(httpStatusCodes.FORBIDDEN).json(responses());
       req.path.includes('/api/') && trackingService.track({
         user,
@@ -55,8 +56,8 @@ export function checkRoles (roles) {
   };
 }
   
-export async function isAuthenticated (req, res, next) {
-  const { userService, trackingService, cache, httpContext } = req.container.cradle;
+async function isAuthenticated (req, res, next) {
+  const { userService, dbConnector, httpContext } = req.container.cradle;
   try {
     if (!_endpointExistsByRequest(config.publicEndpoints, req)) {
       const { authorization } = req.cookies;
@@ -67,18 +68,18 @@ export async function isAuthenticated (req, res, next) {
       if (thirdParty) {
         throw new Error(`This token only can be used by third parties for ${user.email}`);
       }
-      const googleTokens = await cache.get(`${user.email}-google-tokens`);
+      const googleTokens = await dbConnector.getCacheDb().get(`${user.email}-google-tokens`);
       if (user.email.includes(config.googleAuth.domain) && !googleTokens) {
         throw new Error(`Google token doesn\'t exists for ${user.email}. Please login again!`);
       }
-      const userDB = await userService.getEmployeeByFiltersForSession({ email: user.email });
+      const userDB = await userService.getUser({ email: user.email });
       req.container.register({ user: asValue(userDB) });
       httpContext.set('user', userDB);
     }
     next();
   } catch (err) {
     logger.error(err);
-    const { responses } = import('./../boot').cradle;
+    const { responses } = container.cradle;
     res.status(httpStatusCodes.UNAUTHORIZED).json(responses());
     // TODO
     // req.path.includes('/api/') && trackingService.track({
@@ -92,14 +93,14 @@ export async function isAuthenticated (req, res, next) {
   }
 }
   
-export async function isGranted (req, res, next) {
-  const { endpointRepository, trackingService, httpContext } = req.container.cradle;
+async function isGranted (req, res, next) {
+  const { userService, httpContext } = req.container.cradle;
   try {
     if (_endpointExistsByRequest(config.allowedEndpoints, req)) {
       next();
     } else {
       const user = httpContext.get('user');
-      const endpoints = await endpointRepository.findEndpointsByRoleIds(user.roleIds);
+      const endpoints = await userService.getUserEndpoints(user._id);
       if (!_endpointExistsByRequest(endpoints, req)) {
         throw new Error('Endpoint is not granted by roles');
       }
@@ -107,16 +108,19 @@ export async function isGranted (req, res, next) {
     }
   } catch (err) {
     logger.error(err);
-    const { responses } = import('./../boot').cradle;
+    const { responses } = container.cradle;
     res.status(httpStatusCodes.FORBIDDEN).json(responses());
-    const user = httpContext.get('user');
-    req.path.includes('/api/') && trackingService.track({
-      user,
-      req,
-      trackingInfo: {
-        kpiId: 51004,
-        description: `Error accediendo al path ${req.path} con method ${req.method} y roles ${user.roleIds}`
-      }
-    });
+    // TODO
+    // const user = httpContext.get('user');
+    // req.path.includes('/api/') && trackingService.track({
+    //   user,
+    //   req,
+    //   trackingInfo: {
+    //     kpiId: 51004,
+    //     description: `Error accediendo al path ${req.path} con method ${req.method} y roles ${user.roleIds}`
+    //   }
+    // });
   }
 }
+
+export { checkRoles, isAuthenticated, isGranted };

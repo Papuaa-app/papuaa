@@ -1,15 +1,17 @@
 'use strict';
 
+const api = {
+  prefix: '/api/v1',
+  version: '1.0.0',
+  history: [
+    { version: '1.0.0' },
+  ],
+};
+
 module.exports = {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
-  api: {
-    prefix: '/api/v1',
-    version: '1.0.0',
-    history: [
-      { version: '1.0.0' },
-    ],
-  },
+  api,
   googleAuth: {
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -66,10 +68,10 @@ module.exports = {
   },
   defaultLanguage: 'es',
   publicEndpoints: [
-    // { method: 'post', url: '/api/session/forgot-password' },
+    { method: 'post', url: `${api.prefix}/session/login` },
   ],
   allowedEndpoints: [
-    // { method: 'post', url: '/api/session/forgot-password' },
+    { method: 'post', url: `${api.prefix}/session/login` },
   ],
   imageMimeTypesAllowed: [
     'image/jpeg',

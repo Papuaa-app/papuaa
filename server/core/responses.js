@@ -1,8 +1,10 @@
 'use strict';
 
-const httpContext = require('express-http-context');
+import httpContext from 'express-http-context';
 
-module.exports = (data) => ({
-  traceId: httpContext.get('traceId'),
-  data,
-});
+export default function (data) {
+  return {
+    traceId: httpContext.get('traceId'),
+    data, 
+  };
+}

@@ -3,10 +3,9 @@
 require('dotenv').config();
 const config = require('./config');
 const handlebars = require('./utils/handlebars');
-const responses = require('./responses');
+import responses from './responses.js';
 import logger from './logger.js';
 import DBConnector from './connectors/dbConnector/index.js';
-import { PostgresDbConnector } from './connectors/dbConnector/postgresDbConnector';
 
 import { Lifetime, asClass, asFunction, asValue, createContainer } from 'awilix';
 import httpContext from 'express-http-context';
@@ -35,7 +34,6 @@ const container = createContainer();
 container.register({
 
   dbConnector: asClass(DBConnector).singleton(),
-  mainDbConnector: asClass(PostgresDbConnector).singleton(),
   httpStatusCodes: asValue(HttpStatusCodes),
   httpContext: asValue(httpContext),
   fs: asValue(fs),
@@ -60,7 +58,7 @@ container.register({
 container.loadModules([
   './../api/services/**/*.js',
   './../api/repositories/**/*.js',
-  './../api/dao/**/*.js',
+  [ './../api/dao/**/*.js', { register: asFunction } ],
 ], {
   formatName: 'camelCase',
   cwd: __dirname,

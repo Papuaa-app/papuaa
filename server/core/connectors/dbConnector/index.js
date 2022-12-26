@@ -10,13 +10,21 @@ export default class DbConnector {
 
   constructor (deps) {
     this.deps = deps;
-    this.mainDbConnector = new PostgresDbConnector(this.deps);
-    this.cacheDbConnector = new RedisDbConnector(this.deps);
+    this.mainDb = new PostgresDbConnector(this.deps);
+    this.cacheDb = new RedisDbConnector(this.deps);
   }
 
   async connect () {
-    await this.mainDbConnector.connect();
-    this.cacheDbConnector.connect();
+    await this.mainDb.connect();
+    this.cacheDb.connect();
+  }
+
+  getMainDb () {
+    return this.mainDb;
+  }
+
+  getCacheDb () {
+    return this.cacheDb;
   }
 
 }
