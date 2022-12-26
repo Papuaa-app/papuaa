@@ -11,7 +11,6 @@ export default class SessionService {
     this.config = deps.config;
     this.moment = deps.moment;
     this.userService = deps.userService;
-    // this.cache = deps.cache;
   }
 
   _generateNumberWithNDigits (n) {
@@ -46,7 +45,7 @@ export default class SessionService {
   
 
   async login ({ email, password }) {
-    const passDecrypted = this._decryptPass(password);
+    const passDecrypted = await this._decryptPass(password);
     let user = await this.userService.getUser({ email });
     if (user == null) {
       this.logger.error(`User with email ${email} doesn\'t exist in DB`);

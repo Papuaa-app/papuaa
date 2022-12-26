@@ -4,17 +4,21 @@ export default class UserRepository {
 
   constructor (deps) {
     this.userDao = deps.userDao;
-    this.mainDbConnector = deps.mainDbConnector;
+    this.dbConnector = deps.dbConnector;
   }
 
   async findUser (filters, scopeStatus = 'allStatus') {
-    filters = [ ...filters ];
+    const orFilters = Object.keys(filters).map(filter => ({ [filter]: filters[filter] }));
     const result = await this.userDao.getDAO().scope(scopeStatus).findOne({
       where: {
-        [this.mainDbConnector.getOp().or]: filters,
+        [this.dbConnector.getMainDb().getOp().or]: orFilters,
       }
     });
     return result;
+  }
+
+  async findUserEndpoints (userId) {
+
   }
 
 }
