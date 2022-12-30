@@ -9,6 +9,7 @@ const messages = {
 };
 
 export default createI18n({
+  legacy: false,
   locale: 'es',
   globalInjection: true,
   messages

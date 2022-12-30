@@ -5,11 +5,17 @@ export default {
       subtitle: 'Combate la estacionalidad y aumenta tu tasa de ocupación',
       submit: 'Crear cuenta',
       register: 'Registro',
-      fullName: 'Nombre completo',
-      hotelName: 'Nombre del hotel',
+      fullName: 'Nombre completo *',
+      hotelName: 'Nombre del hotel *',
       roomsNumber: 'Número de habitaciones',
-      email: 'Email',
-      phone: 'Teléfono de contacto',
+      email: 'Email *',
+      phone: 'Teléfono de contacto *',
+      motivationalPhrase: 'Empieza a vender en Papuaa ahora'
     },
   },
+  form: {
+    validation: {
+      required: 'Campo requerido',
+    }
+  }
 };

@@ -1,19 +1,19 @@
 module.exports = {
   root: true,
-  'env': {
-    'browser': true,
-    'commonjs': true,
-    'es6': true,
-    'node': true
+  env: {
+    browser: true,
+    commonjs: true,
+    es6: true,
+    node: true
   },
-  'extends': [
+  extends: [
     'eslint:recommended',
     'plugin:vue/base',
     'plugin:vue/vue3-essential',
     'plugin:vue/vue3-strongly-recommended',
     'plugin:vue/vue3-recommended'
   ],
-  'rules': {
+  rules: {
     'array-bracket-spacing': [ 'error', 'always' ],
     'arrow-spacing': 'error',
     'constructor-super': 'error',
@@ -40,6 +40,7 @@ module.exports = {
     'space-before-function-paren': 'error',
     'template-curly-spacing': [ 'off' ],
     'valid-typeof': 'error',
+    'vue/no-mutating-props': 0,
     'vue/component-name-in-template-casing': [ 'error', 'PascalCase',
       {
         'ignores': [

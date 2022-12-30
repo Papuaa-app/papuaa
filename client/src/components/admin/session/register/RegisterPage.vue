@@ -27,26 +27,52 @@
       align="center"
       justify="end"
     >
-      <v-col :offset="$vuetify.display.mdAndUp ? 6 : 0">
+      <v-col
+        class="text-center"
+        :offset="$vuetify.display.mdAndUp ? 6 : 0"
+      >
         <v-row class="justify-center">
-          <v-form>
+          <v-form
+            ref="form"
+            v-model="valid"
+            lazy-validation
+          >
+            <div class="d-flex flex-column align-center mb-10">
+              <div>
+                <v-img
+                  width="10em"
+                  :src="logoPapuaa"
+                />
+              </div>
+              <div class="mt-2">
+                {{ $t('admin.session.motivationalPhrase') }}
+              </div>
+            </div>
             <v-card
               min-width="320"
               class="text-primary pa-2"
               :color="$vuetify.display.smAndDown ? 'transparent' : ''"
               :flat="$vuetify.display.smAndDown"
             >
-              <v-card-title>
-                {{ $t('admin.session.register') }}
+              <v-card-title class="d-flex justify-space-between">
+                <div>
+                  {{ $t('admin.session.register') }}
+                </div>
+                <v-avatar>
+                  <v-img :src="favicon" />
+                </v-avatar>
               </v-card-title>
               <v-card-text>
-                <RegisterForm />
+                <RegisterForm v-model="registerForm" />
               </v-card-text>
-              <v-card-actions>
-                <v-btn>
+              <div class="d-flex align-center justify-center pb-4">
+                <v-btn
+                  color="secondary"
+                  @click="submit"
+                >
                   {{ $t('admin.session.submit') }}
                 </v-btn>
-              </v-card-actions>
+              </div>
             </v-card>
           </v-form>
         </v-row>
@@ -57,10 +83,30 @@
 
 <script>
 import RegisterForm from '@/components/admin/session/register/RegisterForm.vue';
+import favicon from '@/assets/logos/FAVICON.svg';
+import logoPapuaa from '@/assets/logos/LOGO_PAPUAA.svg';
 
 export default {
   name: 'RegisterPage',
-  components: { RegisterForm }
+  components: { RegisterForm },
+  data: () => ({
+    favicon,
+    logoPapuaa,
+    valid: true,
+    registerForm: {
+      fullName: undefined,
+      hotelName: undefined,
+      roomsNumber: undefined,
+      email: undefined,
+      phone: undefined,
+    }
+  }),
+  methods: {
+    async submit () {
+      const { valid } = await this.$refs.form.validate();
+      console.log(valid);
+    }
+  }
 };
 </script>
 
