@@ -4,7 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import AdminView from '@/views/AdminView.vue';
 const RegisterPage = import('@/components/admin/session/register/RegisterPage');
 const LoginPage = import('@/components/admin/session/login/LoginPage');
-import AdminLayout from '@/layouts/admin/AdminLayout.vue';
+const AdminLayout = import('@/layouts/admin//AdminLayout');
 
 const routes = [
   {

@@ -1,7 +1,5 @@
 <template>
-  <v-main class="admin-bg-color">
-    <router-view />
-  </v-main>
+  <router-view class="admin-bg-color" />
 </template>
 
 <script>

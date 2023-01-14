@@ -5,7 +5,7 @@ import router from '@/router';
 
 const service = new RestService({ namespace: '/session' });
 
-function setAuthenticated (authenticated){
+function setAuthenticated (authenticated) {
   localStorage.setItem('authenticated', authenticated);
 }
 
