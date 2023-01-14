@@ -12,6 +12,16 @@ module.exports = {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
   api,
+  cors: {
+    origin: (process.env.CORS_ORIGIN || '').split(','),
+    credentials: true,
+  },
+  admin: {
+    profileId: process.env.ADMIN_PROFILE_ID,
+  },
+  user: {
+    profileId: process.env.USER_PROFILE_ID,
+  },
   googleAuth: {
     clientId: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
@@ -55,11 +65,7 @@ module.exports = {
     dialect: 'postgres',
     slaves: process.env.DB_SLAVES && JSON.parse(process.env.DB_SLAVES),
     define: {
-      defaultScope: {
-        attributes: {
-          exclude: [ 'createdAt', 'updatedAt' ]
-        }
-      }
+      defaultScope: {},
     }
   },
   mailer: {
@@ -69,9 +75,11 @@ module.exports = {
   defaultLanguage: 'es',
   publicEndpoints: [
     { method: 'post', url: `${api.prefix}/session/login` },
+    { method: 'post', url: `${api.prefix}/session/register` },
   ],
   allowedEndpoints: [
     { method: 'post', url: `${api.prefix}/session/login` },
+    { method: 'post', url: `${api.prefix}/session/register` },
   ],
   imageMimeTypesAllowed: [
     'image/jpeg',

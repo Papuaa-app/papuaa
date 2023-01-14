@@ -7,7 +7,7 @@ export default class UserRepository {
     this.dbConnector = deps.dbConnector;
   }
 
-  async findUser (filters, scopeStatus = 'allStatus') {
+  async find (filters, scopeStatus = 'allStatus') {
     const orFilters = Object.keys(filters).map(filter => ({ [filter]: filters[filter] }));
     const result = await this.userDao.getDAO().scope(scopeStatus).findOne({
       where: {
@@ -19,6 +19,11 @@ export default class UserRepository {
 
   async findUserEndpoints (userId) {
 
+  }
+
+  async create (user) {
+    const result = await this.userDao.getDAO().create(user);
+    return result;
   }
 
 }

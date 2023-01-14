@@ -9,6 +9,13 @@ module.exports = {
     body('password').notEmpty().isString(),
     coreValidator,
   ],
+  registerValidator: [
+    body('name').notEmpty().isString(),
+    body('surname').notEmpty().isString(),
+    body('email').notEmpty().isEmail(),
+    body('password').notEmpty().isString(),
+    coreValidator,
+  ],
   forgotPasswordValidator: [
     body('email').notEmpty().isEmail(),
     coreValidator,

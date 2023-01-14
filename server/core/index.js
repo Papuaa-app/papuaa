@@ -21,6 +21,7 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import winston from 'winston';
 import helmet from 'helmet';
+import cors from 'cors';
 
 const { error } = winston;
 
@@ -50,6 +51,7 @@ function loadAPI (app) {
 
 function initMiddleware (app) {
   try {
+    app.use(cors(config.cors));
     app.set('trust proxy', config.env === 'local' ? false : 1);
     app.use(rateLimit({
       windowMs: config.security.minutesUntilMaxRequestsAreRefreshed * 60 * 1000,

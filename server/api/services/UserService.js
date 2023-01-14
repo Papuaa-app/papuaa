@@ -6,8 +6,13 @@ export default class UserService {
     this.userRepository = deps.userRepository;
   }
 
-  async getUser (filters) {
-    const user = await this.userRepository.findUser(filters);
+  async get (filters) {
+    const user = await this.userRepository.find(filters);
+    return user;
+  }
+
+  async create (newUser) {
+    const user = await this.userRepository.create(newUser);
     return user;
   }
 

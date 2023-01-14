@@ -34,7 +34,6 @@
         <v-row class="justify-center">
           <v-form
             ref="form"
-            v-model="valid"
             lazy-validation
           >
             <div class="d-flex flex-column align-center mb-10">
@@ -65,6 +64,15 @@
               <v-card-text>
                 <RegisterForm v-model="registerForm" />
               </v-card-text>
+              <v-card-text>
+                <v-btn
+                  variant="text"
+                  class="text--normal"
+                  @click="goTo('adminLogin')"
+                >
+                  {{ $t('admin.session.redirectLogin') }}
+                </v-btn>
+              </v-card-text>
               <div class="d-flex align-center justify-center pb-4">
                 <v-btn
                   color="secondary"
@@ -82,9 +90,12 @@
 </template>
 
 <script>
-import RegisterForm from '@/components/admin/session/register/RegisterForm.vue';
+import RegisterForm from '@/components/admin/session/register/RegisterForm';
 import favicon from '@/assets/logos/FAVICON.svg';
 import logoPapuaa from '@/assets/logos/LOGO_PAPUAA.svg';
+import { mapActions, mapState } from 'pinia';
+import { useSessionStore } from '@/store/session';
+import { goTo } from '@/composables/router';
 
 export default {
   name: 'RegisterPage',
@@ -92,19 +103,24 @@ export default {
   data: () => ({
     favicon,
     logoPapuaa,
-    valid: true,
     registerForm: {
-      fullName: undefined,
-      hotelName: undefined,
-      roomsNumber: undefined,
-      email: undefined,
-      phone: undefined,
+      name: 'asdf',
+      surname: 'asdf',
+      email: 'asdf123@asdf.com',
+      password: 'asdfasdf',
     }
   }),
+  computed: {
+    ...mapState(useSessionStore, [ 'session' ]),
+  },
   methods: {
+    goTo,
+    ...mapActions(useSessionStore, [ 'register' ]),
     async submit () {
       const { valid } = await this.$refs.form.validate();
-      console.log(valid);
+      if (valid) {
+        await this.register(this.registerForm);
+      }
     }
   }
 };

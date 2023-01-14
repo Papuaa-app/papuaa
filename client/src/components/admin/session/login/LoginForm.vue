@@ -1,17 +1,5 @@
 <template>
   <v-text-field
-    v-model="modelValue.name"
-    :label="$t('admin.session.name')"
-    :rules="[ validation.required ]"
-    required
-  />
-  <v-text-field
-    v-model="modelValue.surname"
-    :label="$t('admin.session.surname')"
-    :rules="[ validation.required ]"
-    required
-  />
-  <v-text-field
     v-model="modelValue.email"
     :label="$t('admin.session.email')"
     :rules="[ validation.required ]"
@@ -30,14 +18,12 @@
 import form from '@/mixins/form';
 
 export default {
-  name: 'RegisterForm',
+  name: 'LoginForm',
   mixins: [ form ],
   props: {
     modelValue: {
       type: Object,
       default: () => ({
-        name: undefined,
-        surname: undefined,
         email: undefined,
         password: undefined,
       }),
@@ -46,3 +32,6 @@ export default {
 };
 </script>
 
+<style scoped>
+
+</style>

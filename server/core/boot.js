@@ -12,14 +12,13 @@ import httpContext from 'express-http-context';
 import fs from 'fs';
 import ipLocation from 'geoip-lite';
 import path from 'path';
-import crypto from 'crypto';
 import nodemailer from 'nodemailer';
 import smtpTransport from 'nodemailer-smtp-transport';
 import HttpStatusCodes from 'http-status-codes';
 import moment from 'moment';
 import { google } from 'googleapis';
 import jwt from 'jsonwebtoken';
-import RSA from 'node-rsa';
+import nodeRSA from 'node-rsa';
 import axios from 'axios';
 // const AWS = require('aws-sdk');
 // const spacesEndpoint = new AWS.Endpoint(`${config.spacesConfig.region}.${config.spacesConfig.endpoint}`);
@@ -45,10 +44,10 @@ container.register({
   moment: asValue(moment),
   // s3: asValue(S3),
   logger: asValue(logger),
-  crypto: asValue(crypto),
+  // crypto: asValue(crypto),
   axios: asValue(axios),
   jwt: asValue(jwt),
-  RSA: asValue(RSA),
+  encryptor: asValue(nodeRSA),
   config: asValue(config),
   responses: asValue(responses),
   google: asValue(google),
