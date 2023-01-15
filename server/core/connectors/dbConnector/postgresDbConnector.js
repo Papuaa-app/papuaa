@@ -50,18 +50,17 @@ export class PostgresDbConnector {
       });
   }
 
-  _loadDAOs (makeAssociations = false) {
-    Object.keys(this.deps).map(dep => {
-      if (dep.includes('Dao')) {
-        makeAssociations ? this.deps[dep].makeAssociations() : this.deps[dep];
-      }
-    });
-  }
-
   _makeAssociations () {
     if (!this.associations) {
-      this._loadDAOs(false);
-      this._loadDAOs(true);
+      const DAOs = Object.keys(this.deps).reduce((acc, dep) => {
+        if (dep.includes('Dao')) {
+          acc.push(this.deps[dep]);
+        }
+        return acc;
+      }, []);
+      for (const DAO of DAOs) {
+        DAO.makeAssociations();
+      }
       this.associations = true;
     }
   }
@@ -84,6 +83,7 @@ export class PostgresDbConnector {
 
   async connect () {
     try {
+      console.log(this.dbs);
       this._makeAssociations();
       for (const db of this.dbs) {
         await db.authenticate();

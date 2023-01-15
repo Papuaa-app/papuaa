@@ -33,7 +33,7 @@ export default function EndpointDAO (deps) {
 
       EndpointDAO.belongsTo(PermissionDAO, {
         foreignKey: 'permissionId',
-        as: 'permission',
+        as: 'endpointPermission',
       });
 
     }

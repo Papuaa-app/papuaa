@@ -35,6 +35,7 @@ export default function ProfileDAO (deps) {
         otherKey: 'roleId',
         as: 'roles',
       });
+
     }
 
   });

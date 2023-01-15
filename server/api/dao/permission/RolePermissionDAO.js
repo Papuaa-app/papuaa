@@ -20,10 +20,6 @@ export default function RolePermissionDAO (deps) {
 
   return Object.assign({}, dbConnector.getMainDb().abstractDAO(RolePermissionDAO), {
 
-    makeAssociations () {
-
-    }
-
   });
 
 }

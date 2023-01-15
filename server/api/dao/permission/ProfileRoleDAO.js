@@ -20,10 +20,6 @@ export default function ProfileRoleDAO (deps) {
 
   return Object.assign({}, dbConnector.getMainDb().abstractDAO(ProfileRoleDAO), {
 
-    makeAssociations () {
-
-    }
-
   });
 
 }

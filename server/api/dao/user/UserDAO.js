@@ -82,11 +82,37 @@ export default function UserDAO (deps) {
       const {
         UserDAO,
         ProfileDAO,
+        HotelGroupDAO,
+        HotelGroupUserDAO,
+        RoomDAO,
+        RoomUserDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
       UserDAO.belongsTo(ProfileDAO, {
         foreignKey: 'profileId',
         as: 'profile',
+      });
+
+      UserDAO.belongsToMany(HotelGroupDAO, {
+        through: HotelGroupUserDAO,
+        foreignKey: 'userId',
+        otherKey: 'hotelGroupId',
+        as: {
+          singular: 'hotel',
+          plural: 'hotels',
+        },
+        onDelete: 'cascade'
+      });
+
+      UserDAO.belongsToMany(RoomDAO, {
+        through: RoomUserDAO,
+        foreignKey: 'userId',
+        otherKey: 'roomId',
+        as: {
+          singular: 'room',
+          plural: 'rooms',
+        },
+        onDelete: 'cascade'
       });
 
     }

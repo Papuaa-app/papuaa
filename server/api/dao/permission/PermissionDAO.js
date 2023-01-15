@@ -23,6 +23,7 @@ export default function  PermissionDAO (deps) {
   return Object.assign({}, dbConnector.getMainDb().abstractDAO(PermissionDAO), {
 
     makeAssociations () {
+
       const {
         PermissionDAO,
         PermissionPageDAO,
@@ -30,16 +31,16 @@ export default function  PermissionDAO (deps) {
         EndpointDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
-      // PermissionDAO.belongsToMany(PageDAO, {
-      //   through: PermissionPageDAO,
-      //   foreignKey: 'permissionId',
-      //   otherKey: 'pageId',
-      //   as: 'pages',
-      // });
+      PermissionDAO.belongsToMany(PageDAO, {
+        through: PermissionPageDAO,
+        foreignKey: 'permissionId',
+        otherKey: 'pageId',
+        as: 'permissionPages',
+      });
 
       PermissionDAO.hasMany(EndpointDAO, {
         foreignKey: 'permissionId',
-        as: 'endpoints',
+        as: 'permissionEndpoints',
       });
 
     }
