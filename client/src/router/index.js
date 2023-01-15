@@ -4,7 +4,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import AdminView from '@/views/AdminView.vue';
 const RegisterPage = import('@/components/admin/session/register/RegisterPage');
 const LoginPage = import('@/components/admin/session/login/LoginPage');
-const AdminLayout = import('@/layouts/admin//AdminLayout');
+const AdminLayout = import('@/layouts/admin/AdminLayout');
+const HotelInformation = import('@/components/admin/home/HotelInformation.vue');
 
 const routes = [
   {
@@ -32,6 +33,14 @@ const routes = [
           requiresAuth: true,
         },
         component: () => AdminLayout,
+        redirect: { name: 'hotelInformation' },
+        children: [
+          {
+            path: 'info',
+            name: 'hotelInformation',
+            component: () => HotelInformation,
+          },
+        ],
       }
     ]
   },

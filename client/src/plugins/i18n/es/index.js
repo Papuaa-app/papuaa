@@ -12,6 +12,11 @@ export default {
       motivationalPhrase: 'Empieza a vender en Papuaa ahora',
       redirectLogin: '¿Ya tienes cuenta? Accede aquí.'
     },
+    home: {
+      myHotel: 'Mi Hotel',
+      myOffers: 'Mis Ofertas',
+      myBookings: 'Mis Reservas',
+    },
   },
   form: {
     validation: {
