@@ -34,7 +34,7 @@ export const useSessionStore = defineStore('session', {
         await router.push({ name: 'adminHome' });
       } catch (err) {
         console.log(err);
-        // await service.manageError(err);
+        await service.manageError(err);
       } finally {
         this.sessionFetching = false;
       }
@@ -55,7 +55,7 @@ export const useSessionStore = defineStore('session', {
         await router.push({ name: 'adminLogin' });
       } catch (err) {
         console.log(err);
-        // await service.manageError(err);
+        await service.manageError(err);
       } finally {
         this.sessionFetching = false;
       }

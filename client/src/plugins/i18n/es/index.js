@@ -10,7 +10,8 @@ export default {
       email: 'Email*',
       password: 'Contraseña*',
       motivationalPhrase: 'Empieza a vender en Papuaa ahora',
-      redirectLogin: '¿Ya tienes cuenta? Accede aquí.'
+      redirectLogin: '¿Ya tienes cuenta? Accede aquí.',
+      login: 'Acceder',
     },
     home: {
       myHotel: 'Mi Hotel',

@@ -104,10 +104,10 @@ export default {
     favicon,
     logoPapuaa,
     registerForm: {
-      name: 'asdf',
-      surname: 'asdf',
-      email: 'asdf123@asdf.com',
-      password: 'asdfasdf',
+      name: undefined,
+      surname: undefined,
+      email: undefined,
+      password: undefined,
     }
   }),
   computed: {

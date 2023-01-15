@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div class="h-100">
     <v-row
       class="h-100"
       align="center"
@@ -33,7 +33,7 @@
             >
               <v-card-title class="d-flex justify-space-between">
                 <div>
-                  {{ $t('admin.session.register') }}
+                  {{ $t('admin.session.login') }}
                 </div>
                 <v-avatar>
                   <v-img :src="favicon" />
@@ -55,7 +55,7 @@
         </v-row>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -70,26 +70,22 @@ export default {
   name: 'LoginPage',
   components: { LoginForm },
   mixins: [ form ],
-  setup () {
-    const useSessionStore = sessionStorage;
-    return { useSessionStore };
-  },
   data () {
     return {
       favicon,
       logoPapuaa,
       loginForm: {
-        email: 'asdf@asdf.com',
-        password: 'asdfasdf',
+        email: undefined,
+        password: undefined,
       }
     };
   },
   methods: {
-    ...mapActions(useSessionStore, [ 'adminLogin' ]),
+    ...mapActions(useSessionStore, [ 'login' ]),
     async submit () {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
-        await this.adminLogin(this.loginForm);
+        await this.login(this.loginForm);
       }
     },
   }
