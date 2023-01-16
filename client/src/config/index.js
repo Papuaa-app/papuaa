@@ -1,14 +1,6 @@
 'use strict';
 
-window.__ENV__ = {
-  NODE_ENV: 'local',
-  LOG_LEVEL: 'debug',
-  BASE_URI: '/api/v1',
-  API_SERVER_PORT: '8080',
-  API_SERVER_PROTOCOL: 'http',
-  API_SERVER_HOSTNAME: 'localhost',
-  PUBLIC_KEY: undefined,
-};
+window.__ENV__ = {};
 
 const apiServerPort = window.__ENV__.API_SERVER_PORT || process.env.API_SERVER_PORT;
 const apiServerHostname = window.__ENV__.API_SERVER_HOSTNAME || process.env.API_SERVER_HOSTNAME;
