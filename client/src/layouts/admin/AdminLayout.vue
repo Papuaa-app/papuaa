@@ -33,6 +33,8 @@
 <script>
 import { goTo } from '@/composables/router';
 import AdminAppBar from '@/layouts/admin/AdminAppBar.vue';
+import { useSessionStore } from '@/store/session';
+import { mapActions } from 'pinia';
 
 export default {
   name: 'AdminLayout',
@@ -47,15 +49,16 @@ export default {
       ]
     };
   },
-  created () {
-    console.log(this.$route);
+  async created () {
+    await this.getMe();
   },
   methods: {
+    ...mapActions(useSessionStore, [ 'getMe' ]),
     goTo,
     switchDrawer () {
       this.drawerVisible = !this.drawerVisible;
     }
-  }
+  },
 };
 </script>
 

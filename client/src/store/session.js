@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia';
 import RestService from '@/service';
 import router from '@/router';
+import { toast } from '@/composables/sweetalert';
+import { i18n } from '@/plugins/i18n';
 // import asymmetricEncrypt from '@/composables/encrypt';
 
 const service = new RestService({ namespace: '/session' });
@@ -43,7 +45,7 @@ export const useSessionStore = defineStore('session', {
       try {
         this.sessionFetching = true;
         const { data } = await service.request({
-          url: '/register',
+          url: '/admin/register',
           method: 'POST',
           data: {
             ...newUser,
@@ -51,8 +53,26 @@ export const useSessionStore = defineStore('session', {
             // password: asymmetricEncrypt(newUser.password),
           }
         });
-        console.log(data);
+        toast.fire({
+          title: i18n.t('admin.session.user.registered'),
+          icon: 'success',
+        });
         await router.push({ name: 'adminLogin' });
+      } catch (err) {
+        console.log(err);
+        await service.manageError(err);
+      } finally {
+        this.sessionFetching = false;
+      }
+    },
+    async getMe () {
+      try {
+        this.sessionFetching = true;
+        const { data } = await service.request({
+          url: '/me',
+          method: 'GET',
+        });
+        console.log(data);
       } catch (err) {
         console.log(err);
         await service.manageError(err);

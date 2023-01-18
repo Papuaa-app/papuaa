@@ -7,11 +7,12 @@ export default class UserRepository {
     this.dbConnector = deps.dbConnector;
   }
 
-  async find (filters, scopeStatus = 'allStatus') {
-    const orFilters = Object.keys(filters).map(filter => ({ [filter]: filters[filter] }));
+  async find (filters, scopeStatus = 'allStatus', isStrict) {
+    const parsedFilters = Object.keys(filters).map(filter => ({ [filter]: filters[filter] }));
+    const operator = this.dbConnector.getMainDb().getOp()[isStrict ? 'and' : 'or'];
     const result = await this.userDao.getDAO().scope(scopeStatus).findOne({
       where: {
-        [this.dbConnector.getMainDb().getOp().or]: orFilters,
+        [operator]: parsedFilters,
       }
     });
     return result;

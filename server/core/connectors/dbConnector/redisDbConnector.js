@@ -18,5 +18,9 @@ export default class RedisDbConnector {
   connect () {
     this.client.auth(this.redisConfig.password);
   }
+
+  get (str) {
+    this.client.get(str);
+  }
   
 }

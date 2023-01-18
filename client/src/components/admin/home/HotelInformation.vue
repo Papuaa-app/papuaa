@@ -5,8 +5,17 @@
 </template>
 
 <script>
+import { useSessionStore } from '@/store/session';
+import { mapActions } from 'pinia';
+
 export default {
-  name: 'HotelInformation'
+  name: 'HotelInformation',
+  created () {
+
+  },
+  methods: {
+    ...mapActions(useSessionStore, [ 'login' ]),
+  }
 };
 </script>
 

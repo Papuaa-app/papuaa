@@ -76,10 +76,12 @@ module.exports = {
   publicEndpoints: [
     { method: 'post', url: `${api.prefix}/session/login` },
     { method: 'post', url: `${api.prefix}/session/register` },
+    { method: 'post', url: `${api.prefix}/session/admin/register` },
   ],
   allowedEndpoints: [
     { method: 'post', url: `${api.prefix}/session/login` },
     { method: 'post', url: `${api.prefix}/session/register` },
+    { method: 'post', url: `${api.prefix}/session/admin/register` },
   ],
   imageMimeTypesAllowed: [
     'image/jpeg',

@@ -28,7 +28,7 @@ class SessionController {
   async login (req, res, next) {
     try {
       const { email, password } = req.body;
-      const { accessToken, tokenType, user } = await this.sessionService.login({ email, password });
+      const { accessToken, tokenType } = await this.sessionService.login({ email, password });
       res.cookie('authorization', `${tokenType} ${accessToken}`, this._cookieOptions(true));
       res.status(this.httpStatusCodes.OK).json(this.responses({ authenticated: true }));
       // TODO
@@ -58,7 +58,7 @@ class SessionController {
   async register (req, res, next) {
     try {
       const newUser = req.body;
-      await this.sessionService.register(newUser);
+      await this.sessionService.register(newUser, false);
       res.status(this.httpStatusCodes.OK).json(this.responses());
       // TODO
       // trackingService.track({ employee, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });

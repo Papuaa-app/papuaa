@@ -13,10 +13,10 @@
           <div class="text">
             <h3
               class="text-white"
-              v-html="$t('admin.session.title')"
+              v-html="$t('admin.session.register.bgTitle')"
             />
             <h4 class="text-white">
-              {{ $t('admin.session.subtitle') }}
+              {{ $t('admin.session.register.bgSubtitle') }}
             </h4>
           </div>
         </v-col>
@@ -35,6 +35,7 @@
           <v-form
             ref="form"
             lazy-validation
+            @submit.prevent="submit"
           >
             <div class="d-flex flex-column align-center mb-10">
               <div>
@@ -44,7 +45,7 @@
                 />
               </div>
               <div class="mt-2">
-                {{ $t('admin.session.motivationalPhrase') }}
+                {{ $t('admin.session.register.motivationalPhrase') }}
               </div>
             </div>
             <v-card
@@ -55,7 +56,7 @@
             >
               <v-card-title class="d-flex justify-space-between">
                 <div>
-                  {{ $t('admin.session.register') }}
+                  {{ $t('admin.session.register.title') }}
                 </div>
                 <v-avatar>
                   <v-img :src="favicon" />
@@ -70,15 +71,15 @@
                   class="text--normal"
                   @click="goTo('adminLogin')"
                 >
-                  {{ $t('admin.session.redirectLogin') }}
+                  {{ $t('admin.session.register.redirectLogin') }}
                 </v-btn>
               </v-card-text>
               <div class="d-flex align-center justify-center pb-4">
                 <v-btn
                   color="secondary"
-                  @click="submit"
+                  type="submit"
                 >
-                  {{ $t('admin.session.submit') }}
+                  {{ $t('admin.session.register.submit') }}
                 </v-btn>
               </div>
             </v-card>

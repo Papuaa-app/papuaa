@@ -59,6 +59,11 @@ export default function UserDAO (deps) {
         where: {
           status: 1
         },
+      },
+      session: {
+        where: {
+          status: 1
+        },
       }
     },
     defaultScope: {

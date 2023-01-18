@@ -8,9 +8,11 @@ const messages = {
   'es': es,
 };
 
-export default createI18n({
-  legacy: false,
+const instance = createI18n({
   locale: 'es',
   globalInjection: true,
   messages
 });
+
+export default instance;
+export const i18n = instance.global;

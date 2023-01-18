@@ -21,9 +21,6 @@
                   :src="logoPapuaa"
                 />
               </div>
-              <div class="mt-2">
-                {{ $t('admin.session.motivationalPhrase') }}
-              </div>
             </div>
             <v-card
               min-width="320"
@@ -33,7 +30,7 @@
             >
               <v-card-title class="d-flex justify-space-between">
                 <div>
-                  {{ $t('admin.session.login') }}
+                  {{ $t('admin.session.login.title') }}
                 </div>
                 <v-avatar>
                   <v-img :src="favicon" />
@@ -47,7 +44,7 @@
                   color="secondary"
                   @click="submit"
                 >
-                  {{ $t('admin.session.submit') }}
+                  {{ $t('admin.session.login.submit') }}
                 </v-btn>
               </div>
             </v-card>

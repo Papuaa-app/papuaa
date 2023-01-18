@@ -72,7 +72,7 @@ async function isAuthenticated (req, res, next) {
       if (user.email.includes(config.googleAuth.domain) && !googleTokens) {
         throw new Error(`Google token doesn\'t exists for ${user.email}. Please login again!`);
       }
-      const userDB = await userService.getUser({ email: user.email });
+      const userDB = await userService.get({ email: user.email });
       req.container.register({ user: asValue(userDB) });
       httpContext.set('user', userDB);
     }
@@ -100,7 +100,7 @@ async function isGranted (req, res, next) {
       next();
     } else {
       const user = httpContext.get('user');
-      const endpoints = await userService.getUserEndpoints(user._id);
+      const endpoints = await userService.getEndpoints(user?._id);
       if (!_endpointExistsByRequest(endpoints, req)) {
         throw new Error('Endpoint is not granted by roles');
       }
