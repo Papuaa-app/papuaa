@@ -17,7 +17,7 @@ export default class UserService {
   }
 
   async getEndpoints (userId) {
-    const endpoints = await this.userRepository.findUserEndpoints(userId);
+    const endpoints = await this.userRepository.findEndpoints(userId);
     return endpoints;
   }
 

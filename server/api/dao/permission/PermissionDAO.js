@@ -29,6 +29,8 @@ export default function  PermissionDAO (deps) {
         PermissionPageDAO,
         PageDAO,
         EndpointDAO,
+        RoleDAO,
+        RolePermissionDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
       PermissionDAO.belongsToMany(PageDAO, {
@@ -36,6 +38,13 @@ export default function  PermissionDAO (deps) {
         foreignKey: 'permissionId',
         otherKey: 'pageId',
         as: 'permissionPages',
+      });
+
+      PermissionDAO.belongsToMany(RoleDAO, {
+        through: RolePermissionDAO,
+        foreignKey: 'permissionId',
+        otherKey: 'roleId',
+        as: 'roles',
       });
 
       PermissionDAO.hasMany(EndpointDAO, {

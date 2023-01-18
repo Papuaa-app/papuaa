@@ -113,10 +113,18 @@ class SessionController {
     }
   }
 
+  async getMe (req, res, next) {
+    const { user } = req.container.cradle;
+    res.status(this.httpStatusCodes.OK).json(this.responses(user));
+    next();
+  }
+
+
 }
 
 export default createController(SessionController)
   .prefix('/session')
   .post('/login', 'login', { before: [ loginValidator ] })
   .post('/register', 'register', { before: [ registerValidator ] })
-  .post('/admin/register', 'adminRegister', { before: [ registerValidator ] });
+  .post('/admin/register', 'adminRegister', { before: [ registerValidator ] })
+  .get('/me', 'getMe');

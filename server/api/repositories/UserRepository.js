@@ -5,6 +5,10 @@ export default class UserRepository {
   constructor (deps) {
     this.userDao = deps.userDao;
     this.dbConnector = deps.dbConnector;
+    this.endpointDao = deps.endpointDao;
+    this.permissionDao = deps.permissionDao;
+    this.roleDao = deps.roleDao;
+    this.profileDao = deps.profileDao;
   }
 
   async find (filters, scopeStatus = 'allStatus', isStrict) {
@@ -18,8 +22,29 @@ export default class UserRepository {
     return result;
   }
 
-  async findUserEndpoints (userId) {
-
+  async findEndpoints (userId) {
+    const result = await this.endpointDao.getDAO().findAll({
+      include: {
+        model: this.permissionDao.getDAO(),
+        as: 'endpointPermission',
+        include: {
+          model: this.roleDao.getDAO(),
+          as: 'roles',
+          include: {
+            model: this.profileDao.getDAO(),
+            as: 'profiles',
+            include: {
+              model: this.userDao.getDAO(),
+              as: 'users',
+              where: {
+                _id: userId,
+              },
+            },
+          },
+        },
+      },
+    });
+    return result;
   }
 
   async create (user) {

@@ -51,7 +51,7 @@ export const useSessionStore = defineStore('session', {
             ...newUser,
             // TODO - ENCRYPTION
             // password: asymmetricEncrypt(newUser.password),
-          }
+          },
         });
         toast.fire({
           title: i18n.t('admin.session.user.registered'),

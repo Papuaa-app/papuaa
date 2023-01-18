@@ -24,10 +24,16 @@ export default function ProfileDAO (deps) {
     makeAssociations () {
 
       const {
+        UserDAO,
         ProfileDAO,
         ProfileRoleDAO,
         RoleDAO,
       } = dbConnector.getMainDb().getSchema().models;
+
+      ProfileDAO.hasMany(UserDAO, {
+        foreignKey: 'profileId',
+        as: 'users',
+      });
 
       ProfileDAO.belongsToMany(RoleDAO, {
         through: ProfileRoleDAO,

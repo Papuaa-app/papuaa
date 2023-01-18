@@ -28,6 +28,8 @@ export default function RoleDAO (deps) {
         RoleDAO,
         RolePermissionDAO,
         PermissionDAO,
+        ProfileDAO,
+        ProfileRoleDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
       RoleDAO.belongsToMany(PermissionDAO, {
@@ -35,6 +37,13 @@ export default function RoleDAO (deps) {
         foreignKey: 'roleId',
         otherKey: 'permissionId',
         as: 'permissions',
+      });
+
+      RoleDAO.belongsToMany(ProfileDAO, {
+        through: ProfileRoleDAO,
+        foreignKey: 'roleId',
+        otherKey: 'profileId',
+        as: 'profiles',
       });
 
     }

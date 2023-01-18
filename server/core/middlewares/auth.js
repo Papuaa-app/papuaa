@@ -57,7 +57,7 @@ function checkRoles (roles) {
 }
   
 async function isAuthenticated (req, res, next) {
-  const { userService, dbConnector, httpContext } = req.container.cradle;
+  const { userService, httpContext } = req.container.cradle;
   try {
     if (!_endpointExistsByRequest(config.publicEndpoints, req)) {
       const { authorization } = req.cookies;
@@ -68,10 +68,10 @@ async function isAuthenticated (req, res, next) {
       if (thirdParty) {
         throw new Error(`This token only can be used by third parties for ${user.email}`);
       }
-      const googleTokens = await dbConnector.getCacheDb().get(`${user.email}-google-tokens`);
-      if (user.email.includes(config.googleAuth.domain) && !googleTokens) {
-        throw new Error(`Google token doesn\'t exists for ${user.email}. Please login again!`);
-      }
+      // const googleTokens = await dbConnector.getCacheDb().get(`${user.email}-google-tokens`);
+      // if (user.email.includes(config.googleAuth.domain) && !googleTokens) {
+      //   throw new Error(`Google token doesn\'t exists for ${user.email}. Please login again!`);
+      // }
       const userDB = await userService.get({ email: user.email });
       req.container.register({ user: asValue(userDB) });
       httpContext.set('user', userDB);
