@@ -83,7 +83,6 @@ export class PostgresDbConnector {
 
   async connect () {
     try {
-      console.log(this.dbs);
       this._makeAssociations();
       for (const db of this.dbs) {
         await db.authenticate();

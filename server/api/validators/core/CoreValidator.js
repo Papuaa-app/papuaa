@@ -1,6 +1,6 @@
 'use strict';
 
-import responses from '../../core/responses';
+import responses from '../../../core/responses';
 const { validationResult } = require('express-validator');
 const { StatusCodes } = require('http-status-codes');
 

@@ -4,7 +4,7 @@ const { createController } = require('awilix-express');
 const {
   loginValidator,
   registerValidator,
-} = require('../validators/SessionValidator');
+} = require('../../validators/session/SessionValidator');
 
 class SessionController {
 
@@ -118,7 +118,6 @@ class SessionController {
     res.status(this.httpStatusCodes.OK).json(this.responses(user));
     next();
   }
-
 
 }
 

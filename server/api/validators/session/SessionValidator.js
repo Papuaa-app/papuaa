@@ -1,7 +1,7 @@
 'use strict';
 
 const { body } = require('express-validator');
-const { coreValidator } = require('./CoreValidator');
+const { coreValidator } = require('../core/CoreValidator');
 
 module.exports = {
   loginValidator: [

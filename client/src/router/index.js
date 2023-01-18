@@ -5,7 +5,10 @@ import AdminView from '@/views/AdminView.vue';
 const RegisterPage = import('@/components/admin/session/register/RegisterPage');
 const LoginPage = import('@/components/admin/session/login/LoginPage');
 const AdminLayout = import('@/layouts/admin/AdminLayout');
-const HotelInformation = import('@/components/admin/home/HotelInformation.vue');
+
+/** Hotel **/
+const HotelInformation = import('@/components/admin/hotel/HotelInformation.vue');
+const CreateNewHotelGroup = import('@/components/admin/hotel/CreateNewHotelGroup.vue');
 
 const routes = [
   {
@@ -39,6 +42,11 @@ const routes = [
             path: 'info',
             name: 'hotelInformation',
             component: () => HotelInformation,
+          },
+          {
+            path: 'wizard',
+            name: 'hotelWizard',
+            component: () => CreateNewHotelGroup,
           },
         ],
       }

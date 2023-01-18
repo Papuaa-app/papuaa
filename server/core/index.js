@@ -42,7 +42,7 @@ function loadAPI (app) {
     app.use(loggerMiddleware.init);
     app.use(isAuthenticated);
     app.use(isGranted);
-    app.use('/api/v1', loadControllers('./../api/controllers/**/*.js', { cwd: __dirname }));
+    app.use(config.api.prefix, loadControllers('./../api/controllers/session/*Controller.js', { cwd: __dirname }));
     app.use(loggerMiddleware.end);
   } catch (err) {
     logger.error(`API LOAD ERROR: ${err}`);

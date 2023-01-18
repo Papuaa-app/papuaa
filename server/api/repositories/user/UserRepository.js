@@ -11,7 +11,7 @@ export default class UserRepository {
     this.profileDao = deps.profileDao;
   }
 
-  async find (filters, scopeStatus = 'allStatus', isStrict) {
+  async find (filters, isStrict, scopeStatus = 'allStatus') {
     const parsedFilters = Object.keys(filters).map(filter => ({ [filter]: filters[filter] }));
     const operator = this.dbConnector.getMainDb().getOp()[isStrict ? 'and' : 'or'];
     const result = await this.userDao.getDAO().scope(scopeStatus).findOne({

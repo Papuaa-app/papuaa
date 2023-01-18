@@ -72,7 +72,7 @@ export const useSessionStore = defineStore('session', {
           url: '/me',
           method: 'GET',
         });
-        console.log(data);
+        this.me = data;
       } catch (err) {
         console.log(err);
         await service.manageError(err);
