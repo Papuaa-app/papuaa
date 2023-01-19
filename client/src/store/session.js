@@ -4,6 +4,7 @@ import router from '@/router';
 import { toast } from '@/composables/sweetalert';
 import { i18n } from '@/plugins/i18n';
 // import asymmetricEncrypt from '@/composables/encrypt';
+import { useUserStore } from './user';
 
 const service = new RestService({ namespace: '/session' });
 
@@ -79,6 +80,18 @@ export const useSessionStore = defineStore('session', {
       } finally {
         this.sessionFetching = false;
       }
-    }
+    },
+    async getMyHotelGroups () {
+      try {
+        this.sessionFetching = true;
+        const user = useUserStore();
+        await user.getUserHotelGroups(this.me?._id);
+      } catch (err) {
+        console.log(err);
+        await service.manageError(err);
+      } finally {
+        this.sessionFetching = false;
+      }
+    },
   }
 });

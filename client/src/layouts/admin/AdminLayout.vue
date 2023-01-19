@@ -39,7 +39,6 @@
 import { goTo } from '@/composables/router';
 import AdminAppBar from '@/layouts/admin/AdminAppBar.vue';
 import { useSessionStore } from '@/store/session';
-import { useUserStore } from '@/store/user';
 import { mapActions, mapState } from 'pinia';
 
 export default {
@@ -62,12 +61,11 @@ export default {
     await this.loadCriticalPath();
   },
   methods: {
-    ...mapActions(useSessionStore, [ 'getMe' ]),
-    ...mapActions(useUserStore, [ 'getUserHotelGroups' ]),
+    ...mapActions(useSessionStore, [ 'getMe', 'getMyHotelGroups' ]),
     async loadCriticalPath () {
+      await this.getMe();
       await Promise.all([
-        this.getMe(),
-        this.getUserHotelGroups(),
+        this.getMyHotelGroups(),
       ]);
     },
     goTo,

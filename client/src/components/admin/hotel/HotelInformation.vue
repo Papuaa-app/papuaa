@@ -6,16 +6,16 @@
 
 <script>
 import { useSessionStore } from '@/store/session';
-import { mapActions } from 'pinia';
+import { mapActions, mapWritableState } from 'pinia';
 
 export default {
   name: 'HotelInformation',
-  created () {
-
+  computed: {
+    ...mapWritableState(useSessionStore, { me: 'me' }),
   },
-  methods: {
-    ...mapActions(useSessionStore, [ 'login' ]),
-  }
+  created () {
+    console.log(this.me);
+  },
 };
 </script>
 
