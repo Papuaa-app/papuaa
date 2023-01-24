@@ -1,4 +1,5 @@
 
+import { useSessionStore } from '@/store/session';
 import { createRouter, createWebHistory } from 'vue-router';
 
 /** Session **/
@@ -29,12 +30,14 @@ const routes = [
         if (isAdmin) {
           return { name: 'Admin' };
         }
-        return { name: 'Home' };
+        // TODO - user home
+        return { name: 'Admin'  };
       } else {
         if (isAdmin) {
           return { name: 'AdminLogin' };
         }
-        return { name: 'Login' };
+        // TODO - user login
+        return { name: 'AdminLogin' };
       }
     },
   },
@@ -61,12 +64,13 @@ const routes = [
           requiresAuth: true,
         },
         component: () => AdminLayout,
-        redirect: { name: 'HotelInformation' },
+        redirect: { name: 'AdminHome' },
         children: [
           {
             path: 'home',
             name: 'AdminHome',
             component: () => AdminHome,
+            redirect: { name: 'HotelInformation' },
             children: [
               {
                 path: 'info',
@@ -105,11 +109,14 @@ const router = createRouter({
 
 router.beforeEach(async (to, from, next) => {
   const authenticated = localStorage.getItem('authenticated');
-  if (to.meta.requiresAuth && !authenticated) {
-    next({ name: isAdmin ? 'AdminLogin' : 'Login' });
-  } else {
-    next();
+  const store = useSessionStore();
+  const requiresAuth = to.matched.some(route => route.meta.requiresAuth);
+  if (requiresAuth && !authenticated) {
+    // TODO - Login user
+    console.log('try logout');
+    await store.logout();
   }
+  next();
 });
 
 export default router;

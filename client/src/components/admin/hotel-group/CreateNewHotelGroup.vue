@@ -2,7 +2,7 @@
   <div>
     <v-card
       color="secondary"
-      min-height="250"
+      :min-height="$vuetify.display.xs ? 400 : 250"
       elevation="10"
       class="d-flex flex-column h-100"
     >
@@ -13,12 +13,24 @@
         {{ $t('admin.createNewHotelGroup.subtitle') }}
       </v-card-subtitle>
       <v-card-text>
-        <v-btn
-          variant="flat"
-          @click="goTo('CreateHotelGroup')"
-        >
-          {{ $t('admin.createNewHotelGroup.title') }}
-        </v-btn>
+        <div>
+          <v-btn
+            class="ma-1"
+            variant="flat"
+            @click="goTo('CreateHotelGroup', { target: 'user' })"
+          >
+            {{ $t('admin.createNewHotelGroup.title') }}
+          </v-btn>
+        </div>
+        <div>
+          <v-btn
+            class="ma-1"
+            disabled
+            @click="goTo('CreateHotelGroup', { target: 'user' })"
+          >
+            {{ $t('admin.createNewHotelGroup.access') }}
+          </v-btn>
+        </div>
       </v-card-text>
       <v-img
         width="350"
@@ -52,6 +64,7 @@ export default {
   right: -5%;
   bottom: 0;
   z-index: 0;
+  opacity: .9;
 }
 .v-card-text {
   z-index: 10;

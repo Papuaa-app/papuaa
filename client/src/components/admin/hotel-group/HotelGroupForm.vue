@@ -116,11 +116,12 @@ export default {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
         await this.upsertHotelGroup(this.hotelGroupForm);
-        console.log(this.hotelGroupDetail._id);
-        await this.addUserToHotelGroup({
-          hotelGroupId: this.hotelGroupDetail._id,
-          userId: this.me._id,
-        });
+        if (this.$route.query?.target === 'user') {
+          await this.addUserToHotelGroup({
+            hotelGroupId: this.hotelGroupDetail._id,
+            userId: this.me._id,
+          });
+        }
         await goTo('AdminHome');
       }
     }

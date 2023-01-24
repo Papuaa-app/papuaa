@@ -12,6 +12,10 @@ function setLocalStorage (key, value) {
   localStorage.setItem(key, value);
 }
 
+function getLocalStorage (key) {
+  return parseInt(localStorage.getItem(key));
+}
+
 export const useSessionStore = defineStore('session', {
   state () {
     return {
@@ -41,10 +45,27 @@ export const useSessionStore = defineStore('session', {
           await router.push({ name: 'Home' });
         }
       } catch (err) {
-        console.log(err);
         await service.manageError(err);
       } finally {
         this.sessionFetching = false;
+      }
+    },
+    async logout () {
+      try {
+        console.log('logout');
+        setLocalStorage('authenticated', false);
+        if (getLocalStorage('isAdmin')) {
+          await router.push({ name: 'AdminLogin' });
+        } else {
+          // TODO - user login
+          await router.push({ name: 'AdminLogin' });
+        }
+        toast.fire({
+          title: i18n.t('session.user.logout'),
+          icon: 'success',
+        });
+      } catch (err) {
+        await service.manageError(err);
       }
     },
     async register (newUser) {
@@ -65,7 +86,6 @@ export const useSessionStore = defineStore('session', {
         });
         await router.push({ name: 'adminLogin' });
       } catch (err) {
-        console.log(err);
         await service.manageError(err);
       } finally {
         this.sessionFetching = false;
@@ -80,7 +100,6 @@ export const useSessionStore = defineStore('session', {
         });
         this.me = data;
       } catch (err) {
-        console.log(err);
         await service.manageError(err);
       } finally {
         this.sessionFetching = false;
@@ -92,7 +111,6 @@ export const useSessionStore = defineStore('session', {
         const user = useUserStore();
         this.me.hotelGroups = await user.getUserHotelGroups(this.me?._id);
       } catch (err) {
-        console.log(err);
         await service.manageError(err);
       } finally {
         this.sessionFetching = false;

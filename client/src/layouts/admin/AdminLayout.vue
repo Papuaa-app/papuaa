@@ -8,21 +8,39 @@
       <v-navigation-drawer
         v-model="drawerVisible"
       >
-        <v-list
-          mandatory
-          nav
+        <v-sheet
+          :height="!$vuetify.display.mobile ? '97%': '100%'"
+          class="d-flex flex-column justify-center align-center"
         >
-          <v-list-item
-            v-for="(page, i) in pages"
-            :key="i"
-            active-color="secondary"
-            :active="page.routeName === $route.name"
-            :prepend-icon="page.icon"
-            :title="$t(page.name)"
-            :value="page.routeName"
-            @click="goTo(page.routeName)"
-          />
-        </v-list>
+          <div class="w-100">
+            <v-list
+              mandatory
+              nav
+            >
+              <v-list-item
+                v-for="(page, i) in pages"
+                :key="i"
+                active-color="secondary"
+                :active="page.routeName === $route.name"
+                :prepend-icon="page.icon"
+                :title="$t(page.name)"
+                :value="page.routeName"
+                @click="goTo(page.routeName)"
+              />
+            </v-list>
+          </div>
+          <div class="mt-auto">
+            <v-btn
+              class="mb-2"
+              @click="logout"
+            >
+              {{ $t('session.logout') }}
+              <v-icon class="ml-2">
+                mdi-exit-to-app
+              </v-icon>
+            </v-btn>
+          </div>
+        </v-sheet>
       </v-navigation-drawer>
       <v-container class="main-container">
         <router-view v-slot="{ Component }">
@@ -63,7 +81,7 @@ export default {
     this.fetching = false;
   },
   methods: {
-    ...mapActions(useSessionStore, [ 'getMe', 'getMyHotelGroups' ]),
+    ...mapActions(useSessionStore, [ 'getMe', 'getMyHotelGroups', 'logout' ]),
     async loadCriticalPath () {
       await this.getMe();
       await Promise.all([

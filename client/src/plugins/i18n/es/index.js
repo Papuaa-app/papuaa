@@ -10,6 +10,7 @@ export default {
     createNewHotelGroup: {
       title: 'Crear nueva organización',
       subtitle: 'Todavía no tienes organización, crea tu organización para agregar un nuevo Hotel',
+      access: 'Entrar en una organización'
     },
     session: {
       form: {
@@ -60,5 +61,13 @@ export default {
   user: {
     name: 'Nombre',
     surname: 'Apellido',
+  },
+  session: {
+    expired: 'Tu sesión caducó',
+    loginAgain: 'Por favor accede de nuevo',
+    logout: 'Cerrar sesión',
+    user: {
+      logout: 'Sesión cerrada',
+    },
   },
 };

@@ -1,6 +1,10 @@
 /* Variables */
 $admin-bg-color: #FAFAFA;
 
+.bg-primary {
+  color: white !important;
+}
+
 .admin-bg-color {
   background-color: $admin-bg-color;
 }

@@ -72,8 +72,8 @@ export default {
       favicon,
       logoPapuaa,
       loginForm: {
-        email: undefined,
-        password: undefined,
+        email: 'david@papuaa.com',
+        password: 'Gssaosamm7',
       }
     };
   },

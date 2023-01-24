@@ -1,8 +1,10 @@
 // import Vue from 'vue';
+import { useSessionStore } from '@/store/session';
+import { i18n } from '@/plugins/i18n';
+import vuetify from '@/plugins/vuetify';
 import Axios from 'axios';
 import HttpStatusCodes from 'http-status-codes';
 import config from '@/config';
-import i18n from '@/plugins/i18n';
 import Swal from 'sweetalert2';
 import store from '@/store';
 import router from '@/router';
@@ -22,11 +24,12 @@ export default class Service {
           if (router.currentRoute.path !== '/login') {
             await Swal.fire({
               // title: i18n.t('sessionExpired')
-              title: 'sessionExpired',
-              text: 'doLoginAgain',
-              icon: 'warning'
+              title: i18n.t('session.expired'),
+              text: i18n.t('session.loginAgain'),
+              icon: 'warning',
             });
-            // store.dispatch('session/doLogout', false);
+            const store = useSessionStore();
+            await store.logout();
           }
         }
         return Promise.reject(err);

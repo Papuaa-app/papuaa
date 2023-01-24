@@ -105,11 +105,11 @@ export default {
     favicon,
     logoPapuaa,
     registerForm: {
-      name: undefined,
-      surname: undefined,
-      email: undefined,
-      password: undefined,
-    }
+      name: 'David',
+      surname: 'Balboa Rojo',
+      email: 'david@papuaa.com',
+      password: 'Gssaosamm7',
+    },
   }),
   computed: {
     ...mapState(useSessionStore, [ 'session' ]),
