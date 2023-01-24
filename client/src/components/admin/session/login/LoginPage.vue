@@ -82,7 +82,7 @@ export default {
     async submit () {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
-        await this.login(this.loginForm);
+        await this.login(this.loginForm, true);
       }
     },
   }

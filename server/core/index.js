@@ -10,7 +10,7 @@ import loggerMiddleware from './middlewares/logger.js';
 import systemInfo from './utils/sysinfo.js';
 import logger from './logger.js';
 
-import { controller, loadControllers, scopePerRequest } from 'awilix-express';
+import { loadControllers, scopePerRequest } from 'awilix-express';
 import helmetCrossDomain from 'helmet-crossdomain';
 import httpContext from 'express-http-context';
 import fileUpload from 'express-fileupload';
@@ -42,7 +42,9 @@ function loadAPI (app) {
     app.use(loggerMiddleware.init);
     app.use(isAuthenticated);
     app.use(isGranted);
-    app.use(config.api.prefix, loadControllers('./../api/controllers/session/*Controller.js', { cwd: __dirname }));
+    const controllers = loadControllers('./../api/controllers/**/*.js', { cwd: __dirname });
+    console.log(controllers);
+    app.use(config.api.prefix, controllers);
     app.use(loggerMiddleware.end);
   } catch (err) {
     logger.error(`API LOAD ERROR: ${err}`);

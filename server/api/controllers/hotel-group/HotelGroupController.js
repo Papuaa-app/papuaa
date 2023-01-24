@@ -3,6 +3,7 @@
 const { createController } = require('awilix-express');
 const {
   hotelGroupValidator,
+  hotelGroupUserValidator,
 } = require('../../validators/hotel-group/HotelGroupValidator');
 const {
   paramIdValidator,
@@ -19,7 +20,7 @@ class HotelGroupController {
 
   async getHotelGroups (req, res, next) {
     try {
-      const result = await this.hotelGroupService.get();
+      const result = await this.hotelGroupService.getAll();
       res.status(this.httpStatusCodes.OK).json(this.responses(result));
     } catch (err) {
       this.logger.error('getHotelGroups', err);
@@ -92,12 +93,29 @@ class HotelGroupController {
     }
   }
 
+  async addUserToHotelGroup (req, res, next) {
+    try {
+      const { id, userId } = req.params;
+      await this.hotelGroupService.addUser(id, userId);
+      res.status(this.httpStatusCodes.CREATED).json(this.responses());
+      // TODO
+      // trackingService.track({ user, req, trackingInfo: { kpiId: 1473, description: `hotelGroup has been created with _id: ${result._id}` } });
+    } catch (err) {
+      this.logger.error('addUserToHotelGroup', err);
+      const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
+      res.status(statusCode).json(this.responses(data));
+    } finally {
+      next();
+    }
+  }
+
 }
 
 export default createController(HotelGroupController)
-  .prefix('/HotelGroups')
+  .prefix('/hotel-groups')
   .get('', 'getHotelGroups')
   .get('/:id', 'getHotelGroupById', { before: [ paramIdValidator ] })
   .post('', 'createHotelGroup', { before: [ hotelGroupValidator ] })
   .put('/:id', 'updateHotelGroup', { before: [ paramIdValidator, hotelGroupValidator ] })
-  .delete('/:id', 'deleteHotelGroup', { before: [ paramIdValidator ] });
+  .delete('/:id', 'deleteHotelGroup', { before: [ paramIdValidator ] })
+  .post('/:id/user/:userId', 'addUserToHotelGroup', { before: [ paramIdValidator, hotelGroupUserValidator ] });

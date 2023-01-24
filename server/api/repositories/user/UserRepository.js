@@ -9,6 +9,8 @@ export default class UserRepository {
     this.permissionDao = deps.permissionDao;
     this.roleDao = deps.roleDao;
     this.profileDao = deps.profileDao;
+    this.hotelGroupDao = deps.hotelGroupDao;
+    this.hotelGroupUserDao = deps.hotelGroupUserDao;
   }
 
   async find (filters, isStrict, scopeStatus = 'allStatus') {
@@ -42,6 +44,23 @@ export default class UserRepository {
             },
           },
         },
+      },
+    });
+    return result;
+  }
+
+  async findHotelGroups (userId) {
+    const result = await this.hotelGroupDao.getDAO().findAll({
+      include: {
+        through: {
+          model: this.hotelGroupUserDao.getDAO(),
+          as: 'hotelGroupUser',
+          where: {
+            userId,
+          },
+        },
+        model: this.userDao.getDAO(),
+        as: 'users',
       },
     });
     return result;

@@ -8,3 +8,20 @@ $admin-bg-color: #FAFAFA;
 .text--normal {
   text-transform: initial !important;
 }
+
+.text-overflow {
+  text-overflow: initial !important;
+}
+
+.white-space-no-wrap {
+  white-space: normal !important;
+}
+
+.flex-form {
+  display: flex;
+  flex-wrap: wrap;
+  & > .v-input {
+    flex-grow: 1;
+    margin-right: .5em;
+  }
+}

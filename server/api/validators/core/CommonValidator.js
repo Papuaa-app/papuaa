@@ -1,7 +1,7 @@
 'use strict';
 
 const { param } = require('express-validator');
-const { coreValidator, singleImageTypeFileValidator, singleResourceSizeFileValidator } = require('./CoreValidator');
+const { coreValidator } = require('./CoreValidator');
 
 module.exports = {
   paramIdValidator: [
@@ -9,8 +9,6 @@ module.exports = {
     coreValidator,
   ],
   resourceValidator: [
-    singleImageTypeFileValidator(),
-    singleResourceSizeFileValidator(),
     coreValidator,
   ],
 };

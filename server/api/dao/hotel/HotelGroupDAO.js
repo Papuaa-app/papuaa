@@ -30,6 +30,8 @@ export default function HotelGroupDAO (deps) {
         HotelGroupDAO,
         HotelDAO,
         BillingDAO,
+        HotelGroupUserDAO,
+        UserDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
       HotelGroupDAO.hasMany(HotelDAO, {
@@ -40,6 +42,17 @@ export default function HotelGroupDAO (deps) {
       HotelGroupDAO.belongsTo(BillingDAO, {
         foreignKey: 'billingId',
         as: 'hotelBilling',
+      });
+
+      HotelGroupDAO.belongsToMany(UserDAO, {
+        through: HotelGroupUserDAO,
+        foreignKey: 'hotelGroupId',
+        otherKey: 'userId',
+        as: {
+          singular: 'user',
+          plural: 'users',
+        },
+        onDelete: 'cascade'
       });
 
     }

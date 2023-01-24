@@ -1,6 +1,6 @@
 <template>
   <v-main>
-    <div v-if="sessionFetching">
+    <div v-if="fetching">
       loading
     </div>
     <template v-else>
@@ -46,19 +46,21 @@ export default {
   components: { AdminAppBar },
   data () {
     return {
+      fetching: true,
       drawerVisible: undefined,
       pages: [
-        { name: 'admin.home.myHotel', icon: 'mdi-home-outline', routeName: 'hotelInformation' },
+        { name: 'admin.home.myHotel', icon: 'mdi-home-outline', routeName: 'HotelInformation' },
         { name: 'admin.home.myOffers', icon: 'mdi-bed-king-outline', routeName: '' },
         { name: 'admin.home.myBookings', icon: 'mdi-calendar-month-outline', routeName: '' },
       ],
     };
   },
   computed: {
-    ...mapState(useSessionStore, [ 'me', 'sessionFetching' ] ),
+    ...mapState(useSessionStore, [ 'me' ] ),
   },
   async created () {
     await this.loadCriticalPath();
+    this.fetching = false;
   },
   methods: {
     ...mapActions(useSessionStore, [ 'getMe', 'getMyHotelGroups' ]),

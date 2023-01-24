@@ -5,4 +5,8 @@ async function goTo (routeName) {
   await router.push({ name: routeName });
 }
 
-export { goTo };
+async function goBack () {
+  await router.back();
+}
+
+export { goTo, goBack };

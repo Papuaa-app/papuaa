@@ -4,6 +4,10 @@
 
 <script>
 export default {
-  name: 'DefaultView',
+  name: 'AdminHome'
 };
 </script>
+
+<style scoped>
+
+</style>

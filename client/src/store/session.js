@@ -8,8 +8,8 @@ import { useUserStore } from './user';
 
 const service = new RestService({ namespace: '/session' });
 
-function setAuthenticated (authenticated) {
-  localStorage.setItem('authenticated', authenticated);
+function setLocalStorage (key, value) {
+  localStorage.setItem(key, value);
 }
 
 export const useSessionStore = defineStore('session', {
@@ -21,7 +21,7 @@ export const useSessionStore = defineStore('session', {
     };
   },
   actions: {
-    async login ({ email, password }) {
+    async login ({ email, password }, isAdmin) {
       try {
         this.sessionFetching = true;
         const { data } = await service.request({
@@ -33,8 +33,13 @@ export const useSessionStore = defineStore('session', {
             // password: key.encrypt(password, 'base64', 'utf8'),
           }
         });
-        setAuthenticated(data.authenticated);
-        await router.push({ name: 'adminHome' });
+        setLocalStorage('authenticated', data.authenticated);
+        setLocalStorage('isAdmin', isAdmin);
+        if (isAdmin) {
+          await router.push({ name: 'AdminHome' });
+        } else {
+          await router.push({ name: 'Home' });
+        }
       } catch (err) {
         console.log(err);
         await service.manageError(err);
@@ -85,7 +90,7 @@ export const useSessionStore = defineStore('session', {
       try {
         this.sessionFetching = true;
         const user = useUserStore();
-        await user.getUserHotelGroups(this.me?._id);
+        this.me.hotelGroups = await user.getUserHotelGroups(this.me?._id);
       } catch (err) {
         console.log(err);
         await service.manageError(err);

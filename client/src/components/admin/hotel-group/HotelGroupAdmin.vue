@@ -1,12 +1,10 @@
 <template>
-  <div>
-    asdf
-  </div>
+  <router-view />
 </template>
 
 <script>
 export default {
-  name: 'CreateNewHotelGroup'
+  name: 'HotelGroupAdmin'
 };
 </script>
 

@@ -4,7 +4,7 @@ import router from '@/router';
 import { toast } from '@/composables/sweetalert';
 import { i18n } from '@/plugins/i18n';
 
-const service = new RestService({ namespace: '/user' });
+const service = new RestService({ namespace: '/users' });
 
 export const useUserStore = defineStore('user', {
   state () {

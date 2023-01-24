@@ -8,10 +8,21 @@ export default class HotelGroupRepository {
     this.hotelGroupDao = deps.hotelGroupDao;
   }
 
-  async find (filters, isStrict, scopeStatus = 'allStatus') {
+  async findAll (filters, isStrict) {
     const parsedFilters = Object.keys(filters).map(filter => ({ [filter]: filters[filter] }));
     const operator = this.dbConnector.getMainDb().getOp()[isStrict ? 'and' : 'or'];
-    const result = await this.hotelGroupDao.getDAO().scope(scopeStatus).findOne({
+    const result = await this.hotelGroupDao.getDAO().findAll({
+      where: {
+        [operator]: parsedFilters,
+      }
+    });
+    return result;
+  }
+
+  async find (filters, isStrict) {
+    const parsedFilters = Object.keys(filters).map(filter => ({ [filter]: filters[filter] }));
+    const operator = this.dbConnector.getMainDb().getOp()[isStrict ? 'and' : 'or'];
+    const result = await this.hotelGroupDao.getDAO().findOne({
       where: {
         [operator]: parsedFilters,
       }
@@ -20,6 +31,12 @@ export default class HotelGroupRepository {
   }
 
   async upsert (hotelGroup) {
+    const [ record, created ] = await this.hotelGroupDao.getDAO().upsert(hotelGroup);
+    this.logger.info(`HotelGroup ${record._id} was ${created ? 'created' : 'updated'}`);
+    return record;
+  }
+
+  async addUser (hotelGroupId, userId) {
     const [ record, created ] = await this.hotelGroupDao.getDAO().upsert(hotelGroup);
     this.logger.info(`HotelGroup ${record._id} was ${created ? 'created' : 'updated'}`);
     return record;

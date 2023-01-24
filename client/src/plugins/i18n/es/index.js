@@ -1,5 +1,16 @@
 export default {
   admin: {
+    hotelGroup: {
+      detail: {
+        create: 'Crear una nueva organización',
+        edit: 'Editar una nueva organización',
+        billing: 'Facturación',
+      },
+    },
+    createNewHotelGroup: {
+      title: 'Crear nueva organización',
+      subtitle: 'Todavía no tienes organización, crea tu organización para agregar un nuevo Hotel',
+    },
     session: {
       form: {
         name: 'Nombre',
@@ -9,9 +20,6 @@ export default {
       },
       user: {
         registered: 'Nuevo usuario registrado'
-      },
-      admin: {
-
       },
       register: {
         title: 'Registro',
@@ -31,11 +39,23 @@ export default {
       myOffers: 'Mis Ofertas',
       myBookings: 'Mis Reservas',
     },
+    billing: {
+      title: 'Facturación',
+      holdingName: 'Nombre para facturación',
+      taxId: 'CIF/DNI/NIE',
+    },
+    city: {
+      title: 'Ciudad',
+    }
   },
   form: {
     validation: {
       required: 'Campo requerido',
     },
+    submit: 'Enviar',
+    name: 'Nombre',
+    description: 'Descripción',
+    address: 'Dirección',
   },
   user: {
     name: 'Nombre',

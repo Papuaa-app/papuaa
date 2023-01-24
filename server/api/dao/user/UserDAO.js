@@ -103,8 +103,8 @@ export default function UserDAO (deps) {
         foreignKey: 'userId',
         otherKey: 'hotelGroupId',
         as: {
-          singular: 'hotel',
-          plural: 'hotels',
+          singular: 'hotelGroup',
+          plural: 'hotelGroups',
         },
         onDelete: 'cascade'
       });

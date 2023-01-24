@@ -6,16 +6,18 @@
 
 <script>
 import { useSessionStore } from '@/store/session';
-import { mapActions, mapWritableState } from 'pinia';
+import { mapState } from 'pinia';
 
 export default {
   name: 'HotelInformation',
   computed: {
-    ...mapWritableState(useSessionStore, { me: 'me' }),
+    ...mapState(useSessionStore, [ 'me' ] ),
   },
   created () {
-    console.log(this.me);
-  },
+    if (!this.me.hotelGroups.length) {
+      this.$router.push({ name: 'HotelWizard' });
+    }
+  }
 };
 </script>
 

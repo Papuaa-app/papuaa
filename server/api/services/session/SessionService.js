@@ -48,7 +48,7 @@ export default class SessionService {
     // const passDecrypted = await this._decryptPass(password);
     // const seed = crypto.createHash('sha256').update(`${user._id}${this.config.security.salt}`, 'utf8').digest('base64');
     // const hashedPassword = crypto.createHash('sha256').update(`${passDecrypted}${seed}`, 'utf8').digest('base64');
-    const user = await this.userService.get({ email, password }, 'session', true);
+    const user = await this.userService.get({ email, password }, true, 'session');
     if (!user) {
       this.logger.error(`Error at login user with email: ${email}`);
       return Promise.reject({ statusCode: this.httpStatusCodes.UNAUTHORIZED, data: [ { i18nKey: 'user.notFound' } ] });

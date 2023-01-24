@@ -63,7 +63,7 @@ class SessionController {
       // TODO
       // trackingService.track({ employee, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
     } catch (err) {
-      this.logger.error('login', err);
+      this.logger.error('register', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
       res.status(statusCode).json(this.responses(data));
       // trackingService.track({
