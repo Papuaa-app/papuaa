@@ -1,9 +1,9 @@
 'use strict';
 
-const apiServerPort = import.meta.env.VITE_API_SERVER_PORT;
-const apiServerHostname = import.meta.env.VITE_API_SERVER_HOSTNAME;
-const apiProtocol = import.meta.env.VITE_API_SERVER_PROTOCOL;
-const apiPrefix = import.meta.env.VITE_API_PREFIX;
+const apiServerPort = process.env.API_SERVER_PORT || import.meta.env.VITE_API_SERVER_PORT;
+const apiServerHostname = process.env.API_SERVER_HOSTNAME || import.meta.env.VITE_API_SERVER_HOSTNAME;
+const apiProtocol = process.env.API_SERVER_PROTOCOL || import.meta.env.VITE_API_SERVER_PROTOCOL;
+const apiPrefix = process.env.API_PREFIX ||  import.meta.env.VITE_API_PREFIX;
 
 export default {
   baseUri: `${apiProtocol}://${apiServerHostname}${apiServerPort && `:${apiServerPort}`}${apiPrefix}`,
