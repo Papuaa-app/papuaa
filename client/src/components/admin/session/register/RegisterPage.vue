@@ -105,10 +105,10 @@ export default {
     favicon,
     logoPapuaa,
     registerForm: {
-      name: 'David',
-      surname: 'Balboa Rojo',
-      email: 'david@papuaa.com',
-      password: 'Gssaosamm7',
+      name: undefined,
+      surname: undefined,
+      email: undefined,
+      password: undefined,
     },
   }),
   computed: {
