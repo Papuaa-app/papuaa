@@ -19,6 +19,14 @@ const CreateNewHotelGroup = import('@/components/admin/hotel-group/CreateNewHote
 const HotelGroupAdmin = import('@/components/admin/hotel-group/HotelGroupAdmin.vue');
 const HotelGroupForm = import('@/components/admin/hotel-group/HotelGroupForm.vue');
 
+/** Hotel **/
+const CreateNewHotel = import('@/components/admin/hotel/CreateNewHotel.vue');
+const HotelAdmin = import('@/components/admin/hotel/HotelAdmin.vue');
+const HotelForm = import('@/components/admin/hotel/HotelForm.vue');
+
+/** User **/
+const UserExtra = import('@/components/admin/user/UserExtra.vue');
+
 const authenticated = JSON.parse(localStorage.getItem('authenticated'));
 const isAdmin = JSON.parse(localStorage.getItem('isAdmin'));
 
@@ -75,12 +83,10 @@ const routes = [
               {
                 path: 'info',
                 name: 'HotelInformation',
-                component: () => HotelInformation,
-              },
-              {
-                path: 'wizard',
-                name: 'HotelWizard',
-                component: () => CreateNewHotelGroup,
+                components: {
+                  default: () => HotelInformation,
+                  extra: () => UserExtra,
+                },
               },
             ],
           },
@@ -93,6 +99,18 @@ const routes = [
                 path: 'create',
                 name: 'CreateHotelGroup',
                 component: () => HotelGroupForm,
+              },
+            ]
+          },
+          {
+            path: 'hotels',
+            name: 'HotelAdmin',
+            component: () => HotelAdmin,
+            children: [
+              {
+                path: 'create',
+                name: 'CreateHotel',
+                component: () => HotelForm,
               },
             ]
           },

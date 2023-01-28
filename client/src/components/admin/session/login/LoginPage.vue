@@ -13,6 +13,7 @@
             ref="form"
             v-model="valid"
             lazy-validation
+            @submit.prevent="submit"
           >
             <div class="d-flex flex-column align-center mb-10">
               <div>
@@ -41,6 +42,7 @@
               </v-card-text>
               <div class="d-flex align-center justify-center pb-4">
                 <v-btn
+                  :loading="sessionFetching"
                   color="secondary"
                   @click="submit"
                 >
@@ -61,7 +63,7 @@ import favicon from '@/assets/logos/FAVICON.svg';
 import logoPapuaa from '@/assets/logos/LOGO_PAPUAA.svg';
 import form from '@/mixins/form';
 import { useSessionStore } from '@/store/session.js';
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 
 export default {
   name: 'LoginPage',
@@ -76,6 +78,9 @@ export default {
         password: undefined,
       }
     };
+  },
+  computed: {
+    ...mapState(useSessionStore, [ 'sessionFetching' ]),
   },
   methods: {
     ...mapActions(useSessionStore, [ 'login' ]),

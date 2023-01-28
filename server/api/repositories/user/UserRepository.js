@@ -11,12 +11,30 @@ export default class UserRepository {
     this.profileDao = deps.profileDao;
     this.hotelGroupDao = deps.hotelGroupDao;
     this.hotelGroupUserDao = deps.hotelGroupUserDao;
+    this.hotelDao = deps.hotelDao;
   }
 
-  async find (filters, isStrict, scopeStatus = 'allStatus') {
+  async find (filters, isStrict, scopeStatus = 'allStatus', isFull) {
     const parsedFilters = Object.keys(filters).map(filter => ({ [filter]: filters[filter] }));
     const operator = this.dbConnector.getMainDb().getOp()[isStrict ? 'and' : 'or'];
     const result = await this.userDao.getDAO().scope(scopeStatus).findOne({
+      include: isFull && [
+        {
+          through: {
+            model: this.hotelGroupUserDao.getDAO(),
+            as: 'hotelGroupUser',
+            where: {
+              userId: filters._id,
+            },
+          },
+          model: this.hotelGroupDao.getDAO(),
+          as: 'hotelGroups',
+          include: {
+            model: this.hotelDao.getDAO(),
+            as: 'hotels',
+          }
+        },
+      ],
       where: {
         [operator]: parsedFilters,
       }

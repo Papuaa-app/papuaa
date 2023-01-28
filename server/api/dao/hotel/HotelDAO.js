@@ -17,7 +17,6 @@ export default function HotelDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-    roomsNumber: DataTypes.INTEGER,
   }, {
     tableName: 'hotel',
     schema: dbConnector.getMainDb().getSchema().options.schema,

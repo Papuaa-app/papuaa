@@ -76,6 +76,7 @@ import { useCityStore } from '@/store/city';
 import { useHotelGroupStore } from '@/store/hotelGroup';
 import { useSessionStore } from '@/store/session';
 import { mapActions, mapState } from 'pinia';
+import eventBus from '@/plugins/eventBus';
 
 export default {
   name: 'HotelGroupForm',
@@ -122,7 +123,9 @@ export default {
             userId: this.me._id,
           });
         }
-        await goTo('AdminHome');
+        const redirect = this.$route.params?.redirect;
+        await goTo(redirect || 'AdminHome');
+        eventBus.$emit('HOTEL_GROUP_CREATED');
       }
     }
   }

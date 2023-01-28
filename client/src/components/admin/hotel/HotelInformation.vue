@@ -1,6 +1,11 @@
 <template>
   <div>
-    hotel info
+    <div v-if="hotels">
+      hotel groups
+    </div>
+    <div v-else>
+      hotel info
+    </div>
   </div>
 </template>
 
@@ -12,12 +17,10 @@ export default {
   name: 'HotelInformation',
   computed: {
     ...mapState(useSessionStore, [ 'me' ] ),
+    hotels () {
+      return this.me.hotelGroups?.find(hotelGroup => !!hotelGroup.hotels?.length);
+    },
   },
-  created () {
-    if (!this.me.hotelGroups.length) {
-      this.$router.push({ name: 'HotelWizard' });
-    }
-  }
 };
 </script>
 

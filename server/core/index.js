@@ -43,7 +43,6 @@ function loadAPI (app) {
     app.use(isAuthenticated);
     app.use(isGranted);
     const controllers = loadControllers('./../api/controllers/**/*.js', { cwd: __dirname });
-    console.log(controllers);
     app.use(config.api.prefix, controllers);
     app.use(loggerMiddleware.end);
   } catch (err) {

@@ -1,16 +1,28 @@
 export default {
   admin: {
     hotelGroup: {
+      title: 'Organización',
       detail: {
         create: 'Crear una nueva organización',
         edit: 'Editar una nueva organización',
         billing: 'Facturación',
       },
     },
+    hotel: {
+      detail: {
+        create: 'Crear un nuevo hotel',
+        edit: 'Editar un hotel',
+      },
+    },
     createNewHotelGroup: {
       title: 'Crear nueva organización',
       subtitle: 'Todavía no tienes organización, crea tu organización para agregar un nuevo Hotel',
       access: 'Entrar en una organización'
+    },
+    createNewHotel: {
+      title: 'Crear nuevo hotel',
+      subtitle: 'Tu organización no tiene hoteles todavía, crea un nuevo hotel ahora',
+      access: 'Entrar en un hotel'
     },
     session: {
       form: {

@@ -34,6 +34,7 @@
         <v-row class="justify-center">
           <v-form
             ref="form"
+            v-model="valid"
             lazy-validation
             @submit.prevent="submit"
           >
@@ -69,7 +70,7 @@
                 <v-btn
                   variant="text"
                   class="text--normal"
-                  @click="goTo('adminLogin')"
+                  @click="goTo('AdminLogin')"
                 >
                   {{ $t('admin.session.register.redirectLogin') }}
                 </v-btn>
@@ -97,10 +98,12 @@ import logoPapuaa from '@/assets/logos/LOGO_PAPUAA.svg';
 import { mapActions, mapState } from 'pinia';
 import { useSessionStore } from '@/store/session';
 import { goTo } from '@/composables/router';
+import form from '@/mixins/form';
 
 export default {
   name: 'RegisterPage',
   components: { RegisterForm },
+  mixins: [ form ],
   data: () => ({
     favicon,
     logoPapuaa,

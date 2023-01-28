@@ -33,7 +33,8 @@ class UserController {
   async getUserById (req, res, next) {
     try {
       const { id } = req.params;
-      const result = await this.userService.get({ id }, true);
+      const { full } = req.query;
+      const result = await this.userService.get({ _id: id }, true, undefined, full);
       res.status(this.httpStatusCodes.OK).json(this.responses(result));
     } catch (err) {
       this.logger.error('getUserById', err);

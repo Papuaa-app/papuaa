@@ -56,6 +56,7 @@
 <script>
 import { goTo } from '@/composables/router';
 import AdminAppBar from '@/layouts/admin/AdminAppBar.vue';
+import eventBus from '@/plugins/eventBus';
 import { useSessionStore } from '@/store/session';
 import { mapActions, mapState } from 'pinia';
 
@@ -79,19 +80,26 @@ export default {
   async created () {
     await this.loadCriticalPath();
     this.fetching = false;
+    this.setUserListeners();
   },
   methods: {
-    ...mapActions(useSessionStore, [ 'getMe', 'getMyHotelGroups', 'logout' ]),
+    ...mapActions(useSessionStore, [ 'getMe', 'getFullMe', 'logout' ]),
+    goTo,
     async loadCriticalPath () {
       await this.getMe();
-      await Promise.all([
-        this.getMyHotelGroups(),
-      ]);
+      await this.getFullMe();
     },
-    goTo,
     switchDrawer () {
       this.drawerVisible = !this.drawerVisible;
     },
+    setUserListeners () {
+      eventBus.$on('HOTEL_GROUP_CREATED', async () => {
+        await this.getFullMe();
+      });
+      eventBus.$on('HOTEL_CREATED', async () => {
+        await this.getFullMe();
+      });
+    }
   },
 };
 </script>

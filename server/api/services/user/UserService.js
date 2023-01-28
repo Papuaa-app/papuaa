@@ -6,8 +6,8 @@ export default class UserService {
     this.userRepository = deps.userRepository;
   }
 
-  async get (filters, isStrict, scope) {
-    const user = await this.userRepository.find(filters, isStrict, scope);
+  async get (filters, isStrict, scope, isFull) {
+    const user = await this.userRepository.find(filters, isStrict, scope, isFull);
     return user;
   }
 

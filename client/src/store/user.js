@@ -28,14 +28,18 @@ export const useUserStore = defineStore('user', {
         this.userFetching = false;
       }
     },
-    async getUserById (userId) {
+    async getUserById (userId, isFull) {
       try {
         this.userFetching = true;
         const { data } = await service.request({
           url: `/${userId}`,
           method: 'get',
+          params: {
+            full: isFull,
+          }
         });
         this.userDetail = data;
+        return data;
       } catch (err) {
         await service.manageError(err);
       } finally {

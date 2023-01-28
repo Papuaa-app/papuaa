@@ -21,7 +21,7 @@ export const useSessionStore = defineStore('session', {
     return {
       sessionFetching: false,
       session: undefined,
-      me: undefined,
+      me: 'asdf',
     };
   },
   actions: {
@@ -84,7 +84,7 @@ export const useSessionStore = defineStore('session', {
           title: i18n.t('admin.session.user.registered'),
           icon: 'success',
         });
-        await router.push({ name: 'adminLogin' });
+        await router.push({ name: 'AdminLogin' });
       } catch (err) {
         await service.manageError(err);
       } finally {
@@ -105,11 +105,11 @@ export const useSessionStore = defineStore('session', {
         this.sessionFetching = false;
       }
     },
-    async getMyHotelGroups () {
+    async getFullMe () {
       try {
         this.sessionFetching = true;
         const user = useUserStore();
-        this.me.hotelGroups = await user.getUserHotelGroups(this.me?._id);
+        this.me = await user.getUserById(this.me?._id, true);
       } catch (err) {
         await service.manageError(err);
       } finally {
