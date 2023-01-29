@@ -32,7 +32,7 @@ export default {
         password: 'Contraseña',
       },
       user: {
-        registered: 'Nuevo usuario registrado'
+        registered: 'Nuevo usuario registrado',
       },
       register: {
         title: 'Registro',
@@ -45,6 +45,7 @@ export default {
       login: {
         title: 'Acceder',
         submit: 'Entrar',
+        redirectRegister: '¿Todavía no tienes cuenta? Regístrate.'
       },
     },
     home: {

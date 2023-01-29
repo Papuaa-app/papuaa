@@ -1,5 +1,5 @@
 <template>
-  <v-container class="h-100">
+  <div class="h-100">
     <v-img
       class="bg-image hidden-sm-and-down"
       cover
@@ -66,29 +66,30 @@
               <v-card-text>
                 <RegisterForm v-model="registerForm" />
               </v-card-text>
-              <v-card-text>
-                <v-btn
-                  variant="text"
-                  class="text--normal"
-                  @click="goTo('AdminLogin')"
-                >
-                  {{ $t('admin.session.register.redirectLogin') }}
-                </v-btn>
-              </v-card-text>
               <div class="d-flex align-center justify-center pb-4">
                 <v-btn
+                  :loading="sessionFetching"
                   color="secondary"
                   type="submit"
+                  @click="submit"
                 >
                   {{ $t('admin.session.register.submit') }}
                 </v-btn>
               </div>
+              <v-card-text>
+                <div
+                  class="mouse-click"
+                  @click="goTo('AdminLogin')"
+                >
+                  {{ $t('admin.session.register.redirectLogin') }}
+                </div>
+              </v-card-text>
             </v-card>
           </v-form>
         </v-row>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -115,7 +116,7 @@ export default {
     },
   }),
   computed: {
-    ...mapState(useSessionStore, [ 'session' ]),
+    ...mapState(useSessionStore, [ 'session', 'sessionFetching' ]),
   },
   methods: {
     goTo,

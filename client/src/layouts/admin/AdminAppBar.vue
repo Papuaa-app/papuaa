@@ -73,6 +73,7 @@
             <v-list-item
               v-for="menuItem in menu"
               :key="menuItem.label"
+              :disabled="menuItem.disabled"
               link
               @click="menuItem.action"
             >
@@ -128,6 +129,7 @@ export default {
           label: 'admin.settings.title',
           icon: 'mdi-cog',
           action: () => goTo('AdminSettingsPage'),
+          disabled: true,
         },
         {
           label: 'session.logout',

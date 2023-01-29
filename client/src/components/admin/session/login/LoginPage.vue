@@ -44,11 +44,20 @@
                 <v-btn
                   :loading="sessionFetching"
                   color="secondary"
+                  type="submit"
                   @click="submit"
                 >
                   {{ $t('admin.session.login.submit') }}
                 </v-btn>
               </div>
+              <v-card-text>
+                <div
+                  class="mouse-click"
+                  @click="goTo('AdminRegister')"
+                >
+                  {{ $t('admin.session.login.redirectRegister') }}
+                </div>
+              </v-card-text>
             </v-card>
           </v-form>
         </v-row>
@@ -61,6 +70,7 @@
 import LoginForm from '@/components/admin/session/login/LoginForm.vue';
 import favicon from '@/assets/logos/FAVICON.svg';
 import logoPapuaa from '@/assets/logos/LOGO_PAPUAA.svg';
+import { goTo } from '@/composables/router';
 import form from '@/mixins/form';
 import { useSessionStore } from '@/store/session.js';
 import { mapActions, mapState } from 'pinia';
@@ -83,6 +93,7 @@ export default {
     ...mapState(useSessionStore, [ 'sessionFetching' ]),
   },
   methods: {
+    goTo,
     ...mapActions(useSessionStore, [ 'login' ]),
     async submit () {
       const { valid } = await this.$refs.form.validate();
