@@ -5,41 +5,23 @@
     </div>
     <template v-else>
       <AdminAppBar @switch-drawer="switchDrawer" />
-      <v-navigation-drawer
-        v-model="drawerVisible"
-      >
-        <v-sheet
-          :height="!$vuetify.display.mobile ? '97%': '100%'"
-          class="d-flex flex-column justify-center align-center"
-        >
-          <div class="w-100">
-            <v-list
-              mandatory
-              nav
-            >
-              <v-list-item
-                v-for="(page, i) in pages"
-                :key="i"
-                active-color="secondary"
-                :active="page.routeName === $route.name"
-                :prepend-icon="page.icon"
-                :title="$t(page.name)"
-                :value="page.routeName"
-                @click="goTo(page.routeName)"
-              />
-            </v-list>
-          </div>
-          <div class="mt-auto">
-            <v-btn
-              class="mb-2"
-              @click="logout"
-            >
-              {{ $t('session.logout') }}
-              <v-icon class="ml-2">
-                mdi-exit-to-app
-              </v-icon>
-            </v-btn>
-          </div>
+      <v-navigation-drawer v-model="drawerVisible">
+        <v-sheet :height="!$vuetify.display.mobile ? '97%': '100%'">
+          <v-list
+            mandatory
+            nav
+          >
+            <v-list-item
+              v-for="page in pages"
+              :key="page.routeName"
+              active-color="secondary"
+              :active="page.routeName === $route.name"
+              :prepend-icon="page.icon"
+              :title="$t(page.name)"
+              :value="page.routeName"
+              @click="goTo(page.routeName)"
+            />
+          </v-list>
         </v-sheet>
       </v-navigation-drawer>
       <v-container class="main-container">
@@ -67,15 +49,17 @@ export default {
     return {
       fetching: true,
       drawerVisible: undefined,
-      pages: [
-        { name: 'admin.home.myHotel', icon: 'mdi-home-outline', routeName: 'HotelInformation' },
-        { name: 'admin.home.myOffers', icon: 'mdi-bed-king-outline', routeName: '' },
-        { name: 'admin.home.myBookings', icon: 'mdi-calendar-month-outline', routeName: '' },
-      ],
     };
   },
   computed: {
     ...mapState(useSessionStore, [ 'me' ] ),
+    pages () {
+      return [
+        { name: 'admin.home.title', icon: 'mdi-home-outline', routeName: 'HotelInformation' },
+        { name: 'admin.home.myOffers', icon: 'mdi-bed-king-outline', routeName: '' },
+        { name: 'admin.home.myBookings', icon: 'mdi-calendar-month-outline', routeName: '' },
+      ];
+    },
   },
   async created () {
     await this.loadCriticalPath();
@@ -83,7 +67,7 @@ export default {
     this.setUserListeners();
   },
   methods: {
-    ...mapActions(useSessionStore, [ 'getMe', 'getFullMe', 'logout' ]),
+    ...mapActions(useSessionStore, [ 'getMe', 'getFullMe' ]),
     goTo,
     async loadCriticalPath () {
       await this.getMe();

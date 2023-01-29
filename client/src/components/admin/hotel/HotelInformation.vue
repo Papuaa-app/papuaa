@@ -4,7 +4,17 @@
       hotel groups
     </div>
     <div v-else>
-      hotel info
+      <v-card variant="tonal">
+        <v-card-title>
+          <v-icon>
+            mdi-office-building-remove-outline
+          </v-icon>
+          {{ $t('admin.home.notFound') }}
+        </v-card-title>
+        <v-card-text>
+          {{ $t('admin.home.notFoundInfo') }}
+        </v-card-text>
+      </v-card>
     </div>
   </div>
 </template>

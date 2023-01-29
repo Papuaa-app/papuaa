@@ -91,7 +91,6 @@ export const useHotelGroupStore = defineStore('hotelGroup', {
           title: i18n.t('hotelGroup.user.added'),
           icon: 'success',
         });
-        this.hotelGroupDetail = data;
       } catch (err) {
         await service.manageError(err);
       } finally {

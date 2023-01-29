@@ -15,6 +15,15 @@ export default function UserDAO (deps) {
     },
     name: DataTypes.STRING,
     surname: DataTypes.STRING,
+    fullName: {
+      type: DataTypes.VIRTUAL,
+      get () {
+        return `${this.name} ${this.surname}`;
+      },
+      set (value) {
+        throw new Error('fullName is a virtual field');
+      }
+    },
     email: {
       type: DataTypes.STRING(96),
       unique: true,

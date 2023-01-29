@@ -17,7 +17,7 @@
           <v-btn
             class="ma-1"
             variant="flat"
-            @click="goTo('CreateHotelGroup', { target: 'user', redirect: 'AdminHome'  })"
+            @click="goTo('CreateHotelGroup', { target: 'user', redirect: 'AdminHome' })"
           >
             {{ $t('admin.createNewHotelGroup.title') }}
           </v-btn>

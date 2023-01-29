@@ -113,6 +113,7 @@ export default {
   methods: {
     ...mapActions(useCityStore, [ 'getCities' ]),
     ...mapActions(useHotelGroupStore, [ 'upsertHotelGroup', 'addUserToHotelGroup' ]),
+    ...mapActions(useSessionStore, [ 'setActiveOrganizationId' ]),
     async submit () {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
@@ -122,6 +123,7 @@ export default {
             hotelGroupId: this.hotelGroupDetail._id,
             userId: this.me._id,
           });
+          this.setActiveOrganizationId(this.hotelGroupDetail._id);
         }
         const redirect = this.$route.params?.redirect;
         await goTo(redirect || 'AdminHome');

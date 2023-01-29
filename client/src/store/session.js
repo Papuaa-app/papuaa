@@ -1,3 +1,4 @@
+import localStorage from '@/composables/localStorage';
 import { defineStore } from 'pinia';
 import RestService from '@/service';
 import router from '@/router';
@@ -5,23 +6,17 @@ import { toast } from '@/composables/sweetalert';
 import { i18n } from '@/plugins/i18n';
 // import asymmetricEncrypt from '@/composables/encrypt';
 import { useUserStore } from './user';
+import ls from '@/composables/localStorage';
 
 const service = new RestService({ namespace: '/session' });
-
-function setLocalStorage (key, value) {
-  localStorage.setItem(key, value);
-}
-
-function getLocalStorage (key) {
-  return parseInt(localStorage.getItem(key));
-}
 
 export const useSessionStore = defineStore('session', {
   state () {
     return {
       sessionFetching: false,
       session: undefined,
-      me: 'asdf',
+      me: undefined,
+      activeOrganizationId: undefined,
     };
   },
   actions: {
@@ -37,8 +32,8 @@ export const useSessionStore = defineStore('session', {
             // password: key.encrypt(password, 'base64', 'utf8'),
           }
         });
-        setLocalStorage('authenticated', data.authenticated);
-        setLocalStorage('isAdmin', isAdmin);
+        ls.set('authenticated', data.authenticated);
+        ls.set('isAdmin', isAdmin);
         if (isAdmin) {
           await router.push({ name: 'AdminHome' });
         } else {
@@ -53,8 +48,8 @@ export const useSessionStore = defineStore('session', {
     async logout () {
       try {
         console.log('logout');
-        setLocalStorage('authenticated', false);
-        if (getLocalStorage('isAdmin')) {
+        ls.get('authenticated', false);
+        if (ls.get('isAdmin')) {
           await router.push({ name: 'AdminLogin' });
         } else {
           // TODO - user login
@@ -91,6 +86,20 @@ export const useSessionStore = defineStore('session', {
         this.sessionFetching = false;
       }
     },
+    setActiveOrganizationId (activeOrganizationId) {
+      const orgId = activeOrganizationId || ls.get('activeOrganizationId');
+      const existsOrg = orgId && !!this.me.hotelGroups?.find(hotelGroup => hotelGroup._id === orgId);
+      if (existsOrg) {
+        this.activeOrganizationId = orgId;
+      } else {
+        ls.set('activeOrganizationId', null);
+      }
+      if (!this.activeOrganizationId && this.me.hotelGroups?.length) {
+        const firstHotelGroupId = this.me.hotelGroups.at(0)._id;
+        ls.set('activeOrganizationId', firstHotelGroupId);
+        this.activeOrganizationId = firstHotelGroupId;
+      }
+    },
     async getMe () {
       try {
         this.sessionFetching = true;
@@ -110,6 +119,7 @@ export const useSessionStore = defineStore('session', {
         this.sessionFetching = true;
         const user = useUserStore();
         this.me = await user.getUserById(this.me?._id, true);
+        this.setActiveOrganizationId();
       } catch (err) {
         await service.manageError(err);
       } finally {

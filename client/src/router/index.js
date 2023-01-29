@@ -1,6 +1,6 @@
-
 import { useSessionStore } from '@/store/session';
 import { createRouter, createWebHistory } from 'vue-router';
+import ls from '@/composables/localStorage';
 
 /** Session **/
 const RegisterPage = import('@/components/admin/session/register/RegisterPage');
@@ -27,8 +27,8 @@ const HotelForm = import('@/components/admin/hotel/HotelForm.vue');
 /** User **/
 const UserExtra = import('@/components/admin/user/UserExtra.vue');
 
-const authenticated = JSON.parse(localStorage.getItem('authenticated'));
-const isAdmin = JSON.parse(localStorage.getItem('isAdmin'));
+const authenticated = ls.get('authenticated');
+const isAdmin = ls.get('isAdmin');
 
 const routes = [
   {
@@ -126,12 +126,11 @@ const router = createRouter({
 });
 
 router.beforeEach(async (to, from, next) => {
-  const authenticated = localStorage.getItem('authenticated');
+  const authenticated = ls.get('authenticated');
   const store = useSessionStore();
   const requiresAuth = to.matched.some(route => route.meta.requiresAuth);
   if (requiresAuth && !authenticated) {
     // TODO - Login user
-    console.log('try logout');
     await store.logout();
   }
   next();

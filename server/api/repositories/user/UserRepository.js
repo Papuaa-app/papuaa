@@ -14,7 +14,7 @@ export default class UserRepository {
     this.hotelDao = deps.hotelDao;
   }
 
-  async find (filters, isStrict, scopeStatus = 'allStatus', isFull) {
+  async find (filters, isStrict, scopeStatus = 'activeStatus', isFull) {
     const parsedFilters = Object.keys(filters).map(filter => ({ [filter]: filters[filter] }));
     const operator = this.dbConnector.getMainDb().getOp()[isStrict ? 'and' : 'or'];
     const result = await this.userDao.getDAO().scope(scopeStatus).findOne({

@@ -16,7 +16,7 @@ export default {
     },
     createNewHotelGroup: {
       title: 'Crear nueva organización',
-      subtitle: 'Todavía no tienes organización, crea tu organización para agregar un nuevo Hotel',
+      subtitle: 'Todavía no tienes organización, crea tu organización para agregar un nuevo hotel',
       access: 'Entrar en una organización'
     },
     createNewHotel: {
@@ -48,9 +48,11 @@ export default {
       },
     },
     home: {
-      myHotel: 'Mi Hotel',
+      title: 'Home',
       myOffers: 'Mis Ofertas',
       myBookings: 'Mis Reservas',
+      notFound: 'Todavía no tienes un hotel',
+      notFoundInfo: 'Aquí podrás ver un resumen de la información de tu hotel'
     },
     billing: {
       title: 'Facturación',
@@ -59,7 +61,11 @@ export default {
     },
     city: {
       title: 'Ciudad',
-    }
+    },
+    settings: {
+      title: 'Configuración',
+      noOrganizations: 'No hay organizaciones',
+    },
   },
   form: {
     validation: {
