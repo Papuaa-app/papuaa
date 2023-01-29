@@ -71,7 +71,7 @@ export default {
     validation: {
       required: 'Campo requerido',
     },
-    submit: 'Enviar',
+    submit: 'Guardar',
     name: 'Nombre',
     description: 'Descripción',
     address: 'Dirección',

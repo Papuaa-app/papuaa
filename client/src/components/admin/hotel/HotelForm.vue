@@ -70,13 +70,15 @@ export default {
       hotelForm: {
         name: undefined,
         description: undefined,
+        hotelGroupId: undefined,
+        cityId: undefined,
       }
     };
   },
   computed: {
     ...mapState(useHotelStore, [ 'hotelFetching', 'hotelDetail' ]),
     ...mapState(useCityStore, [ 'cities' ]),
-    ...mapState(useSessionStore, [ 'me' ]),
+    ...mapState(useSessionStore, [ 'me', 'activeOrganizationId' ]),
     isNew () {
       return this.$route.params?.id;
     },
@@ -93,7 +95,7 @@ export default {
     ...mapActions(useCityStore, [ 'getCities' ]),
     fillForm () {
       this.hotelForm = Object.assign({}, this.hotelForm, { ...this.hotelDetail });
-      this.hotelForm.hotelGroupId = this.me.hotelGroups?.at(0)._id;
+      this.hotelForm.hotelGroupId = this.activeOrganizationId || this.me.hotelGroups?.at(0)._id;
     },
     async submit () {
       const { valid } = await this.$refs.form.validate();

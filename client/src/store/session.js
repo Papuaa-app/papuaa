@@ -55,10 +55,6 @@ export const useSessionStore = defineStore('session', {
           // TODO - user login
           await router.push({ name: 'AdminLogin' });
         }
-        toast.fire({
-          title: i18n.t('session.user.logout'),
-          icon: 'success',
-        });
       } catch (err) {
         await service.manageError(err);
       }
@@ -91,6 +87,7 @@ export const useSessionStore = defineStore('session', {
       const existsOrg = orgId && !!this.me.hotelGroups?.find(hotelGroup => hotelGroup._id === orgId);
       if (existsOrg) {
         this.activeOrganizationId = orgId;
+        ls.set('activeOrganizationId', orgId);
       } else {
         ls.set('activeOrganizationId', null);
       }

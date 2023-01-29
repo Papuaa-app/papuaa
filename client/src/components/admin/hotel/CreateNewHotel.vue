@@ -17,7 +17,7 @@
             color="secondary"
             class="ma-1"
             variant="flat"
-            @click="goTo('CreateHotel', { target: 'user' })"
+            @click="goTo('CreateHotel')"
           >
             {{ $t('admin.createNewHotel.title') }}
           </v-btn>
