@@ -71,7 +71,6 @@
                   :loading="sessionFetching"
                   color="secondary"
                   type="submit"
-                  @click="submit"
                 >
                   {{ $t('admin.session.register.submit') }}
                 </v-btn>

@@ -41,7 +41,6 @@
             <v-btn
               class="text-white"
               type="submit"
-              @click="submit"
             >
               {{ $t('form.submit') }}
             </v-btn>
