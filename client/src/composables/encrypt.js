@@ -1,8 +1,8 @@
-import JSEncrypt from 'jsencrypt';
+import NodeRsa from 'node-rsa';
 import config from '@/config';
 
-export default function asymmetricEncrypt (text) {
-  const encryptor = new JSEncrypt({ default_key_size: '4096' });
-  encryptor.setPublicKey(config.publicKey);
-  return encryptor.encrypt(text).toString();
+const encryptor = new NodeRsa(config.publicKey);
+
+export default function asymmetricEncrypt (str) {
+  return encryptor.encrypt(str, 'base64', 'utf8');
 }

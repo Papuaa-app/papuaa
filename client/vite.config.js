@@ -1,8 +1,8 @@
-import vue from '@vitejs/plugin-vue';
-import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
-
 import { defineConfig } from 'vite';
 import { URL, fileURLToPath } from 'node:url';
+import vue from '@vitejs/plugin-vue';
+import vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
+import nodePolyfills from 'vite-plugin-node-stdlib-browser';
 
 export default defineConfig({
   plugins: [
@@ -15,6 +15,7 @@ export default defineConfig({
         configFile: 'src/styles/styles.scss',
       },
     }),
+    nodePolyfills(),
   ],
   define: { 'process.env': {} },
   resolve: {

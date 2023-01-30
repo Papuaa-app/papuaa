@@ -3,9 +3,9 @@ import RestService from '@/service';
 import router from '@/router';
 import { toast } from '@/composables/sweetalert';
 import { i18n } from '@/plugins/i18n';
-// import asymmetricEncrypt from '@/composables/encrypt';
 import { useUserStore } from './user';
 import ls from '@/composables/localStorage';
+import asymmetricEncrypt from '@/composables/encrypt';
 
 const service = new RestService({ namespace: '/session' });
 
@@ -27,8 +27,7 @@ export const useSessionStore = defineStore('session', {
           method: 'POST',
           data: {
             email,
-            password,
-            // password: key.encrypt(password, 'base64', 'utf8'),
+            password: asymmetricEncrypt(password),
           }
         });
         ls.set('authenticated', data.authenticated);
@@ -39,7 +38,8 @@ export const useSessionStore = defineStore('session', {
           await router.push({ name: 'Home' });
         }
       } catch (err) {
-        await service.manageError(err);
+        console.log(err);
+        // await service.manageError(err);
       } finally {
         this.sessionFetching = false;
       }
@@ -69,8 +69,7 @@ export const useSessionStore = defineStore('session', {
           method: 'POST',
           data: {
             ...newUser,
-            // TODO - ENCRYPTION
-            // password: asymmetricEncrypt(newUser.password),
+            password: asymmetricEncrypt(newUser.password),
           },
         });
         toast.fire({
