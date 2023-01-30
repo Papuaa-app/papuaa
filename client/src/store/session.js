@@ -1,4 +1,3 @@
-import localStorage from '@/composables/localStorage';
 import { defineStore } from 'pinia';
 import RestService from '@/service';
 import router from '@/router';
@@ -47,8 +46,11 @@ export const useSessionStore = defineStore('session', {
     },
     async logout () {
       try {
-        console.log('logout');
-        ls.get('authenticated', false);
+        await service.request({
+          url: '/logout',
+          method: 'POST',
+        });
+        ls.set('authenticated', false);
         if (ls.get('isAdmin')) {
           await router.push({ name: 'AdminLogin' });
         } else {

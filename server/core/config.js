@@ -15,6 +15,7 @@ module.exports = {
   cors: {
     origin: (process.env.CORS_ORIGIN || '').split(','),
     credentials: true,
+    sameSite: (process.env.CORS_COOKIE_SAME_SITE && JSON.parse(process.env.CORS_COOKIE_SAME_SITE)),
   },
   admin: {
     profileId: process.env.ADMIN_PROFILE_ID,
@@ -75,11 +76,13 @@ module.exports = {
   defaultLanguage: 'es',
   publicEndpoints: [
     { method: 'post', url: `${api.prefix}/session/login` },
+    { method: 'post', url: `${api.prefix}/session/logout` },
     { method: 'post', url: `${api.prefix}/session/register` },
     { method: 'post', url: `${api.prefix}/session/admin/register` },
   ],
   allowedEndpoints: [
     { method: 'post', url: `${api.prefix}/session/login` },
+    { method: 'post', url: `${api.prefix}/session/logout` },
     { method: 'post', url: `${api.prefix}/session/register` },
     { method: 'post', url: `${api.prefix}/session/admin/register` },
   ],

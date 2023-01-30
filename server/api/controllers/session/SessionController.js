@@ -17,11 +17,12 @@ class SessionController {
     this.responses = deps.responses;
   }
 
-  _cookieOptions (httpOnly) {
+  _cookieOptions () {
     return {
       maxAge: this.config.security.expirationTime * 1000,
       secure: this.config.security.cookieSessionSecure,
-      httpOnly,
+      httpOnly: true,
+      sameSite: this.config.cors.sameSite ? 'lax' : 'none',
     };
   }
 
@@ -29,16 +30,16 @@ class SessionController {
     try {
       const { email, password } = req.body;
       const { accessToken, tokenType } = await this.sessionService.login({ email, password });
-      res.cookie('authorization', `${tokenType} ${accessToken}`, this._cookieOptions(true));
+      res.cookie('authorization', `${tokenType} ${accessToken}`, this._cookieOptions());
       res.status(this.httpStatusCodes.OK).json(this.responses({ authenticated: true }));
       // TODO
-      // trackingService.track({ employee, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
+      // trackingService.track({ user, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
     } catch (err) {
       this.logger.error('login', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
       res.status(statusCode).json(this.responses(data));
       // trackingService.track({
-      //   employee: null,
+      //   user: null,
       //   req,
       //   trackingInfo: [
       //     {
@@ -55,19 +56,42 @@ class SessionController {
     }
   }
 
+  async logout (req, res, next) {
+    try {
+      // const { user } = req.container.cradle;
+      // const googleTokens = await cache.get(`${user.email}-google-tokens`);
+      // if (googleTokens) {
+      //   await cache.del(`${user.email}-google-tokens`);
+      // }
+      res.cookie('authorization', false, {
+        maxAge: 0,
+        httpOnly: true,
+        secure: this.config.security.cookieSessionSecure,
+      });
+      res.status(this.httpStatusCodes.OK).json(this.responses());
+      // trackingService.track({ user, req, trackingInfo: { kpiId: 11 } });
+    } catch (err) {
+      this.logger.error('logout', err);
+      const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
+      res.status(statusCode).json(this.responses(data));
+    } finally {
+      next();
+    }
+  }
+
   async register (req, res, next) {
     try {
       const newUser = req.body;
       await this.sessionService.register(newUser, false);
       res.status(this.httpStatusCodes.OK).json(this.responses());
       // TODO
-      // trackingService.track({ employee, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
+      // trackingService.track({ user, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
     } catch (err) {
       this.logger.error('register', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
       res.status(statusCode).json(this.responses(data));
       // trackingService.track({
-      //   employee: null,
+      //   user: null,
       //   req,
       //   trackingInfo: [
       //     {
@@ -90,13 +114,13 @@ class SessionController {
       await this.sessionService.register(newUser, true);
       res.status(this.httpStatusCodes.OK).json(this.responses());
       // TODO
-      // trackingService.track({ employee, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
+      // trackingService.track({ user, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
     } catch (err) {
       this.logger.error('login', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
       res.status(statusCode).json(this.responses(data));
       // trackingService.track({
-      //   employee: null,
+      //   user: null,
       //   req,
       //   trackingInfo: [
       //     {
@@ -124,6 +148,7 @@ class SessionController {
 export default createController(SessionController)
   .prefix('/session')
   .post('/login', 'login', { before: [ loginValidator ] })
+  .post('/logout', 'logout')
   .post('/register', 'register', { before: [ registerValidator ] })
   .post('/admin/register', 'adminRegister', { before: [ registerValidator ] })
   .get('/me', 'getMe');
