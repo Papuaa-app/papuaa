@@ -23,7 +23,7 @@
       </v-row>
     </v-img>
     <v-row
-      class="h-100"
+      class="h-100 ma-0"
       align="center"
       justify="end"
     >
@@ -31,7 +31,7 @@
         class="text-center"
         :offset="$vuetify.display.mdAndUp ? 6 : 0"
       >
-        <v-row class="justify-center">
+        <v-row class="ma-0 justify-center">
           <v-form
             ref="form"
             v-model="valid"

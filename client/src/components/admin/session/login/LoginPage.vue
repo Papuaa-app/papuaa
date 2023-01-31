@@ -1,14 +1,14 @@
 <template>
   <div class="h-100">
     <v-row
-      class="h-100"
+      class="h-100 ma-0"
       align="center"
       justify="end"
     >
       <v-col
         class="text-center"
       >
-        <v-row class="justify-center">
+        <v-row class="ma-0 justify-center">
           <v-form
             ref="form"
             v-model="valid"
