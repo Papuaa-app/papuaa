@@ -18,7 +18,7 @@
       </div>
     </v-toolbar-title>
     <v-toolbar-items class="pt-1 pr-2">
-      <v-menu open-on-hover>
+      <v-menu>
         <template #activator="{ props }">
           <v-btn
             color="primary"
