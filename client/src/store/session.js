@@ -24,7 +24,7 @@ export const useSessionStore = defineStore('session', {
         this.sessionFetching = true;
         const { data } = await service.request({
           url: '/login',
-          method: 'POST',
+          method: 'post',
           data: {
             email,
             password: asymmetricEncrypt(password),
@@ -38,8 +38,7 @@ export const useSessionStore = defineStore('session', {
           await router.push({ name: 'Home' });
         }
       } catch (err) {
-        console.log(err);
-        // await service.manageError(err);
+        await service.manageError(err);
       } finally {
         this.sessionFetching = false;
       }
@@ -48,7 +47,7 @@ export const useSessionStore = defineStore('session', {
       try {
         await service.request({
           url: '/logout',
-          method: 'POST',
+          method: 'post',
         });
         ls.set('authenticated', false);
         if (ls.get('isAdmin')) {
@@ -64,9 +63,9 @@ export const useSessionStore = defineStore('session', {
     async register (newUser) {
       try {
         this.sessionFetching = true;
-        const { data } = await service.request({
+        await service.request({
           url: '/admin/register',
-          method: 'POST',
+          method: 'post',
           data: {
             ...newUser,
             password: asymmetricEncrypt(newUser.password),

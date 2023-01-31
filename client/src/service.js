@@ -5,6 +5,7 @@ import HttpStatusCodes from 'http-status-codes';
 import config from '@/config';
 import Swal from 'sweetalert2';
 import router from '@/router';
+import eventBus from '@/plugins/eventBus';
 
 export default class Service {
 
@@ -18,7 +19,7 @@ export default class Service {
     this.axios.interceptors.response.use(response => response,
       async err => {
         if (err && err.response && err.response.status === HttpStatusCodes.UNAUTHORIZED) {
-          if (router.currentRoute.path !== '/login') {
+          if (router.currentRoute.value.meta?.requiresAuth) {
             await Swal.fire({
               title: i18n.t('session.expired'),
               text: i18n.t('session.loginAgain'),
@@ -37,7 +38,7 @@ export default class Service {
       const response = await this.axios.request({ url, method, data, params });
       return response.data;
     } catch (err) {
-      console.log('error', err);
+      console.error('error in request', err);
       // Vue.$log.error('Error in request', err);
       throw err.response;
     }
@@ -60,7 +61,7 @@ export default class Service {
       });
       return response.data;
     } catch (err) {
-      console.log('error', err);
+      console.error('error in upload files', err);
       // Vue.$log.error('Error in request', err);
       throw err.response;
     }
@@ -80,6 +81,7 @@ export default class Service {
       document.body.appendChild(link);
       link.click();
     } catch (err) {
+      console.error('error in internal download', err);
       // Vue.$log.error('Error in request', err);
       throw err.response;
     }
@@ -93,29 +95,23 @@ export default class Service {
       link.target = '_blank';
       link.dispatchEvent(new MouseEvent('click'));
     } catch (err) {
+      console.error('error in external download', err);
       // Vue.$log.error('Error in request', err);
       throw err.response;
     }
   }
 
   async manageError (err) {
-    // Vue.$log.error('Managing error', err);
     const { data, status, config, request } = err;
-    const statusCodesWithoutErrorModal = [
-      HttpStatusCodes.UNAUTHORIZED,
-      HttpStatusCodes.TOO_MANY_REQUESTS,
-    ];
-    if (!statusCodesWithoutErrorModal.includes(status) || err.config.url.includes('login')) {
-      const errors = data && data.data;
+    if (status >= 500) {
       await Swal.fire({
-        html:
-          `<img class="error-img" src="img/error.png">` +
-          `<h3>${'titleError'}</h3>` +
-          (errors && errors.length ? `<div>${errors.map(error => `<div class="alert alert-danger" role="alert">${error.param ? `${error.param} -` : ''} ${error.i18nKey || error.msg}</div>`)}</div>` : '') +
-          `<p>${'informYourAdmin'}<p>` +
-          `<div class="text--secondary alert-show-more" style="font-size: .6em"><div>${data.traceId}</div>` +
-          `<div>${request.responseURL}</div></div>`,
+        title: i18n.t('error.title'),
+        text: `${data.traceId}`,
+        icon: 'error',
       });
+    } else {
+      console.error('error', err);
+      eventBus.$emit(`ERROR_FORM_${data.entity}`, err);
     }
   }
 

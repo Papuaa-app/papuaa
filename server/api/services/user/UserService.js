@@ -11,6 +11,11 @@ export default class UserService {
     return user;
   }
 
+  async updatePassword (userId, password) {
+    const user = await this.userRepository.updatePassword(userId, password);
+    return user;
+  }
+
   async create (newUser) {
     const user = await this.userRepository.create(newUser);
     return user;

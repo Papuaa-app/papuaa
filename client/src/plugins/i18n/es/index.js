@@ -80,6 +80,7 @@ export default {
   user: {
     name: 'Nombre',
     surname: 'Apellido',
+    alreadyExists: 'Ya existe un usuario con estas credenciales'
   },
   session: {
     expired: 'Tu sesión caducó',
@@ -89,4 +90,7 @@ export default {
       logout: 'Sesión cerrada',
     },
   },
+  error: {
+    title: 'Lo siento, se ha producido un error',
+  }
 };

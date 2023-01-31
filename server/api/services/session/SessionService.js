@@ -10,6 +10,7 @@ export default class SessionService {
     this.config = deps.config;
     this.moment = deps.moment;
     this.userService = deps.userService;
+    this.crypto = deps.crypto;
   }
 
   _generateNumberWithNDigits (n) {
@@ -44,11 +45,15 @@ export default class SessionService {
   
 
   async login ({ email, password }) {
-    // TODO - ENCRYPTION
-    // const passDecrypted = await this._decryptPass(password);
-    // const seed = crypto.createHash('sha256').update(`${user._id}${this.config.security.salt}`, 'utf8').digest('base64');
-    // const hashedPassword = crypto.createHash('sha256').update(`${passDecrypted}${seed}`, 'utf8').digest('base64');
-    const user = await this.userService.get({ email, password }, true, 'session');
+    const passDecrypted = await this._decryptPass(password);
+    let user = await this.userService.get({ email }, true, 'session');
+    if (!user) {
+      this.logger.error(`Error at login user with email: ${email}`);
+      return Promise.reject({ statusCode: this.httpStatusCodes.UNAUTHORIZED, data: [ { i18nKey: 'user.notFound' } ] });
+    }
+    const seed = this.crypto.createHash('sha256').update(`${user._id}${this.config.security.salt}`, 'utf8').digest('base64');
+    const hashedPassword = this.crypto.createHash('sha256').update(`${passDecrypted}${seed}`, 'utf8').digest('base64');
+    user = await this.userService.get({ email, password: hashedPassword }, true, 'session');
     if (!user) {
       this.logger.error(`Error at login user with email: ${email}`);
       return Promise.reject({ statusCode: this.httpStatusCodes.UNAUTHORIZED, data: [ { i18nKey: 'user.notFound' } ] });
@@ -58,17 +63,17 @@ export default class SessionService {
   }
 
   async register (newUser, isAdmin) {
-    let user = await this.userService.get({ email: newUser.email }) || {};
-    if (user._id) {
+    const userExists = await this.userService.get({ email: newUser.email });
+    if (userExists) {
       this.logger.error(`User with email ${newUser.email} already exists DB`);
       return Promise.reject({ statusCode: this.httpStatusCodes.UNAUTHORIZED, data: [ { i18nKey: 'user.alreadyExists' } ] });
     }
     newUser.profileId = isAdmin ? this.config.admin.profileId : this.config.user.profileId;
-    // TODO - ENCRYPTION
-    // const passDecrypted = await this._decryptPass(newUser.password);
-    // const seed = crypto.createHash('sha256').update(`${user._id}${this.config.security.salt}`, 'utf8').digest('base64');
-    // newUser.password = crypto.createHash('sha256').update(`${passDecrypted}${seed}`, 'utf8').digest('base64');
-    user = await this.userService.create(newUser);
+    const user = await this.userService.create(newUser);
+    const passDecrypted = await this._decryptPass(newUser.password);
+    const seed = this.crypto.createHash('sha256').update(`${user._id}${this.config.security.salt}`, 'utf8').digest('base64');
+    const hashedPassword = this.crypto.createHash('sha256').update(`${passDecrypted}${seed}`, 'utf8').digest('base64');
+    await this.userService.updatePassword(user._id, hashedPassword);
     this.logger.info(`New user registered -> (_id: ${user._id}) (email: ${user.email})`);
   }
 

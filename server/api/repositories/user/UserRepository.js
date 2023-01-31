@@ -89,4 +89,13 @@ export default class UserRepository {
     return result;
   }
 
+  async updatePassword (userId, password) {
+    const result = await this.userDao.getDAO().update({ password }, {
+      where: { 
+        _id: userId 
+      }, 
+    });
+    return result;
+  }
+
 }

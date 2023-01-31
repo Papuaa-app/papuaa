@@ -6,6 +6,7 @@ const handlebars = require('./utils/handlebars');
 import responses from './responses.js';
 import logger from './logger.js';
 import DBConnector from './connectors/dbConnector/index.js';
+import * as formatter from './utils/formatter';
 
 import { Lifetime, asClass, asFunction, asValue, createContainer } from 'awilix';
 import httpContext from 'express-http-context';
@@ -20,6 +21,7 @@ import { google } from 'googleapis';
 import jwt from 'jsonwebtoken';
 import nodeRSA from 'node-rsa';
 import axios from 'axios';
+import crypto from 'crypto';
 // const AWS = require('aws-sdk');
 // const spacesEndpoint = new AWS.Endpoint(`${config.spacesConfig.region}.${config.spacesConfig.endpoint}`);
 // const S3 = new AWS.S3({
@@ -44,13 +46,14 @@ container.register({
   moment: asValue(moment),
   // s3: asValue(S3),
   logger: asValue(logger),
-  // crypto: asValue(crypto),
+  crypto: asValue(crypto),
   axios: asValue(axios),
   jwt: asValue(jwt),
   encryptor: asValue(nodeRSA),
   config: asValue(config),
   responses: asValue(responses),
   google: asValue(google),
+  formatter: asValue(formatter),
 
 });
 

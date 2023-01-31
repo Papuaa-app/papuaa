@@ -37,6 +37,12 @@
                   <v-img :src="favicon" />
                 </v-avatar>
               </v-card-title>
+              <div class="d-flex justify-center">
+                <FormErrors
+                  :width="280"
+                  entity="session"
+                />
+              </div>
               <v-card-text>
                 <LoginForm v-model="loginForm" />
               </v-card-text>
@@ -69,6 +75,7 @@
 import LoginForm from '@/components/admin/session/login/LoginForm.vue';
 import favicon from '@/assets/logos/FAVICON.svg';
 import logoPapuaa from '@/assets/logos/LOGO_PAPUAA.svg';
+import FormErrors from '@/components/form/FormErrors.vue';
 import { goTo } from '@/composables/router';
 import form from '@/mixins/form';
 import { useSessionStore } from '@/store/session.js';
@@ -76,7 +83,7 @@ import { mapActions, mapState } from 'pinia';
 
 export default {
   name: 'LoginPage',
-  components: { LoginForm },
+  components: { FormErrors, LoginForm },
   mixins: [ form ],
   data () {
     return {

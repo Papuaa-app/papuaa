@@ -15,12 +15,10 @@ const AdminHome = import('@/components/admin/home/AdminHome');
 const HotelInformation = import('@/components/admin/hotel/HotelInformation.vue');
 
 /** Hotel Group **/
-const CreateNewHotelGroup = import('@/components/admin/hotel-group/CreateNewHotelGroup.vue');
 const HotelGroupAdmin = import('@/components/admin/hotel-group/HotelGroupAdmin.vue');
 const HotelGroupForm = import('@/components/admin/hotel-group/HotelGroupForm.vue');
 
 /** Hotel **/
-const CreateNewHotel = import('@/components/admin/hotel/CreateNewHotel.vue');
 const HotelAdmin = import('@/components/admin/hotel/HotelAdmin.vue');
 const HotelForm = import('@/components/admin/hotel/HotelForm.vue');
 
@@ -129,8 +127,7 @@ router.beforeEach(async (to, from, next) => {
   const authenticated = ls.get('authenticated');
   const store = useSessionStore();
   const requiresAuth = to.matched.some(route => route.meta.requiresAuth);
-  if (requiresAuth && !authenticated) {
-    // TODO - Login user
+  if (!authenticated && requiresAuth) {
     await store.logout();
   }
   next();

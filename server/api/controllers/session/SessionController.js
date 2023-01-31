@@ -1,5 +1,7 @@
 'use strict';
 
+import { requestEntity } from '../../../core/utils/formatter';
+
 const { createController } = require('awilix-express');
 const {
   loginValidator,
@@ -14,7 +16,7 @@ class SessionController {
     this.config = deps.config;
     this.responses = deps.responses;
     this.sessionService = deps.sessionService;
-    this.responses = deps.responses;
+    this.formatter = deps.formatter;
   }
 
   _cookieOptions () {
@@ -31,13 +33,13 @@ class SessionController {
       const { email, password } = req.body;
       const { accessToken, tokenType } = await this.sessionService.login({ email, password });
       res.cookie('authorization', `${tokenType} ${accessToken}`, this._cookieOptions());
-      res.status(this.httpStatusCodes.OK).json(this.responses({ authenticated: true }));
+      res.status(this.httpStatusCodes.OK).json(this.responses({ authenticated: true }, this.formatter.requestEntity(req)));
       // TODO
       // trackingService.track({ user, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
     } catch (err) {
       this.logger.error('login', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
-      res.status(statusCode).json(this.responses(data));
+      res.status(statusCode).json(this.responses(data, this.formatter.requestEntity(req)));
       // trackingService.track({
       //   user: null,
       //   req,
@@ -68,12 +70,12 @@ class SessionController {
         httpOnly: true,
         secure: this.config.security.cookieSessionSecure,
       });
-      res.status(this.httpStatusCodes.OK).json(this.responses());
+      res.status(this.httpStatusCodes.OK).json(this.responses(undefined, this.formatter.requestEntity(req)));
       // trackingService.track({ user, req, trackingInfo: { kpiId: 11 } });
     } catch (err) {
       this.logger.error('logout', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
-      res.status(statusCode).json(this.responses(data));
+      res.status(statusCode).json(this.responses(data, this.formatter.requestEntity(req)));
     } finally {
       next();
     }
@@ -83,13 +85,13 @@ class SessionController {
     try {
       const newUser = req.body;
       await this.sessionService.register(newUser, false);
-      res.status(this.httpStatusCodes.OK).json(this.responses());
+      res.status(this.httpStatusCodes.OK).json(this.responses(undefined, this.formatter.requestEntity(req)));
       // TODO
       // trackingService.track({ user, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
     } catch (err) {
       this.logger.error('register', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
-      res.status(statusCode).json(this.responses(data));
+      res.status(statusCode).json(this.responses(data, this.formatter.requestEntity(req)));
       // trackingService.track({
       //   user: null,
       //   req,
@@ -112,13 +114,13 @@ class SessionController {
     try {
       const newUser = req.body;
       await this.sessionService.register(newUser, true);
-      res.status(this.httpStatusCodes.OK).json(this.responses());
+      res.status(this.httpStatusCodes.OK).json(this.responses(undefined, this.formatter.requestEntity(req)));
       // TODO
       // trackingService.track({ user, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
     } catch (err) {
       this.logger.error('login', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
-      res.status(statusCode).json(this.responses(data));
+      res.status(statusCode).json(this.responses(data, this.formatter.requestEntity(req)));
       // trackingService.track({
       //   user: null,
       //   req,
@@ -139,7 +141,7 @@ class SessionController {
 
   async getMe (req, res, next) {
     const { user } = req.container.cradle;
-    res.status(this.httpStatusCodes.OK).json(this.responses(user));
+    res.status(this.httpStatusCodes.OK).json(this.responses(user, this.formatter.requestEntity(req)));
     next();
   }
 

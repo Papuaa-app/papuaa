@@ -63,6 +63,12 @@
                   <v-img :src="favicon" />
                 </v-avatar>
               </v-card-title>
+              <div class="d-flex justify-center">
+                <FormErrors
+                  :width="280"
+                  entity="session"
+                />
+              </div>
               <v-card-text>
                 <RegisterForm v-model="registerForm" />
               </v-card-text>
@@ -99,10 +105,11 @@ import { mapActions, mapState } from 'pinia';
 import { useSessionStore } from '@/store/session';
 import { goTo } from '@/composables/router';
 import form from '@/mixins/form';
+import FormErrors from '@/components/form/FormErrors.vue';
 
 export default {
   name: 'RegisterPage',
-  components: { RegisterForm },
+  components: { RegisterForm, FormErrors },
   mixins: [ form ],
   data: () => ({
     favicon,
