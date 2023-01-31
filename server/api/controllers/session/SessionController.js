@@ -145,7 +145,7 @@ class SessionController {
       const { full } = req.query;
       const { user } = req.container.cradle;
       if (full) {
-        const result = await this.userService.get({ _id: user._id }, true, undefined, full);
+        const result = await this.userService.getFullSessionUser(user._id);
         res.status(this.httpStatusCodes.OK).json(this.responses(result, this.formatter.requestEntity(req)));
       } else {
         res.status(this.httpStatusCodes.OK).json(this.responses(user, this.formatter.requestEntity(req)));

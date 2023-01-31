@@ -42,6 +42,31 @@ export default class UserRepository {
     return result;
   }
 
+  async getFullSessionUser (userId) {
+    const result = await this.userDao.getDAO().scope('activeStatus').findOne({
+      include: [
+        {
+          through: {
+            model: this.hotelGroupUserDao.getDAO(),
+            as: 'hotelGroupUser',
+          },
+          model: this.hotelGroupDao.getDAO(),
+          as: 'hotelGroups',
+          required: false,
+          include: {
+            model: this.hotelDao.getDAO(),
+            as: 'hotels',
+            required: false,
+          }
+        },
+      ],
+      where: {
+        _id: userId,
+      }
+    });
+    return result;
+  }
+
   async findEndpoints (userId) {
     const result = await this.endpointDao.getDAO().findAll({
       include: {

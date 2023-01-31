@@ -11,6 +11,11 @@ export default class UserService {
     return user;
   }
 
+  async getFullSessionUser (userId) {
+    const user = await this.userRepository.getFullSessionUser(userId);
+    return user;
+  }
+
   async updatePassword (userId, password) {
     const user = await this.userRepository.updatePassword(userId, password);
     return user;
