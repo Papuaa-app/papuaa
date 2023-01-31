@@ -1,27 +1,27 @@
 /* Variables */
 $admin-bg-color: #FAFAFA;
 
-.bg-primary {
+.bg-primary, div > .bg-primary {
   color: white !important;
 }
 
-.admin-bg-color {
+.admin-bg-color, div > .admin-bg-color {
   background-color: $admin-bg-color;
 }
 
-.text--normal {
+.text--normal, div > .text--normal {
   text-transform: initial !important;
 }
 
-.text-overflow {
+.text-overflow, div > .text-overflow {
   text-overflow: initial !important;
 }
 
-.white-space-no-wrap {
+.white-space-no-wrap, div > .white-space-no-wrap {
   white-space: normal !important;
 }
 
-.flex-form {
+.flex-form, div > .flex-form {
   display: flex;
   flex-wrap: wrap;
   & > .v-input {
@@ -30,6 +30,6 @@ $admin-bg-color: #FAFAFA;
   }
 }
 
-.mouse-click {
+.mouse-click, div > .mouse-click {
   cursor: pointer;
 }

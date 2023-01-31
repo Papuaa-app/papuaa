@@ -92,5 +92,14 @@ export default {
   },
   error: {
     title: 'Lo siento, se ha producido un error',
-  }
+  },
+  hotelGroup: {
+    created: 'Organización creada',
+    user: {
+      added: 'Usuario añadido a la organización',
+    }
+  },
+  hotel: {
+    created: 'Hotel creado',
+  },
 };
