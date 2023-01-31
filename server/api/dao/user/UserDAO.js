@@ -126,7 +126,6 @@ export default function UserDAO (deps) {
           singular: 'room',
           plural: 'rooms',
         },
-        onDelete: 'cascade'
       });
 
     }

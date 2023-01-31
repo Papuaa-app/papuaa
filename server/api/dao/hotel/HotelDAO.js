@@ -17,8 +17,17 @@ export default function HotelDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
+    status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
   }, {
     tableName: 'hotel',
+    defaultScope: {
+      where: {
+        status: 1
+      },
+    },
     schema: dbConnector.getMainDb().getSchema().options.schema,
   });
 

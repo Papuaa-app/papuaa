@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+html, body {
+  font-family: 'Red Hat Display', sans-serif !important;
+}
+
 /* Variables */
 $admin-bg-color: #FAFAFA;
 

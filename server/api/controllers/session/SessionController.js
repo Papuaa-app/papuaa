@@ -17,6 +17,7 @@ class SessionController {
     this.responses = deps.responses;
     this.sessionService = deps.sessionService;
     this.formatter = deps.formatter;
+    this.userService = deps.userService;
   }
 
   _cookieOptions () {
@@ -140,9 +141,22 @@ class SessionController {
   }
 
   async getMe (req, res, next) {
-    const { user } = req.container.cradle;
-    res.status(this.httpStatusCodes.OK).json(this.responses(user, this.formatter.requestEntity(req)));
-    next();
+    try {
+      const { full } = req.query;
+      const { user } = req.container.cradle;
+      if (full) {
+        const result = await this.userService.get({ _id: user._id }, true, undefined, full);
+        res.status(this.httpStatusCodes.OK).json(this.responses(result, this.formatter.requestEntity(req)));
+      } else {
+        res.status(this.httpStatusCodes.OK).json(this.responses(user, this.formatter.requestEntity(req)));
+      }
+    } catch (err) {
+      this.logger.error('getUserById', err);
+      const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
+      res.status(statusCode).json(this.responses(data, this.formatter.requestEntity(req)));
+    } finally {
+      next();
+    }
   }
 
 }

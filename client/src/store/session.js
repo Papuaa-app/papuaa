@@ -114,8 +114,14 @@ export const useSessionStore = defineStore('session', {
     async getFullMe () {
       try {
         this.sessionFetching = true;
-        const user = useUserStore();
-        this.me = await user.getUserById(this.me?._id, true);
+        const { data } = await service.request({
+          url: '/me',
+          method: 'GET',
+          params: {
+            full: true,
+          }
+        });
+        this.me = data;
         this.setActiveOrganizationId();
       } catch (err) {
         await service.manageError(err);

@@ -24,13 +24,13 @@
           </v-list>
         </v-sheet>
       </v-navigation-drawer>
-      <v-container class="main-container">
+      <div class="pa-3">
         <router-view v-slot="{ Component }">
           <v-fade-transition leave-absolute>
             <component :is="Component" />
           </v-fade-transition>
         </router-view>
-      </v-container>
+      </div>
     </template>
   </v-main>
 </template>
@@ -67,10 +67,9 @@ export default {
     this.setUserListeners();
   },
   methods: {
-    ...mapActions(useSessionStore, [ 'getMe', 'getFullMe' ]),
+    ...mapActions(useSessionStore, [ 'getFullMe' ]),
     goTo,
     async loadCriticalPath () {
-      await this.getMe();
       await this.getFullMe();
     },
     switchDrawer () {

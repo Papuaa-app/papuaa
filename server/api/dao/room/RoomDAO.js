@@ -17,8 +17,17 @@ export default function RoomDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.STRING,
+    status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
   }, {
     tableName: 'room',
+    defaultScope: {
+      where: {
+        status: 1
+      },
+    },
     schema: dbConnector.getMainDb().getSchema().options.schema,
   });
 
