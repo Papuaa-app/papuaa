@@ -58,7 +58,7 @@ export default class SessionService {
       this.logger.error(`Error at login user with email: ${email}`);
       return Promise.reject({ statusCode: this.httpStatusCodes.UNAUTHORIZED, data: [ { i18nKey: 'user.notFound' } ] });
     }
-    const token = this._createToken(user, false);
+    const token = this._createToken(user, true);
     return { accessToken: token , tokenType: 'Bearer', user };
   }
 
