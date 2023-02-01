@@ -25,7 +25,8 @@ export default class SessionService {
     return ('' + number).substring(add);
   }
 
-  _createToken ({ _id, email }, thirdParty) {
+  _createToken ({ _id, email }) {
+    const thirdParty = this.config.env !== 'local';
     return this.jwt.sign({ user: { email }, thirdParty }, this.config.security.privateKey, {
       algorithm: this.config.security.algorithm,
       subject: _id.toString(),
@@ -58,7 +59,7 @@ export default class SessionService {
       this.logger.error(`Error at login user with email: ${email}`);
       return Promise.reject({ statusCode: this.httpStatusCodes.UNAUTHORIZED, data: [ { i18nKey: 'user.notFound' } ] });
     }
-    const token = this._createToken(user, true);
+    const token = this._createToken(user);
     return { accessToken: token , tokenType: 'Bearer', user };
   }
 
