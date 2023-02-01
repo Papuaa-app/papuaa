@@ -5,3 +5,5 @@ server/logs*
 client/dist
 server/dist
 server/coverage
+server/.env
+client/.env
