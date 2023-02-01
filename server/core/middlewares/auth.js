@@ -65,9 +65,10 @@ async function isAuthenticated (req, res, next) {
         user,
         thirdParty
       } = jwt.verify(authorization && authorization.replace('Bearer ', ''), config.security.publicKey, { algorithms: [ 'RS512' ] });
-      if (thirdParty) {
-        throw new Error(`This token only can be used by third parties for ${user.email}`);
-      }
+      // TODO - makes this line sense?
+      // if (thirdParty) {
+      //   throw new Error(`This token only can be used by third parties for ${user.email}`);
+      // }
       // const googleTokens = await dbConnector.getCacheDb().get(`${user.email}-google-tokens`);
       // if (user.email.includes(config.googleAuth.domain) && !googleTokens) {
       //   throw new Error(`Google token doesn\'t exists for ${user.email}. Please login again!`);
