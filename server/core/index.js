@@ -95,6 +95,8 @@ async function startApp (app) {
 (async () => {
   try {
     app = express();
+    logger.info(config);
+    console.log(config);
     initHelmetHeaders(app);
     initMiddleware(app);
     await startApp(app);
