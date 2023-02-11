@@ -10,20 +10,17 @@ const LoginPage = import('@/components/admin/session/login/LoginPage');
 const AdminView = import('@/views/AdminView');
 const AdminLayout = import('@/layouts/admin/AdminLayout');
 const AdminHome = import('@/components/admin/home/AdminHome');
-
+const UserExtra = import('@/components/admin/user/UserExtra.vue');
+const AdminSettings = import('@/components/admin/user/Settings.vue');
 /** Hotel **/
 const HotelInformation = import('@/components/admin/hotel/HotelInformation.vue');
-
 /** Hotel Group **/
 const HotelGroupAdmin = import('@/components/admin/hotel-group/HotelGroupAdmin.vue');
 const HotelGroupForm = import('@/components/admin/hotel-group/HotelGroupForm.vue');
-
 /** Hotel **/
 const HotelAdmin = import('@/components/admin/hotel/HotelAdmin.vue');
 const HotelForm = import('@/components/admin/hotel/HotelForm.vue');
 
-/** User **/
-const UserExtra = import('@/components/admin/user/UserExtra.vue');
 
 const authenticated = ls.get('authenticated');
 const isAdmin = ls.get('isAdmin');
@@ -111,6 +108,14 @@ const routes = [
                 component: () => HotelForm,
               },
             ]
+          },
+          {
+            path: 'settings',
+            name: 'AdminSettings',
+            meta: {
+              isDrawerCollapsed: true,
+            },
+            component: () => AdminSettings,
           },
         ],
       },

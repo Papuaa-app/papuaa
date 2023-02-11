@@ -128,8 +128,7 @@ export default {
         {
           label: 'admin.settings.title',
           icon: 'mdi-cog',
-          action: () => goTo('AdminSettingsPage'),
-          disabled: true,
+          action: () => goTo('AdminSettings'),
         },
         {
           label: 'session.logout',

@@ -71,6 +71,8 @@ export default {
     settings: {
       title: 'Configuración',
       noOrganizations: 'No hay organizaciones',
+      profile: 'Perfil',
+      organizations: 'Organizaciones',
     },
   },
   form: {

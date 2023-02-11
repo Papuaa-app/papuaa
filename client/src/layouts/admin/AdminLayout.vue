@@ -5,7 +5,10 @@
     </div>
     <template v-else>
       <AdminAppBar @switch-drawer="switchDrawer" />
-      <v-navigation-drawer v-model="drawerVisible">
+      <v-navigation-drawer
+        v-model="drawerVisible"
+        :rail="isRail"
+      >
         <v-sheet :height="!$vuetify.display.mobile ? '97%': '100%'">
           <v-list
             mandatory
@@ -59,6 +62,9 @@ export default {
         { name: 'admin.home.myOffers', icon: 'mdi-bed-king-outline', routeName: '' },
         { name: 'admin.home.myBookings', icon: 'mdi-calendar-month-outline', routeName: '' },
       ];
+    },
+    isRail () {
+      return !!this.$route.meta?.isDrawerCollapsed;
     },
   },
   async created () {

@@ -49,7 +49,8 @@ module.exports = {
           'transition'
         ]
       }
-    ]
+    ],
+    'vue/multi-word-component-names': 0,
   },
   'plugins': [
     'vue'
