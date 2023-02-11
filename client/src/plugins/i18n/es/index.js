@@ -7,6 +7,11 @@ export default {
         edit: 'Editar una nueva organización',
         billing: 'Facturación',
       },
+      performance: {
+        title: 'Rendimiento',
+        activeBookings: 'Habitaciones activas',
+        roomsLeft: 'Habitaciones vacías',
+      },
     },
     hotel: {
       detail: {
