@@ -10,16 +10,17 @@ const LoginPage = import('@/components/admin/session/login/LoginPage');
 const AdminView = import('@/views/AdminView');
 const AdminLayout = import('@/layouts/admin/AdminLayout');
 const AdminHome = import('@/components/admin/home/AdminHome');
-const UserExtra = import('@/components/admin/user/UserExtra.vue');
-const AdminSettings = import('@/components/admin/user/Settings.vue');
+const UserExtra = import('@/components/admin/user/UserExtra');
+const AdminSettings = import('@/components/admin/user/Settings');
+const AdminSettingsOrganizations = import('@/components/admin/user/SettingsOrganizations');
 /** Hotel **/
-const HotelInformation = import('@/components/admin/hotel/HotelInformation.vue');
+const HotelInformation = import('@/components/admin/hotel/HotelInformation');
 /** Hotel Group **/
-const HotelGroupAdmin = import('@/components/admin/hotel-group/HotelGroupAdmin.vue');
-const HotelGroupForm = import('@/components/admin/hotel-group/HotelGroupForm.vue');
+const HotelGroupAdmin = import('@/components/admin/hotel-group/HotelGroupAdmin');
+const HotelGroupForm = import('@/components/admin/hotel-group/HotelGroupForm');
 /** Hotel **/
-const HotelAdmin = import('@/components/admin/hotel/HotelAdmin.vue');
-const HotelForm = import('@/components/admin/hotel/HotelForm.vue');
+const HotelAdmin = import('@/components/admin/hotel/HotelAdmin');
+const HotelForm = import('@/components/admin/hotel/HotelForm');
 
 
 const authenticated = ls.get('authenticated');
@@ -116,6 +117,14 @@ const routes = [
               isDrawerCollapsed: true,
             },
             component: () => AdminSettings,
+            redirect: { name: 'AdminSettingsOrganizations' },
+            children: [
+              {
+                path: 'organizations',
+                name: 'AdminSettingsOrganizations',
+                component: () => AdminSettingsOrganizations,
+              },
+            ],
           },
         ],
       },

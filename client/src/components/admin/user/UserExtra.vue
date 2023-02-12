@@ -24,7 +24,7 @@ export default {
   computed: {
     ...mapState(useSessionStore, [ 'me' ] ),
     myHotelGroups () {
-      return this.me?.hotelGroups;
+      return this.me.hotelGroups;
     },
   },
   watch: {
@@ -40,8 +40,8 @@ export default {
       if (!this.myHotelGroups?.length) {
         this.component = shallowRef(CreateNewHotelGroup);
       } else {
-        const hasHotels = !this.myHotelGroups.find(hotelGroup => !!hotelGroup.hotels?.length);
-        if (hasHotels) {
+        const hasHotels = this.myHotelGroups.find(hotelGroup => !!hotelGroup.hotels?.length);
+        if (!hasHotels) {
           this.component = shallowRef(CreateNewHotel);
         } else {
           this.component = undefined;

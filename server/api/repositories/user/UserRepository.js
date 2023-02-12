@@ -94,17 +94,24 @@ export default class UserRepository {
 
   async findHotelGroups (userId) {
     const result = await this.hotelGroupDao.getDAO().findAll({
-      include: {
-        through: {
-          model: this.hotelGroupUserDao.getDAO(),
-          as: 'hotelGroupUser',
-          where: {
-            userId,
+      include: [
+        {
+          through: {
+            model: this.hotelGroupUserDao.getDAO(),
+            as: 'hotelGroupUser',
+            where: {
+              userId,
+            },
           },
+          model: this.userDao.getDAO(),
+          as: 'users',
         },
-        model: this.userDao.getDAO(),
-        as: 'users',
-      },
+        {
+          model: this.hotelDao.getDAO(),
+          as: 'hotels',
+          required: false,
+        }
+      ]
     });
     return result;
   }

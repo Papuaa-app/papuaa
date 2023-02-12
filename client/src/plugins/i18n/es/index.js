@@ -72,7 +72,10 @@ export default {
       title: 'Configuración',
       noOrganizations: 'No hay organizaciones',
       profile: 'Perfil',
-      organizations: 'Organizaciones',
+      organizations: {
+        title: 'Organizaciones',
+        create: 'Nueva organización',
+      },
     },
   },
   form: {
@@ -109,4 +112,8 @@ export default {
   hotel: {
     created: 'Hotel creado',
   },
+  table: {
+    name: 'Nombre',
+    actions: 'Acciones',
+  }
 };

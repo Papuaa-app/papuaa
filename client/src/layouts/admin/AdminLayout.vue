@@ -64,7 +64,7 @@ export default {
       ];
     },
     isRail () {
-      return !!this.$route.meta?.isDrawerCollapsed;
+      return !!this.$route.meta?.isDrawerCollapsed && !this.$vuetify?.display.mobile;
     },
   },
   async created () {

@@ -129,5 +129,16 @@ export const useSessionStore = defineStore('session', {
         this.sessionFetching = false;
       }
     },
+    async getMyHotelGroups () {
+      try {
+        this.sessionFetching = true;
+        const userStore = useUserStore();
+        this.me.hotelGroups = await userStore.getUserHotelGroups(this.me._id);
+      } catch (err) {
+        await service.manageError(err);
+      } finally {
+        this.sessionFetching = false;
+      }
+    },
   }
 });

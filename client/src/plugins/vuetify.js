@@ -4,6 +4,8 @@ import { md3 } from 'vuetify/blueprints';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 import { fa } from 'vuetify/iconsets/fa';
 
+import { VDataTable } from 'vuetify/labs/VDataTable';
+
 
 import { createVuetify } from 'vuetify';
 
@@ -32,5 +34,8 @@ export default createVuetify({
       mdi,
       fa
     }
+  },
+  components: {
+    VDataTable,
   }
 });
