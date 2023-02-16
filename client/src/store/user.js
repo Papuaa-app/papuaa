@@ -60,6 +60,20 @@ export const useUserStore = defineStore('user', {
         this.userFetching = false;
       }
     },
+    async getUserHotels (userId, hotelGroupId) {
+      try {
+        this.userFetching = true;
+        const { data } = await service.request({
+          url: `/${userId}/hotel-groups/${hotelGroupId}/hotels`,
+          method: 'get',
+        });
+        return data;
+      } catch (err) {
+        await service.manageError(err);
+      } finally {
+        this.userFetching = false;
+      }
+    },
     async upsertUser (user) {
       try {
         this.userFetching = true;

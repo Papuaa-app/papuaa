@@ -36,4 +36,9 @@ export default class UserService {
     return hotelGroups;
   }
 
+  async getHotels (userId, hotelGroupId) {
+    const hotels = await this.userRepository.findHotels(userId, hotelGroupId);
+    return hotels;
+  }
+
 }

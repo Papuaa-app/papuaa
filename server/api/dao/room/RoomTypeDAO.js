@@ -17,8 +17,17 @@ export default function RoomTypeDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.STRING,
+    status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1
+    },
   }, {
     tableName: 'room_type',
+    defaultScope: {
+      where: {
+        status: 1,
+      },
+    },
     schema: dbConnector.getMainDb().getSchema().options.schema,
   });
 
@@ -30,18 +39,28 @@ export default function RoomTypeDAO (deps) {
         RoomTypeDAO,
         ResourceDAO,
         ResourceRoomTypeDAO,
+        HotelDAO,
+        RoomDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
       RoomTypeDAO.belongsToMany(ResourceDAO, {
         through: ResourceRoomTypeDAO,
         foreignKey: 'roomTypeId',
         otherKey: 'resourceId',
-        as: {
-          singular: 'resource_a',
-          plural: 'resources_a',
-        },
+        as: 'roomTypeResources',
         onDelete: 'cascade'
       });
+
+      RoomTypeDAO.belongsTo(HotelDAO, {
+        foreignKey: 'hotelId',
+        as: 'hotel',
+      });
+
+      RoomTypeDAO.hasMany(RoomDAO, {
+        foreignKey: 'roomTypeId',
+        as: 'rooms',
+      });
+
     }
 
   });

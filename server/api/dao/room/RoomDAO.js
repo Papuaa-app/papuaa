@@ -38,17 +38,11 @@ export default function RoomDAO (deps) {
       const {
         RoomDAO,
         RoomTypeDAO,
-        HotelDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
       RoomDAO.belongsTo(RoomTypeDAO, {
         foreignKey: 'roomTypeId',
         as: 'roomType',
-      });
-
-      RoomDAO.belongsTo(HotelDAO, {
-        foreignKey: 'hotelId',
-        as: 'hotel',
       });
 
     }

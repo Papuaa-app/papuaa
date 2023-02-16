@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import CreateNewHotelGroup from '@/components/admin/hotel-group/CreateNewHotelGroup.vue';
-import CreateNewHotel from '@/components/admin/hotel/CreateNewHotel.vue';
+import CreateNewHotelGroup from '@/components/admin/hotel-group/CreateNewHotelGroup';
+import CreateNewHotel from '@/components/admin/hotel/CreateNewHotel';
 import { useSessionStore } from '@/store/session';
 import { mapState } from 'pinia';
 import { shallowRef } from 'vue';

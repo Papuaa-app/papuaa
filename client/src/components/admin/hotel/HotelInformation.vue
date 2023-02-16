@@ -166,7 +166,7 @@
 </template>
 
 <script>
-import Sparkline from '@/components/utils/charts/sparkline.vue';
+import Sparkline from '@/components/utils/charts/sparkline';
 import { useSessionStore } from '@/store/session';
 import { mapState } from 'pinia';
 

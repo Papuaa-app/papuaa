@@ -14,9 +14,24 @@ export default {
       },
     },
     hotel: {
+      title: 'Hoteles',
       detail: {
-        create: 'Crear un nuevo hotel',
-        edit: 'Editar un hotel',
+        create: 'Nuevo hotel',
+        edit: 'Editar hotel',
+      },
+    },
+    room: {
+      title: 'Habitaciones',
+      detail: {
+        create: 'Nueva habitación',
+        edit: 'Editar habitación',
+      },
+    },
+    roomType: {
+      title: 'Tipos de habitaciones',
+      detail: {
+        create: 'Nuevo tipo de habitación',
+        edit: 'Editar tipo de habitación',
       },
     },
     createNewHotelGroup: {
@@ -58,7 +73,8 @@ export default {
       myOffers: 'Mis Ofertas',
       myBookings: 'Mis Reservas',
       notFound: 'Todavía no tienes un hotel',
-      notFoundInfo: 'Aquí podrás ver un resumen de la información de tu hotel'
+      notFoundInfo: 'Aquí podrás ver un resumen de la información de tu hotel',
+      hotels: 'Hoteles',
     },
     billing: {
       title: 'Facturación',

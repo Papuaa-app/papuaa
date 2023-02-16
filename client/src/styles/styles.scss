@@ -41,3 +41,11 @@ $admin-bg-color: #FAFAFA;
 .mouse-click, div > .mouse-click {
   cursor: pointer;
 }
+
+.border-radius-0 {
+  border-radius: 0 !important;
+}
+
+.v-data-table-column--align-center {
+  text-align: center;
+}

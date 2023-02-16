@@ -105,7 +105,7 @@ import { mapActions, mapState } from 'pinia';
 import { useSessionStore } from '@/store/session';
 import { goTo } from '@/composables/router';
 import form from '@/mixins/form';
-import FormErrors from '@/components/form/FormErrors.vue';
+import FormErrors from '@/components/form/FormErrors';
 
 export default {
   name: 'RegisterPage',

@@ -18,6 +18,12 @@ export const useSessionStore = defineStore('session', {
       activeOrganizationId: undefined,
     };
   },
+  getters: {
+    activeOrganization () {
+      const hotelGroupIndex = this.me.hotelGroups?.findIndex(hotelGroup => hotelGroup._id === this.activeOrganizationId);
+      return this.me.hotelGroups[hotelGroupIndex];
+    },
+  },
   actions: {
     async login ({ email, password }, isAdmin) {
       try {
@@ -102,7 +108,7 @@ export const useSessionStore = defineStore('session', {
         this.sessionFetching = true;
         const { data } = await service.request({
           url: '/me',
-          method: 'GET',
+          method: 'get',
         });
         this.me = data;
       } catch (err) {
@@ -116,10 +122,10 @@ export const useSessionStore = defineStore('session', {
         this.sessionFetching = true;
         const { data } = await service.request({
           url: '/me',
-          method: 'GET',
+          method: 'get',
           params: {
             full: true,
-          }
+          },
         });
         this.me = data;
         this.setActiveOrganizationId();
@@ -134,6 +140,20 @@ export const useSessionStore = defineStore('session', {
         this.sessionFetching = true;
         const userStore = useUserStore();
         this.me.hotelGroups = await userStore.getUserHotelGroups(this.me._id);
+      } catch (err) {
+        await service.manageError(err);
+      } finally {
+        this.sessionFetching = false;
+      }
+    },
+    async deleteRoomType (hotelId, roomTypeId) {
+      try {
+        this.sessionFetching = true;
+        const hotelGroupId = this.activeOrganizationId;
+        await service.request({
+          url: `/me/hotel-groups/${hotelGroupId}/hotels/${hotelId}/room-types/${roomTypeId}`,
+          method: 'delete',
+        });
       } catch (err) {
         await service.manageError(err);
       } finally {

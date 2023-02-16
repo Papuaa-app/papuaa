@@ -6,6 +6,9 @@ const { createController } = require('awilix-express');
 const {
   loginValidator,
   registerValidator,
+  hotelsValidator,
+  roomTypesValidator,
+  deleteRoomTypeValidator,
 } = require('../../validators/session/SessionValidator');
 
 class SessionController {
@@ -18,6 +21,8 @@ class SessionController {
     this.sessionService = deps.sessionService;
     this.formatter = deps.formatter;
     this.userService = deps.userService;
+    this.hotelService = deps.hotelService;
+    this.roomTypeService = deps.roomTypeService;
   }
 
   _cookieOptions () {
@@ -119,7 +124,7 @@ class SessionController {
       // TODO
       // trackingService.track({ user, req, trackingInfo: [ { kpiId: 2 }, { kpiId: 1002 } ] });
     } catch (err) {
-      this.logger.error('login', err);
+      this.logger.error('adminRegister', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
       res.status(statusCode).json(this.responses(data, this.formatter.requestEntity(req)));
       // trackingService.track({
@@ -151,7 +156,21 @@ class SessionController {
         res.status(this.httpStatusCodes.OK).json(this.responses(user, this.formatter.requestEntity(req)));
       }
     } catch (err) {
-      this.logger.error('getUserById', err);
+      this.logger.error('getMe', err);
+      const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
+      res.status(statusCode).json(this.responses(data, this.formatter.requestEntity(req)));
+    } finally {
+      next();
+    }
+  }
+
+  async getMyHotelGroups (req, res, next) {
+    try {
+      const { user } = req.container.cradle;
+      const result = await this.userService.getHotelGroups(user._id);
+      res.status(this.httpStatusCodes.OK).json(this.responses(result, this.formatter.requestEntity(req)));
+    } catch (err) {
+      this.logger.error('getMyHotels', err);
       const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
       res.status(statusCode).json(this.responses(data, this.formatter.requestEntity(req)));
     } finally {
@@ -167,4 +186,5 @@ export default createController(SessionController)
   .post('/logout', 'logout')
   .post('/register', 'register', { before: [ registerValidator ] })
   .post('/admin/register', 'adminRegister', { before: [ registerValidator ] })
-  .get('/me', 'getMe');
+  .get('/me', 'getMe')
+  .get('/me/hotel-groups', 'getMyHotelGroups');

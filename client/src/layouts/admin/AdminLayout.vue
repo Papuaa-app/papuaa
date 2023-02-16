@@ -28,6 +28,7 @@
         </v-sheet>
       </v-navigation-drawer>
       <div class="pa-3">
+        <AdminDialog />
         <router-view v-slot="{ Component }">
           <v-fade-transition leave-absolute>
             <component :is="Component" />
@@ -39,15 +40,16 @@
 </template>
 
 <script>
+import AdminDialog from '@/components/admin/dialog/AdminDialog';
 import { goTo } from '@/composables/router';
-import AdminAppBar from '@/layouts/admin/AdminAppBar.vue';
+import AdminAppBar from '@/layouts/admin/AdminAppBar';
 import eventBus from '@/plugins/eventBus';
 import { useSessionStore } from '@/store/session';
 import { mapActions, mapState } from 'pinia';
 
 export default {
   name: 'AdminLayout',
-  components: { AdminAppBar },
+  components: { AdminDialog, AdminAppBar },
   data () {
     return {
       fetching: true,
@@ -59,6 +61,7 @@ export default {
     pages () {
       return [
         { name: 'admin.home.title', icon: 'mdi-home-outline', routeName: 'HotelInformation' },
+        { name: 'admin.home.hotels', icon: 'mdi-bed-outline', routeName: 'HotelAdminHome' },
         { name: 'admin.home.myOffers', icon: 'mdi-bed-king-outline', routeName: '' },
         { name: 'admin.home.myBookings', icon: 'mdi-calendar-month-outline', routeName: '' },
       ];

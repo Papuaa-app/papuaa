@@ -12,6 +12,8 @@ export default class UserRepository {
     this.hotelGroupDao = deps.hotelGroupDao;
     this.hotelGroupUserDao = deps.hotelGroupUserDao;
     this.hotelDao = deps.hotelDao;
+    this.roomTypeDao = deps.roomTypeDao;
+    this.roomDao = deps.roomDao;
   }
 
   async find (filters, isStrict, scopeStatus = 'activeStatus', isFull) {
@@ -62,7 +64,7 @@ export default class UserRepository {
       ],
       where: {
         _id: userId,
-      }
+      },
     });
     return result;
   }
@@ -110,6 +112,50 @@ export default class UserRepository {
           model: this.hotelDao.getDAO(),
           as: 'hotels',
           required: false,
+        }
+      ]
+    });
+    return result;
+  }
+
+  async findHotels (userId, hotelGroupId) {
+    const result = await this.hotelDao.getDAO().findAll({
+      include: [
+        {
+          model: this.hotelGroupDao.getDAO(),
+          as: 'hotelGroup',
+          required: true,
+          where: {
+            _id: hotelGroupId,
+          },
+          include: [
+            {
+              attributes: [ '_id' ],
+              through: {
+                attributes: [ 'userId' ],
+                model: this.hotelGroupUserDao.getDAO(),
+                as: 'hotelGroupUser',
+                where: {
+                  userId,
+                },
+              },
+              model: this.userDao.getDAO(),
+              as: 'users',
+              required: true,
+            },
+          ]
+        },
+        {
+          model: this.roomTypeDao.getDAO(),
+          as: 'roomTypes',
+          required: false,
+          include: [
+            {
+              model: this.roomDao.getDAO(),
+              as: 'rooms',
+              required: false,
+            },
+          ]
         }
       ]
     });

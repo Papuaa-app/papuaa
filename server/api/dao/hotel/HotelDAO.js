@@ -44,6 +44,7 @@ export default function HotelDAO (deps) {
         ResourceHotelDAO,
         AccommodationDAO,
         HotelAccommodationDAO,
+        RoomTypeDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
       HotelDAO.belongsTo(HotelGroupDAO, {
@@ -53,12 +54,12 @@ export default function HotelDAO (deps) {
 
       HotelDAO.belongsTo(CityDAO, {
         foreignKey: 'cityId',
-        as: 'hotelCity'
+        as: 'hotelCity',
       });
 
-      HotelDAO.hasMany(RoomDAO, {
+      HotelDAO.hasMany(RoomTypeDAO, {
         foreignKey: 'hotelId',
-        as: 'hotelRooms'
+        as: 'roomTypes',
       });
 
       HotelDAO.belongsToMany(ResourceDAO, {
@@ -66,7 +67,7 @@ export default function HotelDAO (deps) {
         foreignKey: 'hotelId',
         otherKey: 'resourceId',
         as: 'hotelResources',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       });
 
       HotelDAO.belongsToMany(AccommodationDAO, {
@@ -74,7 +75,7 @@ export default function HotelDAO (deps) {
         foreignKey: 'hotelId',
         otherKey: 'accommodationId',
         as: 'hotelAccommodations',
-        onDelete: 'cascade'
+        onDelete: 'cascade',
       });
 
     }

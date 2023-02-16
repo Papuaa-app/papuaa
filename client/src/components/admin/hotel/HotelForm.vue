@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import AdminDetailFrame from '@/components/form/AdminDetailFrame.vue';
+import AdminDetailFrame from '@/components/form/AdminDetailFrame';
 import { goTo } from '@/composables/router';
 import form from '@/mixins/form';
 import { useCityStore } from '@/store/city';

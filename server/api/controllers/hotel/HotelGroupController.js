@@ -1,10 +1,12 @@
 'use strict';
 
+import { userBelongsToHotelGroup } from '../../../core/middlewares/visibility';
+
 const { createController } = require('awilix-express');
 const {
   hotelGroupValidator,
   hotelGroupUserValidator,
-} = require('../../validators/hotel-group/HotelGroupValidator');
+} = require('../../validators/hotel/HotelGroupValidator');
 const {
   paramIdValidator,
 } = require('../../validators/core/CommonValidator');
@@ -110,6 +112,21 @@ class HotelGroupController {
     }
   }
 
+  async getHotelGroupHotels (req, res, next) {
+    try {
+      const { id } = req.params;
+      const { full } = req.query;
+      const result = await this.hotelGroupService.getHotels(id, full);
+      res.status(this.httpStatusCodes.OK).json(this.responses(result, this.formatter.requestEntity(req)));
+    } catch (err) {
+      this.logger.error('getHotelGroupById', err);
+      const { statusCode = this.httpStatusCodes.INTERNAL_SERVER_ERROR, data } = err;
+      res.status(statusCode).json(this.responses(data, this.formatter.requestEntity(req)));
+    } finally {
+      next();
+    }
+  }
+
 }
 
 export default createController(HotelGroupController)
@@ -119,4 +136,8 @@ export default createController(HotelGroupController)
   .post('', 'createHotelGroup', { before: [ hotelGroupValidator ] })
   .put('/:id', 'updateHotelGroup', { before: [ paramIdValidator, hotelGroupValidator ] })
   .delete('/:id', 'deleteHotelGroup', { before: [ paramIdValidator ] })
-  .post('/:id/user/:userId', 'addUserToHotelGroup', { before: [ paramIdValidator, hotelGroupUserValidator ] });
+  .post('/:id/user/:userId', 'addUserToHotelGroup', { before: [ paramIdValidator, hotelGroupUserValidator, userBelongsToHotelGroup() ] })
+  .get('/:id/hotels', 'getHotelGroupHotels', { before: [ paramIdValidator, userBelongsToHotelGroup() ] });
+// TODO
+// .post('/:id/hotels/:hotelId/room-types', 'createRoomType' )
+// .delete('/:id/hotels/:hotelId/room-types/:roomTypeId', 'deleteRoomType' );

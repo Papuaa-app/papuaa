@@ -6,6 +6,8 @@ export default class HotelGroupRepository {
     this.dbConnector = deps.dbConnector;
     this.logger = deps.logger;
     this.hotelGroupDao = deps.hotelGroupDao;
+    this.hotelDao = deps.hotelDao;
+    this.roomTypeDao = deps.roomTypeDao;
   }
 
   async findAll (filters, isStrict) {
@@ -26,6 +28,22 @@ export default class HotelGroupRepository {
       where: {
         [operator]: parsedFilters,
       }
+    });
+    return result;
+  }
+
+  async findHotels (hotelGroupId, isFull) {
+    const result = await this.hotelDao.getDAO().findAll({
+      include: isFull && [
+        {
+          model: this.roomTypeDao.getDAO(),
+          as: 'roomTypes',
+          required: false,
+        },
+      ],
+      where: {
+        hotelGroupId,
+      },
     });
     return result;
   }

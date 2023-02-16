@@ -1,6 +1,7 @@
+import { useHotelStore } from '@/store/hotel';
+import { useSessionStore } from '@/store/session';
 import { defineStore } from 'pinia';
 import RestService from '@/service';
-import router from '@/router';
 import { toast } from '@/composables/sweetalert';
 import { i18n } from '@/plugins/i18n';
 
@@ -95,6 +96,25 @@ export const useHotelGroupStore = defineStore('hotelGroup', {
         await service.manageError(err);
       } finally {
         this.hotelGroupFetching = false;
+      }
+    },
+    async getActiveOrganizationHotels (isFull) {
+      try {
+        this.sessionFetching = true;
+        const { activeOrganizationId } = useSessionStore();
+        const userStore = useHotelStore();
+        const { data } = await service.request({
+          url: `/${activeOrganizationId}/hotels`,
+          method: 'get',
+          params: {
+            full: isFull,
+          }
+        });
+        userStore.hotels = data;
+      } catch (err) {
+        await service.manageError(err);
+      } finally {
+        this.sessionFetching = false;
       }
     },
   }

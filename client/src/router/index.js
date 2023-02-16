@@ -21,6 +21,7 @@ const HotelGroupForm = import('@/components/admin/hotel-group/HotelGroupForm');
 /** Hotel **/
 const HotelAdmin = import('@/components/admin/hotel/HotelAdmin');
 const HotelForm = import('@/components/admin/hotel/HotelForm');
+const HotelAdminHome = import('@/components/admin/hotel/HotelAdminHome');
 
 
 const authenticated = ls.get('authenticated');
@@ -103,6 +104,11 @@ const routes = [
             name: 'HotelAdmin',
             component: () => HotelAdmin,
             children: [
+              {
+                path: '',
+                name: 'HotelAdminHome',
+                component: () => HotelAdminHome,
+              },
               {
                 path: 'create',
                 name: 'CreateHotel',

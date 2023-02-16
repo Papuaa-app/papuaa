@@ -72,10 +72,10 @@
 </template>
 
 <script>
-import LoginForm from '@/components/admin/session/login/LoginForm.vue';
+import LoginForm from '@/components/admin/session/login/LoginForm';
 import favicon from '@/assets/logos/FAVICON.svg';
 import logoPapuaa from '@/assets/logos/LOGO_PAPUAA.svg';
-import FormErrors from '@/components/form/FormErrors.vue';
+import FormErrors from '@/components/form/FormErrors';
 import { goTo } from '@/composables/router';
 import form from '@/mixins/form';
 import { useSessionStore } from '@/store/session.js';
