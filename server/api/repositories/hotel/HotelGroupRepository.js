@@ -8,6 +8,7 @@ export default class HotelGroupRepository {
     this.hotelGroupDao = deps.hotelGroupDao;
     this.hotelDao = deps.hotelDao;
     this.roomTypeDao = deps.roomTypeDao;
+    this.roomDao = deps.roomDao;
   }
 
   async findAll (filters, isStrict) {
@@ -39,6 +40,13 @@ export default class HotelGroupRepository {
           model: this.roomTypeDao.getDAO(),
           as: 'roomTypes',
           required: false,
+          include: [
+            {
+              model: this.roomDao.getDAO(),
+              as: 'rooms',
+              required: false,
+            },
+          ],
         },
       ],
       where: {

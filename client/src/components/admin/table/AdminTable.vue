@@ -15,6 +15,15 @@
           hide-details
         />
       </template>
+      <template #item.count="{ item, columns }">
+        <v-chip
+          size="small"
+          color="info"
+          rounded
+        >
+          {{ item.value[getColumnByKey(columns, 'count').dataKey].length }}
+        </v-chip>
+      </template>
       <template #item.actions-1="{ item }">
         <v-btn
           color="error"

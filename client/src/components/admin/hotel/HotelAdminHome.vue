@@ -73,6 +73,7 @@ export default {
     return {
       roomTypesTableHeaders: [
         { title: this.$t('table.name'), key: 'name' },
+        { title: this.$t('admin.room.title'), key: 'count', dataKey: 'rooms' },
         { title: this.$t('table.actions'), key: 'actions-2', fixed: true, align: 'start', width: 10 },
       ],
     };
