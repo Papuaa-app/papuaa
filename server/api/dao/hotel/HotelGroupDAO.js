@@ -8,7 +8,7 @@ export default function HotelGroupDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(HotelGroupDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -21,17 +21,35 @@ export default function HotelGroupDAO (deps) {
       type: DataTypes.INTEGER,
       defaultValue: 1
     },
-  }, {
+  };
+
+  const options = {
     tableName: 'hotel_group',
     defaultScope: {
       where: {
         status: 1
       },
     },
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(HotelGroupDAO), {
+  dbConnector?.getMainDb().getSchema().define(HotelGroupDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(HotelGroupDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'hotel_group',
+          foreignKey: 'billingId',
+          to: 'billing',
+        },
+      ];
+    },
 
     makeAssociations () {
 
@@ -57,10 +75,7 @@ export default function HotelGroupDAO (deps) {
         through: HotelGroupUserDAO,
         foreignKey: 'hotelGroupId',
         otherKey: 'userId',
-        as: {
-          singular: 'user',
-          plural: 'users',
-        },
+        as: 'users',
         onDelete: 'cascade'
       });
 

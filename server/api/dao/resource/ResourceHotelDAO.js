@@ -8,7 +8,7 @@ export default function ResourceHotelDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(ResourceHotelDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -16,12 +16,20 @@ export default function ResourceHotelDAO (deps) {
       autoIncrement: true
     },
     name: DataTypes.STRING,
-  }, {
-    tableName: 'resource_hotel',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(ResourceHotelDAO), {
+  const options = {
+    tableName: 'resource_hotel',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(ResourceHotelDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(ResourceHotelDAO), {
+
+    columns,
+
+    options,
 
   });
 

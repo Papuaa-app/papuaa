@@ -8,7 +8,7 @@ export default function AccommodationDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(AccommodationDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -17,22 +17,42 @@ export default function AccommodationDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-  }, {
-    tableName: 'accommodation',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(AccommodationDAO), {
+  const options = {
+    tableName: 'accommodation',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(AccommodationDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(AccommodationDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'accommodation',
+          through: 'resource_accommodation',
+          foreignKey: 'accommodationId',
+          otherKey: 'resourceId',
+          to: 'resource',
+        },
+      ];
+    },
 
     makeAssociations () {
 
       const {
-        HotelDAO,
+        AccommodationDAO,
         ResourceDAO,
         ResourceAccommodationDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
-      HotelDAO.belongsToMany(ResourceDAO, {
+      AccommodationDAO.belongsToMany(ResourceDAO, {
         through: ResourceAccommodationDAO,
         foreignKey: 'accommodationId',
         otherKey: 'resourceId',

@@ -8,7 +8,7 @@ export default function RoomDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(RoomDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -21,17 +21,35 @@ export default function RoomDAO (deps) {
       type: DataTypes.INTEGER,
       defaultValue: 1
     },
-  }, {
+  };
+
+  const options = {
     tableName: 'room',
     defaultScope: {
       where: {
         status: 1
       },
     },
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(RoomDAO), {
+  dbConnector?.getMainDb().getSchema().define(RoomDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(RoomDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'room',
+          foreignKey: 'roomTypeId',
+          to: 'room_type',
+        },
+      ];
+    },
 
     makeAssociations () {
 

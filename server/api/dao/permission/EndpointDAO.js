@@ -8,7 +8,7 @@ export default function EndpointDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(EndpointDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -17,12 +17,30 @@ export default function EndpointDAO (deps) {
     },
     method: DataTypes.STRING,
     url: DataTypes.STRING,
-  }, {
-    tableName: 'endpoint',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(EndpointDAO), {
+  const options = {
+    tableName: 'endpoint',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(EndpointDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(EndpointDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'endpoint',
+          foreignKey: 'permissionId',
+          to: 'permission',
+        },
+      ];
+    },
 
     makeAssociations () {
 

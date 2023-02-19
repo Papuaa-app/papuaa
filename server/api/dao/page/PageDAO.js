@@ -8,7 +8,7 @@ export default function PageDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(PageDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -17,12 +17,20 @@ export default function PageDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-  }, {
-    tableName: 'page',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(PageDAO), {
+  const options = {
+    tableName: 'page',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(PageDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(PageDAO), {
+
+    columns,
+
+    options,
 
   });
 

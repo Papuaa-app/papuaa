@@ -8,7 +8,7 @@ export default function ResourceAccommodationDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(ResourceAccommodationDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -16,12 +16,20 @@ export default function ResourceAccommodationDAO (deps) {
       autoIncrement: true
     },
     name: DataTypes.STRING,
-  }, {
-    tableName: 'resource_accommodation',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(ResourceAccommodationDAO), {
+  const options = {
+    tableName: 'resource_accommodation',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(ResourceAccommodationDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(ResourceAccommodationDAO), {
+
+    columns,
+
+    options,
 
   });
 

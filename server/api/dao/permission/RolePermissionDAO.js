@@ -6,19 +6,27 @@ export default function RolePermissionDAO (deps) {
 
   const { dbConnector } = deps;
 
-  dbConnector.getMainDb().getSchema().define(RolePermissionDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-  }, {
-    tableName: 'role_permission',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(RolePermissionDAO), {
+  const options = {
+    tableName: 'role_permission',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(RolePermissionDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(RolePermissionDAO), {
+
+    columns,
+
+    options,
 
   });
 

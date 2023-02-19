@@ -8,7 +8,7 @@ export default function CountryDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(CountryDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -17,12 +17,20 @@ export default function CountryDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-  }, {
-    tableName: 'country',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(CountryDAO), {
+  const options = {
+    tableName: 'country',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(CountryDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(CountryDAO), {
+
+    columns,
+
+    options,
 
   });
 

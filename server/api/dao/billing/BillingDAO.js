@@ -8,7 +8,7 @@ export default function BillingDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(BillingDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -18,21 +18,39 @@ export default function BillingDAO (deps) {
     holdingName: DataTypes.STRING,
     address: DataTypes.STRING,
     taxId: DataTypes.STRING,
-  }, {
-    tableName: 'billing',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(BillingDAO), {
+  const options = {
+    tableName: 'billing',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(BillingDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(BillingDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'billing',
+          foreignKey: 'cityId',
+          to: 'city',
+        },
+      ];
+    },
 
     makeAssociations () {
 
       const {
-        HotelDAO,
+        BillingDAO,
         CityDAO,
       } = dbConnector.getMainDb().getSchema().models;
 
-      HotelDAO.belongsTo(CityDAO, {
+      BillingDAO.belongsTo(CityDAO, {
         foreignKey: 'cityId',
         as: 'billingCity'
       });

@@ -6,7 +6,7 @@ export default function RoleDAO (deps) {
 
   const { dbConnector } = deps;
 
-  dbConnector.getMainDb().getSchema().define(RoleDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,12 +15,32 @@ export default function RoleDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-  }, {
-    tableName: 'role',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(RoleDAO), {
+  const options = {
+    tableName: 'role',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(RoleDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(RoleDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'role',
+          through: 'role_permission',
+          foreignKey: 'roleId',
+          otherKey: 'permissionId',
+          to: 'permission',
+        },
+      ];
+    },
 
     makeAssociations () {
 

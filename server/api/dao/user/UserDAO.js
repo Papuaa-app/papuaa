@@ -6,7 +6,7 @@ export default function UserDAO (deps) {
   
   const { dbConnector } = deps;
 
-  dbConnector.getMainDb().getSchema().define('UserDAO', {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -51,7 +51,9 @@ export default function UserDAO (deps) {
     },
     googleRefreshToken: DataTypes.STRING,
     observations: DataTypes.TEXT,
-  }, {
+  };
+
+  const options = {
     tableName: 'user',
     scopes: {
       googleRefreshToken: {
@@ -86,10 +88,40 @@ export default function UserDAO (deps) {
         return `${this.name} ${this.surname}`;
       },
     },
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(UserDAO), {
+  dbConnector?.getMainDb().getSchema().define(UserDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(UserDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'user',
+          foreignKey: 'profileId',
+          to: 'profile',
+        },
+        {
+          from: 'user',
+          through: 'hotel_group_user',
+          foreignKey: 'userId',
+          otherKey: 'hotelGroupId',
+          to: 'hotel_group',
+        },
+        {
+          from: 'user',
+          through: 'room_user',
+          foreignKey: 'userId',
+          otherKey: 'roomId',
+          to: 'room',
+        },
+      ];
+    },
 
     makeAssociations () {
 
@@ -111,10 +143,7 @@ export default function UserDAO (deps) {
         through: HotelGroupUserDAO,
         foreignKey: 'userId',
         otherKey: 'hotelGroupId',
-        as: {
-          singular: 'hotelGroup',
-          plural: 'hotelGroups',
-        },
+        as: 'hotelGroups',
         onDelete: 'cascade'
       });
 
@@ -122,10 +151,7 @@ export default function UserDAO (deps) {
         through: RoomUserDAO,
         foreignKey: 'userId',
         otherKey: 'roomId',
-        as: {
-          singular: 'room',
-          plural: 'rooms',
-        },
+        as: 'rooms',
       });
 
     }

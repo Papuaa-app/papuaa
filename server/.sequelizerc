@@ -1,0 +1,18 @@
+'use strict';
+
+require('@babel/register');
+require('dotenv').config();
+const path = require('path');
+
+module.exports = {
+  'config': path.resolve('sequelize', 'config.js'),
+  'models-path': path.resolve('sequelize', 'models'),
+  'seeders-path': path.resolve('sequelize', 'seeders'),
+  'migrations-path': path.resolve('sequelize', 'migrations')
+};
+
+// Create model
+// npx sequelize-cli model:generate --name [modelName] --attributes [attrName]:string
+
+// Create migration
+// npx sequelize-cli migration:generate --name [migrationName]

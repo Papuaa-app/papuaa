@@ -8,7 +8,7 @@ export default function HotelDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(HotelDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -21,17 +21,54 @@ export default function HotelDAO (deps) {
       type: DataTypes.INTEGER,
       defaultValue: 1
     },
-  }, {
+  };
+
+  const options = {
     tableName: 'hotel',
     defaultScope: {
       where: {
         status: 1
       },
     },
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(HotelDAO), {
+  dbConnector?.getMainDb().getSchema().define(HotelDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(HotelDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'hotel',
+          foreignKey: 'hotelGroupId',
+          to: 'hotel_group',
+        },
+        {
+          from: 'hotel',
+          foreignKey: 'cityId',
+          to: 'city',
+        },
+        {
+          from: 'hotel',
+          through: 'resource_hotel',
+          foreignKey: 'hotelId',
+          otherKey: 'resourceId',
+          to: 'resource',
+        },
+        {
+          from: 'hotel',
+          through: 'hotel_accommodation',
+          foreignKey: 'hotelId',
+          otherKey: 'accommodationId',
+          to: 'accommodation',
+        },
+      ];
+    },
 
     makeAssociations () {
 
@@ -39,7 +76,6 @@ export default function HotelDAO (deps) {
         HotelDAO,
         HotelGroupDAO,
         CityDAO,
-        RoomDAO,
         ResourceDAO,
         ResourceHotelDAO,
         AccommodationDAO,

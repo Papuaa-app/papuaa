@@ -8,7 +8,7 @@ export default function CityDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(CityDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -17,12 +17,30 @@ export default function CityDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-  }, {
-    tableName: 'city',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(CityDAO), {
+  const options = {
+    tableName: 'city',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(CityDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(CityDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'city',
+          foreignKey: 'regionStateId',
+          to: 'region_state',
+        },
+      ];
+    },
 
     makeAssociations () {
 

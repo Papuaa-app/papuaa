@@ -8,7 +8,7 @@ export default function ResourceDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(ResourceDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -18,12 +18,20 @@ export default function ResourceDAO (deps) {
     url: DataTypes.STRING,
     description: DataTypes.TEXT,
     icon: DataTypes.STRING,
-  }, {
-    tableName: 'resource',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(ResourceDAO), {
+  const options = {
+    tableName: 'resource',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(ResourceDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(ResourceDAO), {
+
+    columns,
+
+    options,
 
   });
 

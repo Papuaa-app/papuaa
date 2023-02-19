@@ -6,7 +6,7 @@ export default function  PermissionDAO (deps) {
 
   const { dbConnector } = deps;
 
-  dbConnector.getMainDb().getSchema().define(PermissionDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,12 +15,32 @@ export default function  PermissionDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-  }, {
-    tableName: 'permission',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(PermissionDAO), {
+  const options = {
+    tableName: 'permission',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(PermissionDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(PermissionDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'permission',
+          through: 'permission_page',
+          foreignKey: 'permissionId',
+          otherKey: 'pageId',
+          to: 'page',
+        },
+      ];
+    },
 
     makeAssociations () {
 

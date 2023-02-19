@@ -8,7 +8,7 @@ export default function RegionDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(RegionDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -17,12 +17,30 @@ export default function RegionDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
-  }, {
-    tableName: 'region',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(RegionDAO), {
+  const options = {
+    tableName: 'region',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(RegionDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(RegionDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'region',
+          foreignKey: 'countryId',
+          to: 'country',
+        },
+      ];
+    },
 
     makeAssociations () {
 

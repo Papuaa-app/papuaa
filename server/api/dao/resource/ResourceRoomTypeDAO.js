@@ -8,19 +8,27 @@ export default function ResourceRoomTypeDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(ResourceRoomTypeDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-  }, {
-    tableName: 'resource_room_type',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(ResourceRoomTypeDAO), {
+  const options = {
+    tableName: 'resource_room_type',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(ResourceRoomTypeDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(ResourceRoomTypeDAO), {
+
+    columns,
+
+    options,
 
   });
 

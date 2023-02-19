@@ -8,7 +8,7 @@ export default function RoomUserDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(RoomUserDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -26,17 +26,25 @@ export default function RoomUserDAO (deps) {
     },
     startDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
-  }, {
+  };
+
+  const options = {
     tableName: 'room_user',
     defaultScope: {
       where: {
         status: 1
       },
     },
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(RoomUserDAO), {
+  dbConnector?.getMainDb().getSchema().define(RoomUserDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(RoomUserDAO), {
+
+    columns,
+
+    options,
 
   });
 

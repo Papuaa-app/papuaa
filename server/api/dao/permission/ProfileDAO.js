@@ -6,7 +6,7 @@ export default function ProfileDAO (deps) {
 
   const { dbConnector } = deps;
 
-  dbConnector.getMainDb().getSchema().define(ProfileDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -15,11 +15,32 @@ export default function ProfileDAO (deps) {
     },
     name: DataTypes.STRING,
     description: DataTypes.STRING,
-  }, {
+  };
+
+  const options = {
     tableName: 'profile',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(ProfileDAO), {
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(ProfileDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(ProfileDAO), {
+
+    columns,
+
+    options,
+
+    getAssociations () {
+      return [
+        {
+          from: 'profile',
+          through: 'profile_role',
+          foreignKey: 'profileId',
+          otherKey: 'roleId',
+          to: 'role',
+        },
+      ];
+    },
 
     makeAssociations () {
 

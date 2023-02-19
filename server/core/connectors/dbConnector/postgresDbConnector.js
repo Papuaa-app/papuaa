@@ -86,7 +86,7 @@ export class PostgresDbConnector {
       this._makeAssociations();
       for (const db of this.dbs) {
         await db.authenticate();
-        await db.sync();
+        // await db.sync();
       }
     } catch (err) {
       this.logger.error(err);

@@ -8,19 +8,27 @@ export default function HotelAccommodationDAO (deps) {
     dbConnector,
   } = deps;
 
-  dbConnector.getMainDb().getSchema().define(HotelAccommodationDAO.name, {
+  const columns = {
     _id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true
     },
-  }, {
-    tableName: 'hotel_accommodation',
-    schema: dbConnector.getMainDb().getSchema().options.schema,
-  });
+  };
 
-  return Object.assign({}, dbConnector.getMainDb().abstractDAO(HotelAccommodationDAO), {
+  const options = {
+    tableName: 'hotel_accommodation',
+    schema: dbConnector?.getMainDb().getSchema().options.schema,
+  };
+
+  dbConnector?.getMainDb().getSchema().define(HotelAccommodationDAO.name, columns, options);
+
+  return Object.assign({}, dbConnector?.getMainDb().abstractDAO(HotelAccommodationDAO), {
+
+    columns,
+
+    options,
 
   });
 
