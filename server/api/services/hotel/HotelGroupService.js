@@ -30,6 +30,12 @@ export default class HotelGroupService {
     return await this.get({ _id: result._id }, true);
   }
 
+  async upsertByUser (hotelGroup, userInSession) {
+    const result = await this.hotelGroupRepository.upsert(hotelGroup);
+    await this.addUser(result._id, userInSession._id);
+    return await this.get({ _id: result._id }, true);
+  }
+
   async addUser (hotelGroupId, userId) {
     const hotelGroup = await this.get({ _id: hotelGroupId });
     await hotelGroup.addUser(userId);

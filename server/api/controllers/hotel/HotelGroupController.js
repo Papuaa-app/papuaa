@@ -19,6 +19,7 @@ class HotelGroupController {
     this.responses = deps.responses;
     this.hotelGroupService = deps.hotelGroupService;
     this.formatter = deps.formatter;
+    this.user = deps.user;
   }
 
   async getHotelGroups (req, res, next) {
@@ -51,7 +52,13 @@ class HotelGroupController {
   async createHotelGroup (req, res, next) {
     try {
       const hotelGroup = req.body;
-      const result = await this.hotelGroupService.upsert(hotelGroup);
+      const { addSessionUser } = req.query;
+      let result;
+      if (addSessionUser) {
+        result = await this.hotelGroupService.upsertByUser(hotelGroup, this.user);
+      } else {
+        result = await this.hotelGroupService.upsert(hotelGroup);
+      }
       res.status(this.httpStatusCodes.CREATED).json(this.responses(result, this.formatter.requestEntity(req)));
       // TODO
       // trackingService.track({ user, req, trackingInfo: { kpiId: 1473, description: `hotelGroup has been created with _id: ${result._id}` } });

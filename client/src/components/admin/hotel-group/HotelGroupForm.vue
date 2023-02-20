@@ -117,14 +117,8 @@ export default {
     async submit () {
       const { valid } = await this.$refs.form.validate();
       if (valid) {
-        await this.upsertHotelGroup(this.hotelGroupForm);
-        if (this.$route.query?.target === 'user') {
-          await this.addUserToHotelGroup({
-            hotelGroupId: this.hotelGroupDetail._id,
-            userId: this.me._id,
-          });
-          this.setActiveOrganizationId(this.hotelGroupDetail._id);
-        }
+        await this.upsertHotelGroup(this.hotelGroupForm, this.$route.query?.target === 'user');
+        this.setActiveOrganizationId(this.hotelGroupDetail._id);
         const redirect = this.$route.params?.redirect;
         await goTo(redirect || 'AdminHome');
         eventBus.$emit('HOTEL_GROUP_CREATED');

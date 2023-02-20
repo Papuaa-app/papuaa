@@ -12,6 +12,7 @@ module.exports = {
     body('billing.address').notEmpty().isString(),
     body('billing.cityId').optional({ nullable: true }).isInt().toInt(),
     body('billing.taxId').optional({ nullable: true }).isString(),
+    param('addSessionUser').optional({ nullable: true }).notEmpty().isInt(),
     coreValidator,
   ],
   hotelGroupUserValidator: [

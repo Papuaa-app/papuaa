@@ -16,3 +16,9 @@ module.exports = {
 
 // Create migration
 // npx sequelize-cli migration:generate --name [migrationName]
+
+// Create seed
+// npx sequelize-cli seed:generate --name demo-user
+
+// Run specific seed
+// npx sequelize-cli db:seed --seed name-of-seed-as-in-data

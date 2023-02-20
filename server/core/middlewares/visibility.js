@@ -10,6 +10,34 @@ function checkUserBelongs (userBelongs) {
   }
 }
 
+function isSameUserLogged () {
+  return async (req, res, next) => {
+    const {
+      responses,
+      formatter,
+      httpContext,
+    } = container.cradle;
+    const { id } = req.params;
+    const user = httpContext.get('user');
+    try {
+      checkUserBelongs(user?._id === id);
+      next();
+    }  catch (err){
+      logger.error(err);
+      res.status(httpStatusCodes.UNAUTHORIZED).json(responses(undefined, formatter.requestEntity(req)));
+      // TODO
+      // req.path.includes('/api/') && trackingService.track({
+      //   user: null,
+      //   req,
+      //   trackingInfo: {
+      //     kpiId: 51003,
+      //     description: err.message,
+      //   }
+      // });
+    }
+  };
+}
+
 function userBelongsToHotelGroup () {
   return async (req, res, next) => {
     const {
@@ -19,7 +47,8 @@ function userBelongsToHotelGroup () {
       httpContext,
     } = container.cradle;
     const { id } = req.params;
-    const hotelGroupId = id;
+    let { hotelGroupId } = req.body;
+    hotelGroupId = hotelGroupId || id;
     const user = httpContext.get('user');
     try {
       const userHotelGroups = await userService.getHotelGroups(user._id);
@@ -100,4 +129,4 @@ async function userBelongsToRoomType () {
   };
 }
 
-export { userBelongsToHotelGroup, userBelongsToHotel, userBelongsToRoomType };
+export { userBelongsToHotelGroup, userBelongsToHotel, userBelongsToRoomType, isSameUserLogged };

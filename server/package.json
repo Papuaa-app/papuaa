@@ -13,7 +13,11 @@
     "db:migrate:local": "cross-env NODE_ENV=local npx sequelize-cli db:migrate",
     "db:migrate:undo:local": "cross-env NODE_ENV=local npx sequelize-cli db:migrate:undo",
     "db:migrate:dev": "cross-env NODE_ENV=development npx sequelize-cli db:migrate",
-    "db:migrate:prod": "cross-env NODE_ENV=production npx sequelize-cli db:migrate"
+    "db:migrate:prod": "cross-env NODE_ENV=production npx sequelize-cli db:migrate",
+    "db:seed:all:local": "cross-env NODE_ENV=local npx sequelize-cli db:seed:all",
+    "db:seed:undo:local": "cross-env NODE_ENV=local npx sequelize-cli db:seed:undo",
+    "db:seed:all:dev": "cross-env NODE_ENV=development npx sequelize-cli db:seed:all",
+    "db:seed:all:prod": "cross-env NODE_ENV=production npx sequelize-cli db:seed:all"
   },
   "repository": {
     "type": "git",

@@ -106,7 +106,8 @@ export default {
   user: {
     name: 'Nombre',
     surname: 'Apellido',
-    alreadyExists: 'Ya existe un usuario con estas credenciales'
+    alreadyExists: 'Ya existe un usuario con estas credenciales',
+    notFound: 'Credenciales incorrectos',
   },
   session: {
     expired: 'Tu sesión caducó',

@@ -1,5 +1,7 @@
 'use strict';
 
+import { isSameUserLogged, userBelongsToHotelGroup } from '../../../core/middlewares/visibility';
+
 const { createController } = require('awilix-express');
 const {
   userValidator,
@@ -114,7 +116,7 @@ export default createController(UserController)
   .prefix('/users')
   .get('', 'getUsers')
   .get('/:id', 'getUserById', { before: [ paramIdValidator ] })
-  .get('/:id/hotel-groups', 'getUserHotelGroupsById', { before: [ paramIdValidator ] })
+  .get('/:id/hotel-groups', 'getUserHotelGroupsById', { before: [ paramIdValidator, isSameUserLogged() ] })
   .post('', 'createUser', { before: [ userValidator ] })
   .put('/:id', 'updateUser', { before: [ paramIdValidator, userValidator ] })
   .delete('/:id', 'deleteUser', { before: [ paramIdValidator ] });

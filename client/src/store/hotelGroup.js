@@ -43,7 +43,7 @@ export const useHotelGroupStore = defineStore('hotelGroup', {
         this.hotelGroupFetching = false;
       }
     },
-    async upsertHotelGroup (hotelGroup) {
+    async upsertHotelGroup (hotelGroup, addSessionUser) {
       try {
         this.hotelGroupFetching = true;
         const method = hotelGroup._id ? 'put' : 'post';
@@ -51,6 +51,9 @@ export const useHotelGroupStore = defineStore('hotelGroup', {
           url: hotelGroup._id && `/${hotelGroup._id}`,
           method,
           data: hotelGroup,
+          params: {
+            addSessionUser,
+          }
         });
         toast.fire({
           title: method === 'put' ? i18n.t('hotelGroup.updated') : i18n.t('hotelGroup.created'),
